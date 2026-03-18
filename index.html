@@ -3,17 +3,28 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Samsung In-Store Experience</title>
+<title>Samsung Retail Curator</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ── BASE THEME ── */
 :root {
-  --bg: #F7F5F2; --white: #FFFFFF; --ink: #1C1C1C; --ink-2: #313131;
-  --ink-3: rgba(28,28,28,0.42); --ink-4: rgba(28,28,28,0.22);
-  --line: rgba(28,28,28,0.08); --line-2: rgba(28,28,28,0.13);
-  --blue: #2189FF; --blue-bg: rgba(33,137,255,0.07); --blue-bd: rgba(33,137,255,0.18);
-  --teal: #00838F; --coral: #F36E6E; --red: #EF3434;
-  --font: 'DM Sans', -apple-system, sans-serif; --r: 10px; --r-lg: 16px;
+  --bg:       #F7F5F2;
+  --white:    #FFFFFF;
+  --ink:      #1C1C1C;
+  --ink-2:    #313131;
+  --ink-3:    rgba(28,28,28,0.5);
+  --ink-4:    rgba(28,28,28,0.22);
+  --line:     rgba(28,28,28,0.08);
+  --line-2:   rgba(28,28,28,0.15);
+  --blue:     #2189FF;
+  --blue-bg:  rgba(33,137,255,0.07);
+  --blue-bd:  rgba(33,137,255,0.18);
+  --teal:     #00838F;
+  --coral:    #F36E6E;
+  --red:      #EF3434;
+  --font:     'DM Sans', -apple-system, sans-serif;
+  --r:        12px;
+  --r-lg:     20px;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
@@ -21,221 +32,208 @@ html { font-size: 14px; }
 
 body {
   background: #000000;
-  color: var(--ink); font-family: var(--font);
+  color: var(--ink);
+  font-family: var(--font);
   display: flex; align-items: center; justify-content: center;
   min-height: 100vh; overflow: hidden;
 }
 
+/* ── GALAXY S26 ULTRA SHELL ── */
 .phone {
-  width: 390px; height: 844px; background: var(--bg); border-radius: 28px;
+  width: 390px; height: 844px; max-height: 100vh; 
+  background: var(--bg); border-radius: 36px;
   overflow: hidden; position: relative; display: flex; flex-direction: column;
-  box-shadow: 0 0 0 2px #1c1c1c, 0 0 0 8px #333, 0 40px 80px rgba(0,0,0,0.3); z-index: 10;
+  box-shadow: 0 0 0 4px #1A1A1A, 0 0 0 10px #333, 0 30px 80px rgba(0,0,0,0.8);
+  z-index: 10;
 }
 .phone::before {
   content: ''; position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
-  width: 10px; height: 10px; background: #000; border-radius: 50%; z-index: 9999;
+  width: 12px; height: 12px; background: #000; border-radius: 50%; z-index: 9999;
 }
 
 /* ── WELCOME SCREEN ── */
 #welcome-screen {
-  position: absolute; inset: 0; background: var(--bg); z-index: 20000; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 32px; text-align: center; transition: opacity 0.3s ease;
+  position: absolute; inset: 0; background: var(--bg); z-index: 20000; 
+  display: flex; flex-direction: column; align-items: center; justify-content: center; 
+  padding: 32px; text-align: center; transition: opacity 0.4s ease;
 }
-.ws-icon { font-size: 64px; margin-bottom: 24px; }
-.ws-title { font-size: 26px; font-weight: 700; line-height: 1.1; margin-bottom: 16px; letter-spacing: -0.5px; color: var(--ink); }
-.ws-desc { font-size: 14px; color: var(--ink-3); line-height: 1.6; margin-bottom: 36px; }
-.ws-btn { width: 100%; padding: 16px; border-radius: 12px; font-size: 15px; font-weight: 700; background: var(--ink); color: white; border: none; cursor: pointer; transition: transform 0.1s; }
-.ws-btn:active { transform: scale(0.98); }
+.ws-icon { font-size: 72px; margin-bottom: 24px; animation: rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
+.ws-title { font-size: 28px; font-weight: 700; line-height: 1.1; margin-bottom: 16px; letter-spacing: -0.5px; color: var(--ink); animation: rise 0.6s 0.1s both cubic-bezier(0.2, 0.8, 0.2, 1); }
+.ws-desc { font-size: 15px; color: var(--ink-3); line-height: 1.5; margin-bottom: 40px; max-width: 280px; animation: rise 0.6s 0.2s both cubic-bezier(0.2, 0.8, 0.2, 1); }
+.ws-btn { width: 100%; padding: 18px; border-radius: 16px; font-size: 16px; font-weight: 700; font-family: var(--font); background: var(--ink); color: white; border: none; cursor: pointer; animation: rise 0.6s 0.3s both cubic-bezier(0.2, 0.8, 0.2, 1); transition: transform 0.1s; }
+.ws-btn:active { transform: scale(0.97); }
 
-/* ── FEATURE TOUR ── */
-.no-scroll { overflow: hidden !important; }
-#tour-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.7); z-index: 10000; display: none; pointer-events: auto; }
-.highlight-target { position: relative !important; z-index: 10001 !important; box-shadow: 0 0 0 8px rgba(33, 137, 255, 0.4) !important; pointer-events: none; }
-.tour-callout { position: absolute; bottom: calc(100% + 18px); left: 50%; transform: translateX(-50%); width: 280px; background: var(--blue); color: white; padding: 24px 20px 20px; border-radius: 16px; text-align: center; z-index: 10002; animation: floatAbove 2.5s infinite ease-in-out; pointer-events: auto; box-shadow: 0 12px 30px rgba(0,0,0,0.35); }
-.tour-callout::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 10px solid transparent; border-top-color: var(--blue); }
-.btn-tour-close { margin-top: 16px; background: white; color: var(--blue); border: none; padding: 10px 24px; border-radius: 20px; font-size: 13px; font-weight: 700; cursor: pointer; transition: transform 0.1s; }
+/* ── FEATURE TOUR (Box-Shadow Trick) ── */
+.tour-active .page { overflow: hidden !important; }
+.highlight-target {
+  position: relative !important; z-index: 10001 !important;
+  /* This shadow creates the dark overlay perfectly behind the element */
+  box-shadow: 0 0 0 9999px rgba(0,0,0,0.8), 0 0 0 4px var(--blue) !important;
+  pointer-events: none; /* Prevents errant clicks during tour */
+}
+.tour-callout {
+  position: absolute; bottom: calc(100% + 20px); left: 50%; transform: translateX(-50%); 
+  width: 280px; background: var(--blue); color: white; padding: 24px 20px 20px; 
+  border-radius: 16px; text-align: center; z-index: 10002; 
+  animation: floatAbove 2.5s infinite ease-in-out; pointer-events: auto; box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+}
+.tour-callout::after {
+  content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); 
+  border: 10px solid transparent; border-top-color: var(--blue);
+}
+.btn-tour-close {
+  margin-top: 16px; background: white; color: var(--blue); border: none; 
+  padding: 12px 28px; border-radius: 20px; font-size: 14px; font-weight: 700; cursor: pointer; transition: transform 0.1s; font-family: var(--font);
+}
 .btn-tour-close:active { transform: scale(0.95); }
-.btn-tour-dismiss { position: absolute; top: 8px; right: 12px; background: none; border: none; color: rgba(255,255,255,0.6); font-size: 20px; line-height: 1; cursor: pointer; padding: 4px; transition: color 0.2s; }
-.btn-tour-dismiss:active { color: white; }
+.btn-tour-dismiss {
+  position: absolute; top: 8px; right: 12px; background: none; border: none; 
+  color: rgba(255,255,255,0.6); font-size: 20px; line-height: 1; cursor: pointer; padding: 8px; margin: -8px;
+}
 @keyframes floatAbove { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -8px); } }
-
-/* ── OPTIONS MODAL ── */
-.options-modal { position: absolute; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); z-index: 9000; display: none; align-items: flex-end; border-radius: inherit; pointer-events: auto; }
-.options-modal.open { display: flex; }
-.options-content { background: var(--white); width: 100%; border-radius: 24px 24px 0 0; padding: 24px 20px 40px; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1); }
-.options-modal.open .options-content { transform: translateY(0); }
-.option-row { display: flex; align-items: center; gap: 15px; padding: 18px; background: var(--bg); border-radius: var(--r-lg); margin-bottom: 10px; cursor: pointer; transition: background 0.2s; }
-.option-row:active { background: #eee; }
-.option-icon { font-size: 24px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: var(--white); border-radius: 12px; }
 
 /* ── HEADER & LAYOUT ── */
 .status { height:50px; display:flex; align-items:flex-end; justify-content:space-between; padding:0 26px 9px; flex-shrink:0; background:var(--white); }
+.s-time { font-size:13px; font-weight:600; }
 .site-header { background: var(--white); border-bottom: 1px solid var(--line); flex-shrink: 0; position: sticky; top: 0; z-index: 50; }
 .header-main { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; }
-.site-logo { font-size: 18px; font-weight: 700; color: var(--ink); display: flex; align-items: center; gap: 8px; }
+.site-logo { font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
+.header-actions { display: flex; gap: 12px; align-items: center; }
+.lang-pill { display: flex; background: var(--bg); border: 1px solid var(--line-2); border-radius: 20px; padding: 2px; }
+.lang-btn { padding: 3px 9px; font-size: 11px; font-weight: 600; border: none; background: none; border-radius: 14px; cursor: pointer; color: var(--ink-3); }
+.lang-btn.on { background: var(--ink); color: #fff; }
+.stamp-counter { display: flex; align-items: center; gap: 5px; font-weight: 700; cursor: pointer; }
+.user-icon { width: 28px; height: 28px; border: 1.5px solid var(--ink); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; }
 .location-bar { background: #F9F9F9; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); }
-.anchor-nav { display: flex; overflow-x: auto; border-top: 1px solid var(--line); background: var(--white); scrollbar-width: none; }
+.anchor-nav { display: flex; overflow-x: auto; background: var(--white); scrollbar-width: none; }
 .anchor-nav::-webkit-scrollbar { display: none; }
-.anav-link { flex-shrink: 0; padding: 12px 14px; font-size: 11px; font-weight: 500; color: var(--ink-3); border: none; background: none; cursor: pointer; border-bottom: 2px solid transparent; }
+.anav-link { padding: 12px 14px; font-size: 11px; font-weight: 600; color: var(--ink-3); border: none; background: none; border-bottom: 2px solid transparent; cursor: pointer; }
 .anav-link.active { color: var(--ink); border-bottom-color: var(--ink); }
 .page { flex: 1; overflow-y: auto; overflow-x: hidden; scroll-behavior: smooth; position: relative; }
 .page::-webkit-scrollbar { display: none; }
 .section { padding: 28px 20px; }
-.section + .section { border-top: 8px solid var(--bg); }
 .section-white { background: var(--white); }
-.section-bg { background: var(--bg); }
-.btn-ink { flex: 1; background: var(--ink); color: white; border: none; padding: 12px 0; font-family: var(--font); font-size: 13px; font-weight: 500; border-radius: var(--r); cursor: pointer; text-align: center; }
-.btn-out { flex: 1; background: transparent; color: var(--ink); border: 1px solid var(--line-2); padding: 12px 0; border-radius: var(--r); cursor: pointer; text-align: center; }
+.section-bg { background: var(--bg); border-top: 8px solid var(--bg); }
 
 /* ── UI COMPONENTS ── */
 .scan-banner { background: linear-gradient(135deg, #1A1C2E 0%, #303454 100%); border-radius: var(--r-lg); padding: 18px; display: flex; align-items: center; gap: 15px; color: white; cursor: pointer; margin-bottom: 20px; }
-.scan-thumb { width: 60px; height: 60px; border-radius: 8px; background: #444 url('https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=100') center/cover; }
-.prod-row { display: flex; align-items: center; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--line); cursor: pointer; position: relative; }
-.prod-thumb { width: 65px; height: 65px; background: #F2F2F2; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; }
-.prod-row.done .prod-thumb::after { content: '✓'; position: absolute; inset: 0; background: var(--ink); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: white; font-weight: 700; }
-.prod-info { flex: 1; min-width: 0; }
+.scan-thumb { width: 60px; height: 60px; border-radius: 8px; background: rgba(255,255,255,0.1); }
+.prod-row { display: flex; align-items: center; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--line); cursor: pointer; }
+.prod-thumb { width: 65px; height: 65px; background: #F2F2F2; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+.prod-info { flex: 1; }
+.badge { font-size: 9px; font-weight: 700; padding: 3px 6px; border-radius: 6px; background: var(--blue-bg); color: var(--blue); }
+.prod-name { font-size: 15px; font-weight: 700; margin: 4px 0; }
+.prod-price { font-size: 13px; font-weight: 600; }
 
+/* ── STAMP CARD & OPTIONS MODAL ── */
 .stamp-card { background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 20px; margin-bottom: 16px; }
-.dots { display: grid; grid-template-columns: repeat(8,1fr); gap: 5px; margin-bottom: 12px; }
-.dot { aspect-ratio: 1; border-radius: 6px; border: 1px solid var(--line-2); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--ink-4); background: var(--bg); transition: all 0.3s; font-weight: 500; }
-.dot.on { background: var(--blue); border-color: var(--blue); color: white; font-size: 11px; font-weight: 700; }
-.prog-bar { height: 2px; background: var(--line); border-radius: 1px; margin-bottom: 18px; overflow: hidden; }
-.prog-fill { height: 100%; background: var(--blue); width: 0; transition: width 0.5s ease; }
-.btn-collect { width: 100%; margin-top: 16px; margin-bottom: 16px; background: var(--blue); color: white; border: none; padding: 14px; border-radius: var(--r); font-family: var(--font); font-weight: 700; font-size: 14px; cursor: pointer; }
-.rewards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.rcard { background: var(--bg); border: 1px solid var(--line); border-radius: var(--r); padding: 12px; position: relative; transition: all 0.25s; }
-.rcard.on { background: var(--n1); border-color: var(--blue); }
+.dots { display: grid; grid-template-columns: repeat(8,1fr); gap: 5px; margin: 15px 0; }
+.dot { aspect-ratio: 1; border-radius: 6px; border: 1px solid var(--line-2); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--ink-4); background: var(--bg); }
+.dot.on { background: var(--blue); border-color: var(--blue); color: white; font-weight: 700; }
+.btn-collect { width: 100%; background: var(--blue); color: white; border: none; padding: 16px; border-radius: 12px; font-family: var(--font); font-weight: 700; font-size: 15px; cursor: pointer; transition: transform 0.1s; margin-top: 10px; }
+.btn-collect:active { transform: scale(0.97); }
 
-/* ── DETAIL SCREEN ── */
-.detail-screen { position: absolute; inset: 0; background: var(--bg); z-index: 100; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.32,0.72,0,1); display: flex; flex-direction: column; overflow: hidden; }
-.detail-screen.open { transform: translateX(0); }
-.detail-topbar { position: relative; z-index: 150; display: flex; align-items: center; justify-content: space-between; padding: 54px 20px 12px; border-bottom: 1px solid var(--line); flex-shrink: 0; background: var(--white); }
-/* Fix for back buttons */
-.detail-back { display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 500; color: var(--blue); border: none; background: none; cursor: pointer; font-family: var(--font); padding: 8px; margin-left: -8px; }
+.options-modal { position: absolute; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); z-index: 9000; display: none; align-items: flex-end; border-radius: inherit; }
+.options-modal.open { display: flex; }
+.options-content { background: var(--white); width: 100%; border-radius: 24px 24px 0 0; padding: 24px 20px 40px; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1); }
+.options-modal.open .options-content { transform: translateY(0); }
+.option-row { display: flex; align-items: center; gap: 15px; padding: 16px; background: var(--bg); border-radius: 16px; margin-bottom: 10px; cursor: pointer; }
+.option-icon { font-size: 24px; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; background: var(--white); border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+
+/* ── DETAIL SCREENS ── */
+.detail-screen, .scanner-screen { 
+  position: absolute; inset: 0; background: var(--bg); z-index: 5000; 
+  transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.32,0.72,0,1); 
+  display: flex; flex-direction: column; overflow: hidden; border-radius: inherit;
+}
+.detail-screen.open, .scanner-screen.open { transform: translateX(0); }
+.detail-topbar { 
+  display: flex; align-items: center; justify-content: space-between; 
+  padding: 50px 20px 12px; background: var(--bg); z-index: 100;
+}
+/* FIXED BACK BUTTONS: Massive hit area */
+.detail-back, .scan-back-btn { 
+  display: flex; align-items: center; gap: 6px; font-size: 15px; font-weight: 600; 
+  color: var(--ink); border: none; background: none; cursor: pointer; 
+  font-family: var(--font); padding: 15px; margin: -15px; z-index: 9999;
+}
 .detail-body { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
 .detail-body::-webkit-scrollbar { display: none; }
 .stage-panel { display: none; }
 .stage-panel.on { display: block; }
 
-/* Standard Specs (For Non-Buds Products) */
-.detail-hero { padding: 28px 20px 20px; text-align: center; border-bottom: 1px solid var(--line); background: var(--white); }
-.detail-specs { padding: 20px 20px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; background: var(--bg); }
-.spec-cell { background: var(--white); border: 1px solid var(--line); border-radius: var(--r); padding: 10px 12px; }
+/* ── 🌟 THE NEW BUDS PRO TRY ZONE (SLIDER) 🌟 ── */
+.tz-meta { padding: 0 20px 20px; display: flex; justify-content: space-between; align-items: flex-start; }
+.tz-save-btn { background: none; border: none; color: var(--ink); display: flex; align-items: center; gap: 6px; font-weight: 700; font-family: var(--font); cursor: pointer; padding: 8px; margin: -8px; }
 
-/* ── 🌟 NEW: SLIDER "TRY ZONE" UI 🌟 ── */
-.tz-wrap { padding: 20px 20px 40px; background: var(--bg); }
-.tz-header { font-size: 10px; font-weight: 700; color: var(--ink-4); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
-.tz-title { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 4px; color: var(--ink); }
-.tz-sub { font-size: 12px; color: var(--ink-3); margin-bottom: 20px; line-height: 1.5; }
+.tz-wrap { background: var(--white); border-radius: 24px 24px 0 0; padding: 24px 20px 40px; box-shadow: 0 -4px 20px rgba(0,0,0,0.05); min-height: 100%; }
+.tz-header { font-size: 10px; font-weight: 700; color: var(--ink-4); letter-spacing: 1px; margin-bottom: 6px; }
+.tz-title { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 6px; }
+.tz-sub { font-size: 13px; color: var(--ink-3); margin-bottom: 24px; }
 
 .tz-tabs { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; scrollbar-width: none; }
 .tz-tabs::-webkit-scrollbar { display: none; }
-.tz-tab { padding: 10px 16px; border: 1px solid var(--line-2); border-radius: 20px; font-size: 12px; color: var(--ink-3); background: var(--white); cursor: pointer; white-space: nowrap; transition: all 0.2s; font-family: var(--font); font-weight: 500; }
-.tz-tab.active { background: var(--ink); color: white; border-color: var(--ink); font-weight: 700; }
+.tz-tab { padding: 10px 18px; border: 1px solid var(--line-2); border-radius: 20px; font-size: 13px; color: var(--ink-3); background: var(--white); cursor: pointer; white-space: nowrap; font-weight: 600; }
+.tz-tab.active { background: var(--ink); color: white; border-color: var(--ink); }
 
-.tz-card { border: 1px solid var(--line); border-radius: 20px; overflow: hidden; background: var(--white); margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
-.tz-img-wrap { background: #111; height: 220px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
-.tz-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: filter 0.4s ease, opacity 0.4s ease; }
-.tz-img.loaded { opacity: 1; }
+.tz-card { border: 1px solid var(--line); border-radius: 20px; overflow: hidden; background: var(--white); margin-bottom: 24px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+.tz-img-wrap { height: 240px; background: #EAEAEA; position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.tz-img { width: 100%; height: 100%; object-fit: cover; transition: filter 0.3s ease; }
+.tz-tooltip { position: absolute; bottom: 16px; background: rgba(0,0,0,0.6); color: white; padding: 8px 16px; border-radius: 20px; font-size: 11px; font-weight: 600; backdrop-filter: blur(4px); pointer-events: none; }
 
 .tz-content { padding: 20px; }
-.tz-cat { font-size: 10px; font-weight: 700; color: var(--ink-4); letter-spacing: 1px; margin-bottom: 6px; }
-.tz-feat { font-size: 18px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.4px; }
-.tz-desc { font-size: 12px; color: var(--ink-3); line-height: 1.6; margin-bottom: 20px; min-height: 58px; }
+.tz-cat { font-size: 10px; font-weight: 700; color: var(--blue); letter-spacing: 1px; margin-bottom: 6px; text-transform: uppercase; }
+.tz-feat { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+.tz-desc { font-size: 13px; color: var(--ink-3); line-height: 1.5; margin-bottom: 20px; min-height: 60px; }
 
-.tz-toggle { display: flex; background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 4px; margin-bottom: 20px; }
-.tz-tgl-btn { flex: 1; padding: 10px; text-align: center; font-size: 12px; font-weight: 600; color: var(--ink-3); border-radius: 8px; cursor: pointer; transition: all 0.2s; border: none; font-family: var(--font); }
-.tz-tgl-btn.active { background: var(--ink); color: white; }
+.tz-toggle { display: flex; background: var(--bg); border-radius: 12px; padding: 4px; margin-bottom: 24px; }
+.tz-tgl-btn { flex: 1; padding: 12px; font-size: 13px; font-weight: 700; color: var(--ink-3); border-radius: 10px; cursor: pointer; border: none; background: transparent; transition: all 0.2s; font-family: var(--font); }
+.tz-tgl-btn.active { background: var(--white); color: var(--ink); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
 
 .tz-player { display: flex; align-items: center; gap: 14px; }
-.tz-play { width: 44px; height: 44px; border-radius: 50%; background: var(--ink-4); display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; border: none; transition: background 0.2s; }
-.tz-play:active { background: var(--ink-3); }
+.tz-play { width: 44px; height: 44px; border-radius: 50%; background: var(--ink); display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; border: none; }
 .tz-track { flex: 1; height: 4px; background: var(--line); border-radius: 2px; position: relative; }
-.tz-prog { position: absolute; left: 0; top: 0; height: 100%; width: 0%; background: var(--ink); border-radius: 2px; transition: width 0.3s; }
+.tz-prog { position: absolute; left: 0; top: 0; height: 100%; width: 30%; background: var(--ink); border-radius: 2px; transition: width 0.3s; }
 
 .tz-nav { display: flex; align-items: center; gap: 12px; }
-.tz-arrow { width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--line-2); background: var(--white); display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; border: none; color: var(--ink); transition: background 0.2s; }
-.tz-arrow:active { background: var(--bg); }
-.tz-next { flex: 1; background: var(--ink-4); color: white; font-weight: 700; font-size: 14px; border: none; border-radius: 16px; padding: 16px; cursor: not-allowed; transition: all 0.3s; font-family: var(--font); }
+.tz-arrow { width: 50px; height: 50px; border-radius: 50%; border: 1px solid var(--line-2); background: var(--white); font-size: 20px; cursor: pointer; border: none; font-family: var(--font); }
+.tz-next { flex: 1; background: var(--ink-4); color: white; font-weight: 700; font-size: 15px; border: none; border-radius: 16px; padding: 16px; cursor: not-allowed; transition: all 0.3s; font-family: var(--font); }
 .tz-next.ready { background: var(--ink); cursor: pointer; }
 .tz-next.ready:active { transform: scale(0.98); }
 
-/* ── 🌟 NEW: SAVE SPEC MODAL 🌟 ── */
-.btn-save-trigger { background: var(--ink); color: white; border: none; padding: 8px 16px; border-radius: 20px; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; margin-top: 12px; transition: transform 0.1s; font-family: var(--font); }
-.btn-save-trigger:active { transform: scale(0.95); }
-
-.spec-modal { position: absolute; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 10500; display: none; align-items: center; justify-content: center; padding: 20px; pointer-events: auto; }
+/* ── SAVE SPEC MODAL (Dark Theme) ── */
+.spec-modal { position: absolute; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(8px); z-index: 10500; display: none; align-items: center; justify-content: center; padding: 20px; border-radius: inherit; }
 .spec-modal.open { display: flex; }
-.sm-card { background: #292929; color: white; border-radius: 24px; width: 100%; overflow: hidden; transform: scale(0.95); opacity: 0; transition: all 0.3s cubic-bezier(0.32, 0.72, 0, 1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+.sm-card { background: #1C1C1E; color: white; border-radius: 24px; width: 100%; overflow: hidden; transform: scale(0.95); opacity: 0; transition: all 0.3s cubic-bezier(0.32, 0.72, 0, 1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
 .spec-modal.open .sm-card { transform: scale(1); opacity: 1; }
 .sm-hero { padding: 24px; display: flex; gap: 16px; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); }
-.sm-img { width: 70px; height: 70px; background: rgba(255,255,255,0.05); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 32px; }
-.sm-specs { display: grid; grid-template-columns: 1fr 1fr; background: white; color: var(--ink); }
-.sm-cell { padding: 16px; border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); }
-.sm-cell:nth-child(even) { border-right: none; }
-.sm-k { font-size: 9px; font-weight: 700; color: var(--ink-4); letter-spacing: 1px; margin-bottom: 4px; text-transform: uppercase; }
-.sm-v { font-size: 13px; font-weight: 500; }
-.sm-btn-wrap { padding: 20px; background: white; text-align: center; }
-.sm-btn { width: 100%; background: var(--ink); color: white; padding: 16px; border-radius: 16px; font-weight: 700; font-size: 14px; border: none; cursor: pointer; transition: background 0.2s; font-family: var(--font); }
-.sm-btn.saved { background: var(--teal); }
+.sm-img { width: 64px; height: 64px; background: rgba(255,255,255,0.05); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+.sm-specs { display: grid; grid-template-columns: 1fr 1fr; background: #2C2C2E; }
+.sm-cell { padding: 16px; border-bottom: 1px solid rgba(0,0,0,0.2); border-right: 1px solid rgba(0,0,0,0.2); }
+.sm-k { font-size: 10px; font-weight: 700; color: rgba(255,255,255,0.5); margin-bottom: 4px; text-transform: uppercase; }
+.sm-v { font-size: 14px; font-weight: 600; }
+.sm-btn-wrap { padding: 20px; text-align: center; }
+.sm-btn { width: 100%; background: white; color: black; padding: 16px; border-radius: 16px; font-weight: 700; font-size: 15px; border: none; cursor: pointer; transition: background 0.2s; font-family: var(--font); }
+.sm-btn.saved { background: var(--teal); color: white; }
 
-/* ── STAGE JOURNEY (Top Bar) ── */
-.journey-bar { display: flex; align-items: center; padding: 14px 20px 12px; background: var(--bg); border-bottom: 1px solid var(--line); }
-.jstep { display: flex; flex-direction: column; align-items: center; gap: 5px; flex: 1; position: relative; }
-.jstep:not(:last-child)::after { content: ''; position: absolute; top: 11px; left: 50%; width: 100%; height: 1.5px; background: var(--line-2); z-index: 0; transition: background 0.3s; }
-.jstep.done:not(:last-child)::after { background: var(--ink); }
-.jstep-circle { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--line-2); background: var(--white); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: var(--ink-4); position: relative; z-index: 1; transition: all 0.25s; }
-.jstep.active .jstep-circle { border-color: var(--ink); background: var(--ink); color: white; }
-.jstep.done .jstep-circle { border-color: var(--ink); background: var(--ink); color: white; font-size: 10px; }
-.jstep-label { font-size: 8px; font-weight: 500; color: var(--ink-4); text-align: center; max-width: 58px; }
-.jstep.active .jstep-label { color: var(--ink); font-weight: 600; }
+/* ── STANDARD DETAILS & CONFIRM ── */
+.detail-hero { padding: 0 20px 20px; text-align: center; }
+.detail-specs { padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; background: var(--white); border-radius: 24px 24px 0 0; }
+.spec-box { background: var(--bg); border-radius: 12px; padding: 12px; text-align: left; }
+.confirm-card { margin: 20px; background: var(--white); border-radius: 20px; padding: 24px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+.cf-item { display: flex; align-items: center; gap: 10px; padding: 12px; background: var(--bg); border-radius: 12px; font-size: 13px; font-weight: 600; margin-bottom: 8px; text-align: left; }
+.cf-check { width: 20px; height: 20px; background: var(--ink); border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 10px; flex-shrink: 0; }
+.btn-ink { width: 100%; background: var(--ink); color: white; padding: 16px; border-radius: 16px; font-weight: 700; border: none; font-size: 15px; cursor: pointer; font-family: var(--font); }
 
-/* ── 4-STAGE PANELS ── */
-.confirm-card { margin: 20px 20px 0; background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; }
-.confirm-top { padding: 20px 20px 16px; text-align: center; }
-.confirm-icon { font-size: 36px; margin-bottom: 12px; }
-.confirm-h { font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--ink); }
-.confirm-sub { font-size: 12px; font-weight: 300; color: var(--ink-3); line-height: 1.65; }
-.confirm-features { padding: 0 20px 16px; display: flex; flex-direction: column; gap: 6px; }
-.cf-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; background: var(--bg); border-radius: var(--r); font-size: 12px; font-weight: 500; color: var(--ink-2); }
-.cf-check { width: 18px; height: 18px; background: var(--ink); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; color: white; font-weight: 700; flex-shrink: 0; }
-.confirm-cta { padding: 0 20px 20px; }
-.confirm-cta .btn-ink { width: 100%; padding: 13px 0; border-radius: var(--r); }
-
-.deals-stage { padding: 16px 20px 0; }
-.ds-intro { font-size: 12px; font-weight: 300; color: var(--ink-3); line-height: 1.65; margin-bottom: 16px; }
-.deal-row { display: flex; align-items: flex-start; gap: 12px; padding: 14px; background: var(--white); border: 1px solid var(--line); border-radius: var(--r); margin-bottom: 8px; cursor: pointer; transition: all 0.15s; }
-.deal-row.viewed { border-color: var(--ink); }
-.dr-icon { width: 36px; height: 36px; flex-shrink: 0; background: var(--bg); border-radius: 8px; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: 16px; }
-.dr-body { flex: 1; }
-.dr-name { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
-.dr-desc { font-size: 11px; font-weight: 300; color: var(--ink-3); line-height: 1.4; }
-.dr-check { width: 20px; height: 20px; flex-shrink: 0; border-radius: 50%; border: 1.5px solid var(--line-2); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: transparent; transition: all 0.2s; margin-top: 2px; }
-.deal-row.viewed .dr-check { background: var(--ink); border-color: var(--ink); color: white; }
-.ds-cta { margin-top: 16px; }
-.ds-cta .btn-ink { width: 100%; padding: 13px 0; border-radius: var(--r); opacity: 0.35; pointer-events: none; }
-.ds-cta .btn-ink.ready { opacity: 1; pointer-events: all; }
-
-.code-stage { padding: 20px 20px 0; text-align: center; }
-.code-icon { font-size: 40px; margin-bottom: 14px; }
-.code-h { font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--ink); }
-.code-sub { font-size: 12px; font-weight: 300; color: var(--ink-3); margin-bottom: 20px; }
-.code-input-wrap { display: flex; gap: 8px; margin-bottom: 10px; }
-.code-input { flex: 1; height: 48px; background: var(--bg); border: 1.5px solid var(--line-2); border-radius: var(--r); text-align: center; font-family: var(--font); font-size: 20px; font-weight: 700; letter-spacing: 6px; color: var(--ink); outline: none; transition: border-color 0.15s; text-transform: uppercase; }
-.code-input:focus { border-color: var(--ink); }
-.code-input.error { border-color: var(--red); }
-.code-input.success { border-color: var(--teal); background: rgba(0,131,143,0.05); }
-.code-submit { width: 48px; height: 48px; background: var(--ink); border: none; border-radius: var(--r); cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-
-/* Scanner Screen - Improved Z-index for back button */
-.scanner-screen { position: absolute; inset: 0; background: #111; z-index: 200; display: flex; flex-direction: column; transform: translateY(100%); transition: transform 0.38s cubic-bezier(0.32,0.72,0,1); }
-.scanner-screen.open { transform: translateY(0); }
-.scan-topbar { position: relative; z-index: 250; padding: 54px 20px 14px; display: flex; align-items: center; justify-content: space-between; }
-.scan-back-btn { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.15); border: none; border-radius: 20px; padding: 8px 16px; cursor: pointer; font-family: var(--font); }
-.cam-view { flex: 1; display: flex; align-items: center; justify-content: center; background: #0d0d0d; position: relative; overflow: hidden; }
-.scan-box { width: 210px; height: 210px; border: 2px dashed rgba(255,255,255,0.4); border-radius: 20px; position: relative; z-index: 10;}
-.scan-laser { position: absolute; left: 0; right: 0; height: 2px; background: var(--blue); box-shadow: 0 0 15px var(--blue); animation: scan 2s infinite; }
+/* ── SCANNER SCREEN ── */
+.scanner-screen { background: #000; color: white; }
+.scan-topbar { display: flex; align-items: center; justify-content: space-between; padding: 50px 20px 20px; }
+.scan-back-btn { color: white; }
+.cam-view { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; }
+.scan-box { width: 250px; height: 250px; border: 2px dashed rgba(255,255,255,0.4); border-radius: 24px; position: relative; }
+.scan-laser { position: absolute; left: 0; right: 0; height: 2px; background: var(--blue); box-shadow: 0 0 20px var(--blue); animation: scan 2s infinite; }
 @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
-
+@keyframes rise { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
 </style>
 </head>
 <body>
@@ -246,8 +244,6 @@ body {
   <p class="ws-desc">Explore products to earn stamps, unlock exclusive rewards, and discover in-store promotions.</p>
   <button class="ws-btn" onclick="closeWelcomeAndStartTour()">Get Started</button>
 </div>
-
-<div id="tour-overlay" onclick="dismissTour(event)"></div>
 
 <div class="phone">
   <div class="status">
@@ -274,24 +270,23 @@ body {
         Samsung Experience Store <strong data-i18n="storeName">CentralWorld, Bangkok</strong>
         <span>📍 4th Floor, Zone C</span>
       </div>
-      <div class="btn-change">Change</div>
+      <div style="color:var(--blue); font-weight:700; font-size:12px; cursor:pointer;">Change</div>
     </div>
     <div class="anchor-nav" id="anchorNav">
       <button class="anav-link active" data-i18n="nav1" onclick="scrollTo('heroSec')">Experience</button>
       <button class="anav-link" data-i18n="nav2" onclick="scrollTo('prodSec')">Products</button>
       <button class="anav-link" data-i18n="nav3" onclick="scrollTo('stampSec')">Stamps</button>
-      <button class="anav-link" data-i18n="nav4" onclick="scrollTo('dealsSec')">Deals</button>
     </div>
   </div>
 
   <div class="page" id="page">
-
-    <div class="hero" id="heroSec">
-      <h1 class="hero-h1" data-i18n="heroH1">Welcome to our store.</h1>
-      <p class="hero-p" data-i18n="heroP">Explore today's lineup, scan products, and earn stamps that unlock exclusive in-store rewards on top of existing deals.</p>
+    
+    <div class="hero" id="heroSec" style="padding-bottom:10px;">
+      <h1 style="font-size: 32px; font-weight: 700; letter-spacing: -1px; margin-bottom: 10px;">Welcome to store.</h1>
+      <p style="font-size: 14px; color: var(--ink-3); line-height: 1.5;">Explore today's lineup, scan products, and earn stamps that unlock exclusive in-store rewards.</p>
     </div>
 
-    <div class="section section-white" id="prodSec">
+    <div class="section section-white" id="prodSec" style="padding-top:20px;">
       <div class="section-label" data-i18n="prodLabel">Today's Floor</div>
       <div class="section-title">Galaxy Product Demo Lineup</div>
       <div class="section-sub" data-i18n="prodSub">Tap any product to explore it and earn a stamp.</div>
@@ -299,75 +294,44 @@ body {
       <div class="scan-banner" id="scanBanner" onclick="openScanner()">
         <div class="scan-thumb"></div>
         <div style="flex:1;">
-          <h4 style="font-size:15px; margin-bottom:4px;">✨ Galaxy AI Explore</h4>
-          <p style="font-size:11px; opacity:0.8; line-height:1.4;"><strong data-i18n="scanCtaTitle">Scan a Product or QR Code</strong><br><span data-i18n="scanCtaSub">Point your camera at any product to earn a stamp</span></p>
+          <h4 style="font-size:16px; margin-bottom:4px;">✨ Galaxy AI Explore</h4>
+          <p style="font-size:12px; opacity:0.9; line-height:1.4;"><strong data-i18n="scanCtaTitle">Scan a Product or QR Code</strong><br><span data-i18n="scanCtaSub">Point your camera at any product to earn a stamp</span></p>
         </div>
-        <div style="font-size:20px; opacity:0.6;">›</div>
-      </div>
-
-      <div class="filters">
-        <div class="filter-chip active">All</div>
-        <div class="filter-chip">Smartphone<div class="chip-img">📱</div></div>
-        <div class="filter-chip">Galaxy Tab<div class="chip-img">🖥️</div></div>
-        <div class="filter-chip">Wearables<div class="chip-img">🎧</div></div>
       </div>
 
       <div class="prod-list" id="prodList">
-        <div class="prod-row" id="pr-0" onclick="openDetail(0)">
-          <div class="prod-thumb" style="background:#222;">📱</div>
-          <div class="prod-info">
-            <div style="margin-bottom:4px;"><span class="badge new" data-i18n="bNew">NEW</span><span class="prod-cat" data-pid-cat="0">SMARTPHONE</span></div>
-            <div class="prod-name" data-pid-name="0">Galaxy S26 Ultra</div>
-            <div class="prod-price"><span class="was">฿49,900</span><span class="now">฿45,900</span></div>
-          </div>
-          <div class="prod-right"><div style="font-size:18px; color:#ccc;">›</div></div>
-        </div>
-
         <div class="prod-row" id="pr-1" onclick="openDetail(1)">
           <div class="prod-thumb" style="background:#eee;">🎧</div>
           <div class="prod-info">
-            <div style="margin-bottom:4px;"><span class="badge new" data-i18n="bNew">NEW</span><span class="prod-cat" data-pid-cat="1">WEARABLE</span></div>
+            <div style="margin-bottom:4px;"><span class="badge new" data-i18n="bNew">NEW</span><span style="font-size:10px; font-weight:700; margin-left:6px; color:var(--ink-4);">WEARABLE</span></div>
             <div class="prod-name" data-pid-name="1">Galaxy Buds 4 Pro</div>
-            <div class="prod-price"><span class="was">฿9,900</span><span class="now">฿7,490</span></div>
+            <div class="prod-price">฿7,490</div>
           </div>
-          <div class="prod-right"><div style="font-size:18px; color:#ccc;">›</div></div>
+          <div class="prod-right"><div style="font-size:20px; color:#ccc;">›</div></div>
         </div>
 
-        <div class="prod-row" id="pr-2" onclick="openDetail(2)">
-          <div class="prod-thumb" style="background:#f9f9f9;">⌚</div>
+        <div class="prod-row" id="pr-0" onclick="openDetail(0)">
+          <div class="prod-thumb" style="background:#222;">📱</div>
           <div class="prod-info">
-            <div style="margin-bottom:4px;"><span class="badge new" data-i18n="bNew">NEW</span><span class="prod-cat" data-pid-cat="2">WEARABLE</span></div>
-            <div class="prod-name" data-pid-name="2">Galaxy Watch 7</div>
-            <div class="prod-price"><span class="now">฿12,900</span></div>
+            <div style="margin-bottom:4px;"><span class="badge new" data-i18n="bNew">NEW</span><span style="font-size:10px; font-weight:700; margin-left:6px; color:var(--ink-4);">SMARTPHONE</span></div>
+            <div class="prod-name" data-pid-name="0">Galaxy S26 Ultra</div>
+            <div class="prod-price"><span style="text-decoration:line-through; color:var(--ink-4); margin-right:6px;">฿49,900</span>฿45,900</div>
           </div>
-          <div class="prod-right"><div style="font-size:18px; color:#ccc;">›</div></div>
-        </div>
-
-        <div class="prod-row" id="pr-4" onclick="openDetail(4)">
-          <div class="prod-thumb" style="background:#333;">🖥️</div>
-          <div class="prod-info">
-            <div style="margin-bottom:4px;"><span class="badge down">PRICE DOWN</span><span class="prod-cat" data-pid-cat="4">TABLET</span></div>
-            <div class="prod-name" data-pid-name="4">Galaxy Tab S10+</div>
-            <div class="prod-price"><span class="was">฿35,900</span><span class="now">฿31,900</span></div>
-          </div>
-          <div class="prod-right"><div style="font-size:18px; color:#ccc;">›</div></div>
+          <div class="prod-right"><div style="font-size:20px; color:#ccc;">›</div></div>
         </div>
       </div>
     </div>
 
     <div class="section section-bg" id="stampSec">
-      <div class="section-label" data-i18n="stampLabel">Stamp Card</div>
       <div class="stamp-card">
         <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:16px;">
           <div>
             <div style="font-size:18px; font-weight:700;" data-i18n="stampTitle">Demo Stamps</div>
-            <div style="font-size:11px; color:var(--ink-3); margin-top:4px;" data-i18n="stampSub">Explore products to earn stamps.</div>
+            <div style="font-size:12px; color:var(--ink-3); margin-top:4px;" data-i18n="stampSub">Explore products to earn stamps.</div>
           </div>
-          <div style="font-size:48px; font-weight:700; line-height:1;"><span id="bigStamp">0</span><span style="font-size:14px; color:var(--ink-3);" data-i18n="stampOf">/8</span></div>
+          <div style="font-size:48px; font-weight:700; line-height:1; letter-spacing:-2px;"><span id="bigStamp">0</span><span style="font-size:16px; color:var(--ink-3); letter-spacing:0;" data-i18n="stampOf">/8</span></div>
         </div>
         <div class="dots" id="dots"></div>
-        <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
-        
         <button class="btn-collect" onclick="toggleCollectOptions(true)">Collect stamps</button>
       </div>
     </div>
@@ -375,20 +339,20 @@ body {
     <div style="padding-bottom:40px;"></div>
   </div> <div class="options-modal" id="collectOptionsModal" onclick="toggleCollectOptions(false)">
     <div class="options-content" onclick="event.stopPropagation()">
-      <div style="width:30px; height:4px; background:#ddd; border-radius:2px; margin:0 auto 20px;"></div>
-      <h3 style="font-size:18px; margin-bottom:20px; color:var(--ink);">Earn your next stamp</h3>
+      <div style="width:36px; height:5px; background:#E5E5E5; border-radius:3px; margin:0 auto 24px;"></div>
+      <h3 style="font-size:20px; font-weight:700; margin-bottom:20px; letter-spacing:-0.5px;">Earn your next stamp</h3>
       <div class="option-row" onclick="toggleCollectOptions(false); openScanner();">
         <div class="option-icon">📷</div>
         <div>
-          <div style="font-weight:700; font-size:14px; color:var(--ink);">Explore Products</div>
-          <div style="font-size:12px; color:var(--ink-3);">Scan a product QR code on the floor</div>
+          <div style="font-weight:700; font-size:15px;">Explore Products</div>
+          <div style="font-size:13px; color:var(--ink-3); margin-top:2px;">Scan a product QR code on the floor</div>
         </div>
       </div>
       <div class="option-row" onclick="toggleCollectOptions(false); alert('Find a specialist in the blue shirt to get your code!');">
         <div class="option-icon">💬</div>
         <div>
-          <div style="font-weight:700; font-size:14px; color:var(--ink);">Ask a Specialist</div>
-          <div style="font-size:12px; color:var(--ink-3);">Get a demo and a secret staff code</div>
+          <div style="font-weight:700; font-size:15px;">Ask a Specialist</div>
+          <div style="font-size:13px; color:var(--ink-3); margin-top:2px;">Get a demo and a secret staff code</div>
         </div>
       </div>
     </div>
@@ -397,17 +361,10 @@ body {
   <div class="detail-screen" id="detailScreen">
     <div class="detail-topbar">
       <button class="detail-back" onclick="closeDetail()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-        <span data-i18n="back">Back</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
       </button>
-    </div>
-
-    <div class="journey-bar" id="journeyBar">
-      <div class="jstep active" id="js0"><div class="jstep-circle">1</div><div class="jstep-label">Explore</div></div>
-      <div class="jstep" id="js1"><div class="jstep-circle">2</div><div class="jstep-label">Confirm</div></div>
-      <div class="jstep" id="js2"><div class="jstep-circle">3</div><div class="jstep-label">Deals</div></div>
-      <div class="jstep" id="js3"><div class="jstep-circle">4</div><div class="jstep-label">Get Stamp</div></div>
-    </div>
+      <div style="font-weight:700; font-size:15px;">Experience</div>
+      <div style="width:40px;"></div> </div>
 
     <div class="detail-body" id="detailBody">
       
@@ -415,76 +372,47 @@ body {
         
         <div id="standardHero">
           <div class="detail-hero">
-            <div class="detail-icon" id="dIcon">📱</div>
-            <div class="detail-cat" id="dCat">SMARTPHONE</div>
-            <div class="detail-name" id="dName">Galaxy Product</div>
-            <div class="detail-desc" id="dDesc">Product description here.</div>
+            <div style="font-size:72px; margin-bottom:12px;" id="dIcon">📱</div>
+            <div style="font-size:10px; font-weight:700; color:var(--ink-4); letter-spacing:1.5px; margin-bottom:6px;" id="dCat">SMARTPHONE</div>
+            <div style="font-size:28px; font-weight:700; letter-spacing:-1px; margin-bottom:12px;" id="dName">Galaxy Product</div>
+            <div style="font-size:14px; color:var(--ink-3); line-height:1.6;" id="dDesc">Description</div>
           </div>
           <div class="detail-specs" id="dSpecs"></div>
+          <div style="padding:24px;">
+            <button class="btn-ink" id="toStage2Btn" onclick="goToStage(2)">Continue</button>
+          </div>
         </div>
 
         <div id="dExp"></div>
-
-        <div style="padding:12px 20px 24px;" id="standardBtnWrap">
-          <button class="btn-ink" id="toStage2Btn" onclick="goToStage(2)" style="width:100%;padding:14px 0;border-radius:12px;opacity:0.3;">Continue</button>
-        </div>
       </div>
 
       <div class="stage-panel" id="stage2">
         <div class="confirm-card">
-          <div class="confirm-top">
-            <div class="confirm-icon" id="confirmIcon">🎧</div>
-            <div class="confirm-h" id="confirmH">You've explored the product</div>
-            <div class="confirm-sub">Here's what you just saw. Tap confirm to move on to the deals.</div>
-          </div>
-          <div class="confirm-features" id="confirmFeatures"></div>
-          <div class="confirm-cta">
-            <button class="btn-ink" onclick="goToStage(3)">Confirmed — Show me the deals</button>
-          </div>
-        </div>
-      </div>
+          <div style="font-size:48px; margin-bottom:16px;" id="confirmIcon">🎧</div>
+          <h2 style="font-size:22px; font-weight:700; letter-spacing:-0.5px; margin-bottom:8px;" id="confirmH">You explored the product</h2>
+          <p style="font-size:14px; color:var(--ink-3); line-height:1.5; margin-bottom:24px;">Ask a floor staff member for today's code to confirm your demo and earn a stamp.</p>
+          
+          <div style="text-align:left; margin-bottom:24px;" id="confirmFeatures"></div>
 
-      <div class="stage-panel" id="stage3">
-        <div class="deals-stage">
-          <p class="ds-intro">These are the active deals on this product. Tap each one to read it — then you're ready to get your stamp.</p>
-          <div id="dealsStageList"></div>
-          <div class="ds-cta">
-            <button class="btn-ink" id="toStage4Btn" onclick="goToStage(4)">I've checked the deals</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="stage-panel" id="stage4">
-        <div class="code-stage">
-          <div class="code-icon">🔑</div>
-          <div class="code-h">One last step</div>
-          <div class="code-sub">Ask a floor staff member for today's code to complete your stamp.</div>
-          <div class="code-input-wrap">
-            <input class="code-input" id="codeInput" maxlength="4" placeholder="----" oninput="onCodeInput(this)" autocomplete="off">
-            <button class="code-submit" onclick="submitCode()">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-            </button>
-          </div>
-          <div class="code-error" id="codeError"></div>
-          <div class="code-hint">Today's code is "BUDS" for testing.</div>
+          <input id="codeInput" maxlength="4" placeholder="CODE" style="width:100%; height:56px; background:var(--bg); border:2px solid var(--line-2); border-radius:16px; text-align:center; font-size:20px; font-weight:700; letter-spacing:8px; font-family:var(--font); margin-bottom:8px; text-transform:uppercase;">
+          <div id="codeError" style="color:var(--red); font-size:12px; font-weight:600; min-height:16px; margin-bottom:16px;"></div>
+          
+          <button class="btn-ink" onclick="submitCode()">Confirm Code</button>
         </div>
       </div>
 
       <div class="stage-panel" id="stageEarned">
-        <div class="stamp-earned-state">
-          <div class="se-icon">✦</div>
-          <div class="se-h" id="seH">Stamp earned.</div>
-          <div class="se-sub" id="seSub">You explored the product and confirmed with a staff member.</div>
-          <div class="se-stamp-row">
-            <div class="se-dot">✓</div>
-            <div class="se-stamp-label" id="seStampLabel">1 stamp added</div>
+        <div style="padding:60px 24px; text-align:center;">
+          <div style="font-size:64px; margin-bottom:24px; color:var(--blue);">✦</div>
+          <h2 style="font-size:28px; font-weight:700; letter-spacing:-1px; margin-bottom:12px;">Stamp Earned!</h2>
+          <p style="font-size:15px; color:var(--ink-3); line-height:1.5; margin-bottom:32px;">You've successfully explored this product and verified with staff.</p>
+          <div style="background:var(--bg); padding:16px; border-radius:16px; font-weight:700; display:flex; align-items:center; justify-content:center; gap:10px; margin-bottom:24px;">
+            <div style="width:24px; height:24px; background:var(--blue); color:white; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px;">✓</div>
+            1 stamp added
           </div>
-          <div class="se-actions">
-            <button class="btn-ink" onclick="closeDetail(); scrollTo('stampSec')">See My Stamps</button>
-          </div>
+          <button class="btn-ink" onclick="closeDetail(); scrollTo('stampSec')">View Stamp Card</button>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -493,9 +421,9 @@ body {
       <div class="sm-hero">
         <div class="sm-img">🎧</div>
         <div>
-          <div style="font-size:8px; font-weight:700; color:#aaa; letter-spacing:1px; margin-bottom:2px;">SPEC SHEET</div>
-          <div style="font-size:16px; font-weight:700; margin-bottom:2px;">Galaxy Buds 4 Pro</div>
-          <div style="font-size:14px; font-weight:700; color:var(--white);">฿7,990.00</div>
+          <div style="font-size:9px; font-weight:700; color:rgba(255,255,255,0.5); letter-spacing:1px; margin-bottom:4px;">SPEC SHEET</div>
+          <div style="font-size:18px; font-weight:700; margin-bottom:4px; letter-spacing:-0.5px;">Galaxy Buds 4 Pro</div>
+          <div style="font-size:14px; font-weight:700;">฿7,490.00</div>
         </div>
       </div>
       <div class="sm-specs">
@@ -512,14 +440,17 @@ body {
 
   <div class="scanner-screen" id="scanScreen">
     <div class="scan-topbar">
-      <button class="scan-back-btn" onclick="closeScanner()">← Back</button>
-      <div style="font-size:14px; font-weight:600; letter-spacing:1px; color:white; text-transform:uppercase;">Scan Product</div>
-      <div style="width:70px;"></div>
+      <button class="scan-back-btn" onclick="closeScanner()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+      </button>
+      <div style="font-size:14px; font-weight:700; letter-spacing:1px; text-transform:uppercase;">Scan Product</div>
+      <div style="width:50px;"></div>
     </div>
     <div class="cam-view">
       <div class="scan-box"><div class="scan-laser"></div></div>
-      <div style="position:absolute; bottom:100px;">
-        <button style="padding:12px 24px; border-radius:20px; border:none; font-weight:700; cursor:pointer;" onclick="simulateScan(1)">Simulate Success</button>
+      <div style="position:absolute; bottom:80px; text-align:center;">
+        <p style="margin-bottom:20px; font-weight:600; opacity:0.8;">Point at a product QR code</p>
+        <button style="padding:14px 28px; border-radius:24px; border:none; background:white; color:black; font-weight:700; font-size:14px; cursor:pointer;" onclick="simulateScan(1)">Simulate Scan (Buds Pro)</button>
       </div>
     </div>
   </div>
@@ -528,47 +459,33 @@ body {
 // ── DATA ARRAYS ──
 const P = [
   {icon:'📱',cat:'Smartphone',name:'Galaxy S26 Ultra',desc:'Galaxy AI transforms your photos, summarizes documents, and adapts to how you work — powered by the new Snapdragon 8 Elite 2.',specs:[{k:'Display',v:'6.9" QD-AMOLED 120Hz'},{k:'Camera',v:'200MP Adaptive Pixel'},{k:'AI',v:'Galaxy AI 3.0'},{k:'Battery',v:'5,500mAh / 45W'}],price:'฿45,900'},
-  {icon:'🎧',cat:'Audio',name:'Galaxy Buds4 Pro',desc:"Samsung's best-sounding earbuds yet. Built for all-day wear.",specs:[],price:'฿7,490'},
-  {icon:'⌚',cat:'Wearable',name:'Galaxy Watch 7',desc:'3nm chip brings Galaxy AI to your wrist.',specs:[{k:'Chip',v:'3nm Exynos W1000'},{k:'Health',v:'BioActive + ECG'}],price:'฿12,900'},
-  {icon:'💍',cat:'Wearable',name:'Galaxy Ring',desc:'The most discreet health tracker Samsung has made.',specs:[{k:'Material',v:'Titanium'},{k:'Battery',v:'Up to 9 days'}],price:'฿14,900'},
-  {icon:'🖥️',cat:'Tablet',name:'Galaxy Tab S10+',desc:'12.4" Dynamic AMOLED 2X. DeX mode for desktop productivity.',specs:[{k:'Display',v:'12.4" AMOLED 2X'},{k:'S Pen',v:'Included'}],price:'฿31,900'}
+  {icon:'🎧',cat:'Audio',name:'Galaxy Buds4 Pro',desc:"Samsung's best-sounding earbuds yet. Built for all-day wear.",specs:[],price:'฿7,490'}
 ];
 const P_TH = [
   {icon:'📱',cat:'สมาร์ทโฟน',name:'Galaxy S26 Ultra',desc:'Galaxy AI แปลงภาพถ่าย สรุปเอกสาร ปรับตามการทำงานของคุณ',specs:[{k:'จอภาพ',v:'6.9" QD-AMOLED 120Hz'},{k:'กล้อง',v:'200MP Adaptive Pixel'},{k:'AI',v:'Galaxy AI 3.0'},{k:'แบตเตอรี่',v:'5,500mAh / 45W'}],price:'฿45,900'},
-  {icon:'🎧',cat:'เสียง',name:'Galaxy Buds4 Pro',desc:'Super Wide Woofer + ทวีตเตอร์ ดูอัลไดรฟ์เวอร์',specs:[],price:'฿7,490'},
-  {icon:'⌚',cat:'อุปกรณ์สวมใส่',name:'Galaxy Watch 7',desc:'ชิป 3nm นำ Galaxy AI มาสู่ข้อมือ',specs:[{k:'ชิป',v:'3nm Exynos W1000'}],price:'฿12,900'},
-  {icon:'💍',cat:'อุปกรณ์สวมใส่',name:'Galaxy Ring',desc:'อุปกรณ์ติดตามสุขภาพที่ดูเป็นธรรมชาติที่สุด',specs:[{k:'วัสดุ',v:'Titanium'}],price:'฿14,900'},
-  {icon:'🖥️',cat:'แท็บเล็ต',name:'Galaxy Tab S10+',desc:'จอ Dynamic AMOLED 2X 12.4 นิ้ว',specs:[{k:'จอ',v:'12.4" AMOLED 2X'}],price:'฿31,900'}
+  {icon:'🎧',cat:'เสียง',name:'Galaxy Buds4 Pro',desc:'Super Wide Woofer + ทวีตเตอร์ ดูอัลไดรฟ์เวอร์',specs:[],price:'฿7,490'}
 ];
 
-const PRODUCT_DEALS = {
-  1: [
-    { icon:'🔥', name:'Free Buds 4 Pro with S26 Ultra', desc:'Buy any S26 Ultra today and get Buds4 Pro at no extra cost.' },
-    { icon:'📦', name:'Galaxy Ecosystem Bundle', desc:'S26 Ultra + Buds4 Pro + Watch 7 at ฿59,900.' },
-    { icon:'🛡️', name:'Samsung Care+ for Buds', desc:'1 year of accidental damage protection for ฿590.' },
-  ]
-};
-
-let lang = 'en', stamps = 0, scanned = new Set(), journeyIdx = null, journeyStage = 1, dealsViewed = new Set();
+let lang = 'en', stamps = 0, scanned = new Set(), journeyIdx = null, featuresViewed = new Set();
 
 const T = {
-  en: { nav1:'Experience', nav2:'Products', nav3:'Stamps', nav4:'Deals', heroH1:'Welcome to our store.', heroP:'Explore today\'s lineup, scan products, and earn stamps that unlock exclusive in-store rewards on top of existing deals.', heroCta1:'Explore Products', heroCta2:'My Stamps', prodLabel:"Today's Floor", scanCtaTitle:'Scan a Product or QR Code', scanCtaSub:'Point your camera at any product to earn a stamp', stampLabel:'Stamp Card', stampTitle:'Demo Stamps', stampSub:'Explore products to earn stamps.', stampOf:'/8', dealsLabel:'Promotions', dealsTitle:'Floor Deals', dealsSub:'Exclusive in-store offers.', back:'Back', viewDeals:'View Deals', viewDetails:'View Details', scanMore:'Scan More', scanTitle:'Scan Product', allProducts:'All Products on Floor', searchPlaceholder:'Search products…' },
-  th: { nav1:'ประสบการณ์', nav2:'สินค้า', nav3:'แสตมป์', nav4:'ดีล', heroH1:'ยินดีต้อนรับสู่ร้านค้าของเรา', heroP:'สำรวจสินค้าวันนี้ สแกน QR รับแสตมป์', heroCta1:'สำรวจสินค้า', heroCta2:'แสตมป์ของฉัน', prodLabel:'สินค้าวันนี้', scanCtaTitle:'สแกน QR สินค้า', scanCtaSub:'ชี้กล้องที่ป้าย QR เพื่อรับแสตมป์ทันที', stampLabel:'บัตรแสตมป์', stampTitle:'แสตมป์สาธิต', stampSub:'สำรวจสินค้าเพื่อสะสมแสตมป์', stampOf:'/8', dealsLabel:'โปรโมชั่น', dealsTitle:'ดีลในร้าน', dealsSub:'โปรเฉพาะในร้าน', back:'กลับ', viewDeals:'ดูโปรโมชั่น', viewDetails:'ดูรายละเอียด', scanMore:'สแกนเพิ่ม', scanTitle:'สแกนสินค้า', allProducts:'สินค้าทั้งหมดในร้าน', searchPlaceholder:'ค้นหาสินค้า…' }
+  en: { nav1:'Experience', nav2:'Products', nav3:'Stamps', heroH1:'Welcome to our store.', heroP:'Explore today\'s lineup, scan products, and earn stamps that unlock exclusive in-store rewards.', stampTitle:'Demo Stamps', stampSub:'Explore products to earn stamps.', stampOf:'/8' },
+  th: { nav1:'ประสบการณ์', nav2:'สินค้า', nav3:'แสตมป์', heroH1:'ยินดีต้อนรับสู่ร้านค้าของเรา', heroP:'สำรวจสินค้าวันนี้ สแกน QR รับแสตมป์', stampTitle:'แสตมป์สาธิต', stampSub:'สำรวจสินค้าเพื่อสะสมแสตมป์', stampOf:'/8' }
 };
 
 function t() { return T[lang]; }
 function prods() { return lang === 'th' ? P_TH : P; }
 
-// ── INIT & TOUR ──
+// ── INIT & WELCOME/TOUR ──
 window.addEventListener('DOMContentLoaded', () => {
   renderStamps();
-  const welcomeSeen = localStorage.getItem('hasSeenWelcome_v4');
-  const tourSeen = localStorage.getItem('hasSeenTour_v4');
+  const welcomeSeen = localStorage.getItem('hasSeenWelcome_Final');
+  const tourSeen = localStorage.getItem('hasSeenTour_Final');
 
   if (!welcomeSeen) {
     document.getElementById('welcome-screen').style.display = 'flex';
   } else if (!tourSeen) {
-    setTimeout(startTour, 500);
+    setTimeout(startTour, 600);
   }
 });
 
@@ -577,28 +494,26 @@ function closeWelcomeAndStartTour() {
   ws.style.opacity = '0';
   setTimeout(() => {
     ws.style.display = 'none';
-    localStorage.setItem('hasSeenWelcome_v4', 'true');
+    localStorage.setItem('hasSeenWelcome_Final', 'true');
     startTour();
-  }, 300);
+  }, 400);
 }
 
 function startTour() {
   const page = document.getElementById('page');
-  const overlay = document.getElementById('tour-overlay');
   const target = document.getElementById('scanBanner');
 
   if(!target) return;
 
   page.scrollTop = 0;
-  page.classList.add('no-scroll'); 
-  overlay.style.display = 'block';
+  document.body.classList.add('tour-active'); 
   target.classList.add('highlight-target');
 
   const callout = document.createElement('div');
   callout.className = 'tour-callout';
   callout.innerHTML = `
     <button class="btn-tour-dismiss" onclick="dismissTour(event)">×</button>
-    <p style="font-size: 14px; font-weight: 500; line-height: 1.4; margin-bottom: 12px; margin-top: 4px;">
+    <p style="font-size: 15px; font-weight: 600; line-height: 1.4; margin-bottom: 12px; margin-top: 4px;">
       Scan and explore a product in-store to start earning stamps.
     </p>
     <button class="btn-tour-close" onclick="acceptTour(event)">Got it!</button>
@@ -610,17 +525,14 @@ function dismissTour(e) { if(e) e.stopPropagation(); closeTourUI(); }
 function acceptTour(e) { if(e) e.stopPropagation(); closeTourUI(); openScanner(); }
 
 function closeTourUI() {
-  const page = document.getElementById('page');
-  const overlay = document.getElementById('tour-overlay');
   const target = document.getElementById('scanBanner');
   const callout = document.querySelector('.tour-callout');
 
-  page.classList.remove('no-scroll');
-  overlay.style.display = 'none';
+  document.body.classList.remove('tour-active');
   if(target) target.classList.remove('highlight-target');
   if(callout) callout.remove();
 
-  localStorage.setItem('hasSeenTour_v4', 'true');
+  localStorage.setItem('hasSeenTour_Final', 'true');
 }
 
 // ── LOGIC ──
@@ -630,317 +542,4 @@ function setLang(l) {
   document.getElementById('lTH').classList.toggle('on', l==='th');
   const tl = t();
   document.querySelectorAll('[data-i18n]').forEach(el => {
-    const k = el.getAttribute('data-i18n');
-    if (tl[k] !== undefined) el.innerHTML = tl[k];
-  });
-  prods().forEach((p,i) => {
-    const catEl = document.querySelector(`[data-pid-cat="${i}"]`);
-    const nameEl = document.querySelector(`[data-pid-name="${i}"]`);
-    if (catEl) catEl.textContent = p.cat;
-    if (nameEl) nameEl.textContent = p.name;
-  });
-}
-
-function renderStamps() {
-  const d = document.getElementById('dots'); d.innerHTML = '';
-  for (let i=0;i<8;i++) {
-    const el = document.createElement('div');
-    el.className = 'dot' + (i < stamps ? ' on' : '');
-    el.textContent = i < stamps ? '✓' : i+1;
-    d.appendChild(el);
-  }
-  document.getElementById('bigStamp').textContent = stamps;
-  document.getElementById('hStamp').textContent = stamps;
-  document.getElementById('progFill').style.width = (stamps/8*100)+'%';
-}
-function toggleCollectOptions(show) { document.getElementById('collectOptionsModal').classList.toggle('open', show); }
-function scrollTo(id) { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }); }
-
-// ── 4-STAGE JOURNEY ──
-function openDetail(idx) {
-  journeyIdx = idx;
-  dealsViewed = new Set();
-  const alreadyDone = scanned.has(idx);
-  const p = prods()[idx];
-  
-  if (idx === 1) { 
-    // Galaxy Buds 4 Pro Special Layout
-    document.getElementById('standardHero').style.display = 'none';
-    document.getElementById('standardBtnWrap').style.display = 'none';
-    document.getElementById('dExp').style.display = 'block';
-    document.getElementById('dExp').innerHTML = buildSliderWidget();
-    initSlider();
-  } else {
-    // Basic Layout for others
-    document.getElementById('standardHero').style.display = 'block';
-    document.getElementById('standardBtnWrap').style.display = 'block';
-    document.getElementById('dExp').style.display = 'none';
-    document.getElementById('dIcon').textContent = p.icon;
-    document.getElementById('dCat').textContent = p.cat.toUpperCase();
-    document.getElementById('dName').textContent = p.name;
-    document.getElementById('dDesc').textContent = p.desc;
-    document.getElementById('dSpecs').innerHTML = p.specs.map(s=>`<div class="spec-cell"><div class="spec-k">${s.k}</div><div class="spec-v">${s.v}</div></div>`).join('');
-    
-    document.getElementById('toStage2Btn').style.opacity = '1';
-    document.getElementById('toStage2Btn').removeAttribute('disabled');
-  }
-
-  showStage(alreadyDone ? 'earned' : 1);
-  updateJourneyBar(alreadyDone ? 4 : 1);
-  document.getElementById('detailScreen').classList.add('open');
-  document.getElementById('detailBody').scrollTop = 0;
-}
-
-function closeDetail() { document.getElementById('detailScreen').classList.remove('open'); }
-
-function goToStage(n) {
-  if (n === 2) {
-    const p = prods()[journeyIdx];
-    document.getElementById('confirmIcon').textContent = p.icon;
-    document.getElementById('confirmH').textContent = `You've explored ${p.name}`;
-    
-    // Dynamic confirmation list
-    let featuresHtml = '';
-    if (journeyIdx === 1) {
-        const features = Array.from(featuresViewed).map(i => SLIDER_DATA[i]?.title).filter(Boolean);
-        if (features.length === 0) features.push("Audio & Design"); 
-        featuresHtml = features.map(f => `<div class="cf-item"><div class="cf-check">✓</div>${f}</div>`).join('');
-    } else {
-        featuresHtml = `<div class="cf-item"><div class="cf-check">✓</div>Product Overview</div><div class="cf-item"><div class="cf-check">✓</div>Technical Specifications</div>`;
-    }
-    document.getElementById('confirmFeatures').innerHTML = featuresHtml;
-  }
-
-  if (n === 3) {
-    const deals = PRODUCT_DEALS[journeyIdx] || [{ icon:'🎁', name:'Storewide Offer', desc:'Stackable with all ongoing promotions.' }];
-    document.getElementById('dealsStageList').innerHTML = deals.map((d,i) => `
-      <div class="deal-row" id="dr-${i}" onclick="viewDeal(${i})">
-        <div class="dr-icon">${d.icon}</div>
-        <div class="dr-body"><div class="dr-name">${d.name}</div><div class="dr-desc">${d.desc}</div></div>
-        <div class="dr-check" id="drc-${i}">✓</div>
-      </div>`).join('');
-    checkDealsProgress();
-  }
-
-  showStage(n);
-  updateJourneyBar(n);
-  document.getElementById('detailBody').scrollTop = 0;
-}
-
-function showStage(n) {
-  ['stage1','stage2','stage3','stage4','stageEarned'].forEach(id => document.getElementById(id).classList.remove('on'));
-  const target = n === 'earned' ? 'stageEarned' : `stage${n}`;
-  document.getElementById(target).classList.add('on');
-}
-
-function updateJourneyBar(n) {
-  [0,1,2,3].forEach(i => {
-    const el = document.getElementById(`js${i}`);
-    el.classList.remove('active','done');
-    const circle = el.querySelector('.jstep-circle');
-    if (i + 1 < n) { el.classList.add('done'); circle.textContent = '✓'; }
-    else if (i + 1 === n) { el.classList.add('active'); circle.textContent = i + 1; }
-    else { circle.textContent = i + 1; }
-  });
-}
-
-function viewDeal(i) {
-  dealsViewed.add(i);
-  document.getElementById(`dr-${i}`)?.classList.add('viewed');
-  checkDealsProgress();
-}
-
-function checkDealsProgress() {
-  const total = (PRODUCT_DEALS[journeyIdx] || []).length || 1;
-  const btn = document.getElementById('toStage4Btn');
-  if (dealsViewed.size >= total) btn.classList.add('ready');
-}
-
-function onCodeInput(el) {
-  el.value = el.value.toUpperCase().replace(/[^A-Z0-9]/g,'');
-  document.getElementById('codeError').textContent = '';
-  el.classList.remove('error');
-  if (el.value.length === 4) submitCode();
-}
-
-function submitCode() {
-  const val = document.getElementById('codeInput').value.toUpperCase();
-  if (val === 'BUDS') {
-    document.getElementById('codeInput').classList.add('success');
-    setTimeout(() => {
-        scanned.add(journeyIdx);
-        if(stamps < 8) { stamps++; renderStamps(); }
-        const row = document.getElementById(`pr-${journeyIdx}`);
-        if (row) {
-            row.classList.add('done');
-            const right = row.querySelector('.prod-right');
-            const existing = right.querySelector('.badge');
-            if (existing) existing.remove();
-            const b = document.createElement('span');
-            b.className = 'badge badge-blue'; b.textContent = lang==='th'?'✓ เสร็จ':'✓ Done';
-            right.insertBefore(b, right.firstChild);
-        }
-        goToStage('earned');
-    }, 600);
-  } else {
-    document.getElementById('codeInput').classList.add('error');
-    document.getElementById('codeError').textContent = "Incorrect code. Ask staff for 'BUDS'";
-  }
-}
-
-// ── SCANNER ──
-function openScanner() { document.getElementById('scanScreen').classList.add('open'); }
-function closeScanner() { document.getElementById('scanScreen').classList.remove('open'); }
-function simulateScan(idx) { closeScanner(); setTimeout(()=>openDetail(idx), 400); }
-
-
-// ── 🌟 NEW SLIDER WIDGET LOGIC 🌟 ──
-
-const SLIDER_DATA = [
-  {
-    tab: "1 Sound quality", cat: "ADAPTIVE ANC 2.0", title: "360 Audio",
-    desc: "The world gets loud. Buds 4 Pro gets quieter. Adaptive ANC 2.0 reads your environment in real time and cancels before it reaches you.",
-    img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80"
-  },
-  {
-    tab: "2 Noise control", cat: "ADAPTIVE ANC 2.0", title: "Adaptive Active Noise Control",
-    desc: "Whether you're on a train or an open office, hear only what you want.",
-    img: "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?auto=format&fit=crop&w=600&q=80"
-  },
-  {
-    tab: "3 Design", cat: "DESIGN", title: "Seamless Fit",
-    desc: "Engineered to stay in all day without fatigue. Full metal body.",
-    img: "https://images.unsplash.com/photo-1606220588913-b3aea8f5d70b?auto=format&fit=crop&w=600&q=80"
-  }
-];
-
-let tzActive = 0;
-let tzMode = 'without'; // 'without' or 'with'
-let tzInteracted = false;
-let featuresViewed = new Set();
-
-function buildSliderWidget() {
-  return `
-  <div class="tz-wrap">
-    
-    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px;">
-      <div>
-        <div class="tz-header">IN-STORE DEMO</div>
-        <div class="tz-title">Galaxy Buds 4 Pro</div>
-        <div style="font-size:12px; color:var(--ink-3);">Engineered to change<br>how you hear the world.</div>
-      </div>
-      <button class="btn-save-trigger" onclick="openSpecModal()">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Save
-      </button>
-    </div>
-
-    <div class="tz-header" style="color:var(--ink-4);">INTERACTIVE DEMO - TRY ZONE</div>
-    <div class="tz-title" style="font-size:18px;">Try it yourself. Hear the difference</div>
-    <div class="tz-sub">Explore features to earn your stamp.</div>
-
-    <div class="tz-tabs" id="tzTabs">
-      ${SLIDER_DATA.map((s, i) => `<div class="tz-tab ${i===0?'active':''}" onclick="setTzSlide(${i})">${s.tab}</div>`).join('')}
-    </div>
-
-    <div class="tz-card">
-      <div class="tz-img-wrap">
-        <img src="${SLIDER_DATA[0].img}" class="tz-img" id="tzImg" onload="this.classList.add('loaded')">
-      </div>
-      <div class="tz-content">
-        <div class="tz-cat" id="tzCat">${SLIDER_DATA[0].cat}</div>
-        <div class="tz-feat" id="tzFeat">${SLIDER_DATA[0].title}</div>
-        <div class="tz-desc" id="tzDesc">${SLIDER_DATA[0].desc}</div>
-        
-        <div class="tz-toggle">
-          <button class="tz-tgl-btn active" id="tgl-without" onclick="setTzMode('without')">Without</button>
-          <button class="tz-tgl-btn" id="tgl-with" onclick="setTzMode('with')">With</button>
-        </div>
-
-        <div class="tz-player">
-          <button class="tz-play"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></button>
-          <div class="tz-track"><div class="tz-prog" id="tzProg"></div></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="tz-nav">
-      <button class="tz-arrow" onclick="setTzSlide(tzActive - 1)">←</button>
-      <button class="tz-next" id="tzNextBtn" onclick="goToStage(2)">Next</button>
-      <button class="tz-arrow" onclick="setTzSlide(tzActive + 1)">→</button>
-    </div>
-  </div>`;
-}
-
-function initSlider() {
-  tzActive = 0;
-  tzMode = 'without';
-  tzInteracted = false;
-  featuresViewed = new Set();
-  updateSliderUI();
-}
-
-function setTzSlide(idx) {
-  if(idx < 0 || idx >= SLIDER_DATA.length) return;
-  tzActive = idx;
-  tzMode = 'without';
-  updateSliderUI();
-}
-
-function setTzMode(mode) {
-  tzMode = mode;
-  tzInteracted = true; 
-  featuresViewed.add(tzActive); // Add to confirm screen list
-  updateSliderUI();
-}
-
-function updateSliderUI() {
-  const data = SLIDER_DATA[tzActive];
-  
-  document.querySelectorAll('.tz-tab').forEach((t, i) => t.classList.toggle('active', i === tzActive));
-  document.getElementById('tzCat').textContent = data.cat;
-  document.getElementById('tzFeat').textContent = data.title;
-  document.getElementById('tzDesc').textContent = data.desc;
-  
-  const imgEl = document.getElementById('tzImg');
-  imgEl.classList.remove('loaded');
-  imgEl.style.filter = tzMode === 'without' ? 'grayscale(80%) blur(2px)' : 'none';
-  setTimeout(()=>imgEl.classList.add('loaded'), 50);
-
-  document.getElementById('tgl-without').classList.toggle('active', tzMode === 'without');
-  document.getElementById('tgl-with').classList.toggle('active', tzMode === 'with');
-
-  const nextBtn = document.getElementById('tzNextBtn');
-  if(tzInteracted) {
-    nextBtn.classList.add('ready');
-    nextBtn.removeAttribute('disabled');
-  } else {
-    nextBtn.classList.remove('ready');
-    nextBtn.setAttribute('disabled', 'true');
-  }
-}
-
-// ── SAVE SPEC MODAL ──
-function openSpecModal() {
-  document.getElementById('specModal').classList.add('open');
-  const btn = document.getElementById('btnDoSave');
-  btn.textContent = 'Save spec sheet';
-  btn.classList.remove('saved');
-}
-
-function closeSpecModal() {
-  document.getElementById('specModal').classList.remove('open');
-}
-
-function doSaveSpecs() {
-  const btn = document.getElementById('btnDoSave');
-  btn.textContent = 'Saving...';
-  setTimeout(() => {
-    btn.classList.add('saved');
-    btn.innerHTML = '✓ Saved!';
-    setTimeout(closeSpecModal, 1000);
-  }, 1500);
-}
-</script>
-</body>
-</html>
+    const k = el
