@@ -1,0 +1,1570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Samsung In-Store Experience</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:       #F7F5F2;
+  --white:    #FFFFFF;
+  --ink:      #1C1C1C;
+  --ink-2:    #313131;
+  --ink-3:    rgba(28,28,28,0.42);
+  --ink-4:    rgba(28,28,28,0.22);
+  --line:     rgba(28,28,28,0.08);
+  --line-2:   rgba(28,28,28,0.13);
+  --blue:     #2189FF;
+  --blue-bg:  rgba(33,137,255,0.07);
+  --blue-bd:  rgba(33,137,255,0.18);
+  --teal:     #00838F;
+  --teal-bg:  rgba(0,131,143,0.07);
+  --coral:    #F36E6E;
+  --coral-bg: rgba(243,110,110,0.07);
+  --red:      #EF3434;
+  --red-bg:   rgba(239,52,52,0.07);
+  --n1:       #F5F7FE;
+  --n2:       #FEF6F3;
+  --font:     'DM Sans', -apple-system, 'Helvetica Neue', sans-serif;
+  --r:        10px;
+  --r-lg:     16px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html { font-size: 14px; }
+
+body {
+  background: #DDD9D4;
+  color: var(--ink);
+  font-family: var(--font);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+/* ── GALAXY S26 ULTRA SHELL (FIGMA UPDATE) ── */
+.phone {
+  width: 390px;
+  height: 844px;
+  background: var(--bg);
+  border-radius: 28px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  box-shadow:
+    0 0 0 2px #1c1c1c, 
+    0 0 0 8px #333, 
+    0 40px 80px rgba(0,0,0,0.3);
+}
+/* Infinity-O Camera */
+.phone::before {
+  content: '';
+  position: absolute;
+  top: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px; height: 10px;
+  background: #000;
+  border-radius: 50%;
+  z-index: 9999;
+}
+
+/* ── STATUS BAR ── */
+.status {
+  height:50px;
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  padding:0 26px 9px;
+  flex-shrink:0;
+  background:var(--white);
+}
+.s-time { font-size:13px; font-weight:600; letter-spacing:-0.2px; }
+.s-icons { font-size:11px; opacity:0.6; display:flex; gap:5px; align-items:center; }
+
+/* ── STICKY HEADER — FIGMA UPDATE ── */
+.site-header {
+  background: var(--white);
+  border-bottom: 1px solid var(--line);
+  flex-shrink: 0;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+.header-main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+}
+.site-logo {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* User Icon from Figma */
+.user-icon { 
+  width: 28px; height: 28px; 
+  border: 1.5px solid var(--ink); 
+  border-radius: 50%; 
+  display: flex; align-items: center; justify-content: center; 
+  font-size: 14px; 
+}
+
+/* Location Bar from Figma */
+.location-bar {
+  background: #F9F9F9;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+}
+.loc-info { font-size: 11px; line-height: 1.4; color: var(--ink); }
+.loc-info strong { font-weight: 700; display: inline-block;}
+.loc-info span { display: block; color: var(--gray-sub); font-weight: 400; }
+.btn-change { color: var(--blue); font-size: 12px; font-weight: 600; cursor: pointer; }
+
+/* Language pill */
+.lang-pill { display: flex; background: var(--bg); border: 1px solid var(--line-2); border-radius: 20px; padding: 2px; gap: 1px; }
+.lang-btn { padding: 3px 9px; font-size: 11px; font-weight: 500; border: none; background: none; color: var(--ink-3); cursor: pointer; border-radius: 14px; transition: all 0.15s; font-family: var(--font); }
+.lang-btn.on { background: var(--ink); color: #fff; font-weight: 600; }
+
+/* Stamp counter */
+.stamp-counter { display: flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 500; color: var(--ink-2); cursor: pointer; padding: 4px 0; }
+.stamp-counter .sc-num { font-size: 13px; font-weight: 700; color: var(--blue); }
+
+/* Anchor nav */
+.anchor-nav { display: flex; gap: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; border-top: 1px solid var(--line); background: var(--white); }
+.anchor-nav::-webkit-scrollbar { display: none; }
+.anav-link { flex-shrink: 0; padding: 9px 14px; font-size: 11px; font-weight: 500; color: var(--ink-3); border: none; background: none; cursor: pointer; border-bottom: 2px solid transparent; transition: all 0.15s; font-family: var(--font); white-space: nowrap; }
+.anav-link.active { color: var(--ink); border-bottom-color: var(--ink); }
+
+/* ── SCROLL BODY ── */
+.page { flex: 1; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; scroll-behavior: smooth; }
+.page::-webkit-scrollbar { display: none; }
+
+/* ── SECTION WRAPPER ── */
+.section { padding: 28px 20px; }
+.section + .section { border-top: 8px solid var(--bg); }
+.section-white { background: var(--white); }
+.section-bg { background: var(--bg); }
+
+.section-label { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-4); margin-bottom: 4px; }
+.section-title { font-size: 22px; font-weight: 700; letter-spacing: -0.6px; color: var(--ink); margin-bottom: 4px; }
+.section-sub { font-size: 12px; font-weight: 300; color: var(--ink-3); line-height: 1.6; margin-bottom: 20px; }
+
+/* ── HERO ── */
+.hero { background: var(--white); padding: 32px 20px 28px; }
+.hero-label { font-size: 10px; font-weight: 500; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink-4); margin-bottom: 14px; opacity: 0; animation: rise 0.5s 0.1s forwards; }
+.hero-h1 { font-size: 42px; font-weight: 700; line-height: 0.93; letter-spacing: -2px; color: var(--ink); margin-bottom: 14px; opacity: 0; animation: rise 0.5s 0.2s forwards; }
+.hero-h1 em { font-style: normal; color: var(--blue); }
+.hero-p { font-size: 13px; font-weight: 300; line-height: 1.65; color: var(--ink-3); margin-bottom: 22px; max-width: 300px; opacity: 0; animation: rise 0.5s 0.3s forwards; }
+.hero-cta { display: flex; gap: 8px; opacity: 0; animation: rise 0.5s 0.4s forwards; }
+@keyframes rise { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+.btn-ink { flex: 1; background: var(--ink); color: white; border: none; padding: 12px 0; font-family: var(--font); font-size: 13px; font-weight: 500; border-radius: var(--r); cursor: pointer; text-align: center; transition: opacity 0.15s; }
+.btn-ink:active { opacity: 0.8; }
+.btn-out { flex: 1; background: transparent; color: var(--ink); border: 1px solid var(--line-2); padding: 12px 0; font-family: var(--font); font-size: 13px; border-radius: var(--r); cursor: pointer; text-align: center; transition: border-color 0.15s; }
+
+/* ── PROMO STRIP ── */
+.promo-strip { padding: 14px 20px; display: flex; gap: 8px; overflow-x: auto; -webkit-overflow-scrolling: touch; background: var(--white); border-top: 1px solid var(--line); border-bottom: 8px solid var(--bg); }
+.promo-strip::-webkit-scrollbar { display: none; }
+.chip { flex-shrink: 0; display: flex; align-items: center; gap: 7px; background: var(--bg); border: 1px solid var(--line); border-radius: 20px; padding: 7px 13px; font-size: 11px; color: var(--ink-2); white-space: nowrap; cursor: default; }
+.chip-tag { font-size: 9px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 2px 7px; border-radius: 4px; background: var(--ink); color: white; }
+.chip-tag.r { background: var(--red); }
+.chip-tag.t { background: var(--teal); }
+
+
+/* ── PRODUCT LIST & SCANNER (FIGMA UPDATE) ── */
+/* AI Explore Banner */
+.scan-banner {
+  background: linear-gradient(135deg, #1A1C2E 0%, #303454 100%);
+  border-radius: var(--r-lg);
+  padding: 18px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: white;
+  position: relative;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+.scan-thumb { width: 60px; height: 60px; border-radius: 8px; background: #444 url('https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=100') center/cover; }
+.scan-text h4 { font-size: 15px; margin-bottom: 4px; display: flex; align-items: center; gap: 6px; }
+.scan-text p { font-size: 11px; opacity: 0.8; line-height: 1.4; font-weight: 300;}
+.scan-text p strong { font-weight: 600; font-size: 12px; }
+.scan-arrow { position: absolute; right: 20px; opacity: 0.6; font-size: 20px;}
+
+/* Category Filter Chips */
+.filters { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 20px; margin: 0 -20px; padding-left: 20px; scrollbar-width: none; }
+.filters::-webkit-scrollbar { display: none; }
+.filter-chip {
+  flex: 0 0 100px;
+  background: #F2F2F2;
+  border-radius: 12px;
+  padding: 12px;
+  text-align: center;
+  font-size: 11px;
+  color: var(--gray-sub);
+  cursor: pointer;
+}
+.filter-chip.active { background: #EEE; color: var(--ink); border: 1px solid #DDD; font-weight: 500;}
+.chip-img { height: 35px; margin-top: 8px; display: flex; align-items: center; justify-content: center; font-size: 24px; }
+
+/* Product Rows */
+.prod-list { margin-top: 5px; }
+.prod-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+  transition: opacity 0.12s;
+  position: relative;
+}
+.prod-row:first-child { padding-top: 0; }
+.prod-row:last-child { border-bottom: none; }
+.prod-row:active { opacity: 0.7; }
+
+.prod-thumb {
+  width: 65px; height: 65px;
+  background: #F2F2F2;
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px;
+  flex-shrink: 0;
+}
+.prod-row.done .prod-thumb::after {
+  content: '✓';
+  position: absolute; inset: 0;
+  background: var(--ink);
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; color: white; font-weight: 700;
+}
+
+.prod-info { flex: 1; min-width: 0; }
+.badge { font-size: 9px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; display: inline-block; padding: 2px 6px; border-radius: 4px;}
+.badge.new { color: var(--blue); background: var(--blue-bg); }
+.badge.down { color: #D97706; background: rgba(217, 119, 6, 0.1); }
+.prod-cat { font-size: 10px; color: var(--ink-4); text-transform: uppercase; margin-left: 6px; font-weight: 600; letter-spacing: 1px;}
+.prod-name { font-size: 15px; font-weight: 700; margin-bottom: 4px; color: var(--ink); }
+.prod-price { font-size: 13px; color: var(--ink-2); font-weight: 600;}
+.prod-price .was { text-decoration: line-through; margin-right: 5px; font-size: 11px; color: var(--ink-4); font-weight: 400;}
+.prod-price .now { font-weight: 700; color: var(--ink); }
+.prod-arrow { font-size: 18px; color: #CCC; flex-shrink: 0;}
+
+
+/* ── STAMP CARD & DEALS (Kept Original Styling) ── */
+.stamp-card { background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 20px; margin-bottom: 16px; }
+.sc-row1 { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; }
+.sc-left-title { font-size: 18px; font-weight: 700; letter-spacing: -0.4px; line-height: 1.1; }
+.sc-left-sub { font-size: 11px; font-weight: 300; color: var(--ink-3); margin-top: 4px; max-width: 200px; line-height: 1.5; }
+.sc-big { font-size: 48px; font-weight: 700; letter-spacing: -3px; line-height: 1; color: var(--ink); text-align: right; }
+.sc-big span { font-size: 14px; font-weight: 400; color: var(--ink-3); letter-spacing: 0; }
+.dots { display: grid; grid-template-columns: repeat(8,1fr); gap: 5px; margin-bottom: 12px; }
+.dot { aspect-ratio: 1; border-radius: 6px; border: 1px solid var(--line-2); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--ink-4); background: var(--bg); transition: all 0.3s; font-weight: 500; }
+.dot.on { background: var(--blue); border-color: var(--blue); color: white; font-size: 11px; font-weight: 700; animation: pop 0.32s; }
+@keyframes pop { from { transform:scale(0.4); opacity:0; } to { transform:scale(1); opacity:1; } }
+.prog-bar { height: 2px; background: var(--line); border-radius: 1px; margin-bottom: 18px; overflow: hidden; }
+.prog-fill { height: 100%; background: var(--blue); border-radius: 1px; width: 0; transition: width 0.5s ease; }
+.rewards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.rcard { background: var(--bg); border: 1px solid var(--line); border-radius: var(--r); padding: 12px; position: relative; transition: all 0.25s; }
+.rcard.on { background: var(--n1); border-color: var(--blue); }
+.rcard-at { font-size: 9px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-4); margin-bottom: 7px; }
+.rcard-at b { color: var(--blue); font-weight: 600; }
+.rcard-ico { font-size: 18px; margin-bottom: 5px; }
+.rcard-name { font-size: 11px; font-weight: 600; color: var(--ink); line-height: 1.3; }
+.rcard-val { font-size: 10px; color: var(--ink-3); margin-top: 2px; }
+.rcard-tag { position: absolute; top: -7px; right: 8px; background: var(--blue); color: white; font-size: 8px; font-weight: 700; letter-spacing: 0.8px; padding: 2px 8px; border-radius: 4px; text-transform: uppercase; }
+
+.deal-list { display: flex; flex-direction: column; gap: 10px; }
+.deal { background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 20px; position: relative; overflow: hidden; }
+.deal.dark { background: var(--ink); border-color: transparent; color: white;}
+.deal-type { display: flex; align-items: center; gap: 6px; font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-3); margin-bottom: 10px; }
+.deal-type .d { width:5px;height:5px;border-radius:50%;background:currentColor;flex-shrink:0; }
+.deal-type.lv { color: var(--red); }
+.deal-type.dk { color: rgba(255,255,255,0.4); }
+.deal-type.tl { color: var(--teal); }
+.deal-type.bl { color: var(--blue); }
+.deal-name { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; line-height: 1.1; margin-bottom: 8px; color: var(--ink); }
+.deal.dark .deal-name { color: white; }
+.deal-desc { font-size: 12px; font-weight: 300; line-height: 1.6; color: var(--ink-3); margin-bottom: 12px; }
+.deal.dark .deal-desc { color: rgba(255,255,255,0.5); }
+.deal-val { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; color: var(--blue); }
+.deal-val.coral { color: var(--coral); }
+.deal-val.teal  { color: var(--teal);  }
+.deal-val.white { color: white;         }
+.deal-save { font-size: 11px; color: var(--ink-3); margin-top: 3px; }
+.deal.dark .deal-save { color: rgba(255,255,255,0.3); }
+.cd-row { display:flex; gap:6px; margin-top:10px; }
+.cd-cell { background: rgba(0,0,0,0.06); border-radius:6px; padding:5px 9px; text-align:center; min-width:40px; }
+.deal.dark .cd-cell { background: rgba(255,255,255,0.08); }
+.cd-v { font-size:15px; font-weight:700; display:block; letter-spacing:-0.5px; }
+.cd-l { font-size:7px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; opacity:0.45; }
+.stamp-btn { display: inline-flex; align-items: center; gap: 6px; background: var(--blue-bg); border: 1px solid var(--blue-bd); border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 500; color: var(--blue); margin-top: 10px; }
+
+.page-footer { padding: 24px 20px; border-top: 1px solid var(--line); background: var(--white); text-align: center; }
+.footer-note { font-size: 10px; color: var(--ink-4); line-height: 1.6; font-weight: 300; }
+
+/* ── DETAIL SCREENS, WIDGETS, MODALS (Included to keep functionality intact) ── */
+.vdemo-wrap { padding: 0 20px 24px; }
+.vdemo-features { display: flex; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 2px; margin-bottom: 16px; }
+.vdemo-features::-webkit-scrollbar { display: none; }
+.vfeat-chip { flex-shrink: 0; padding: 7px 14px; font-size: 11px; font-weight: 500; font-family: var(--font); border-radius: 20px; border: 1px solid var(--line-2); background: var(--white); color: var(--ink-3); cursor: pointer; transition: all 0.15s; white-space: nowrap; }
+.vfeat-chip.on { background: var(--ink); border-color: var(--ink); color: white; font-weight: 600; }
+.vplayer-card { background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; }
+.vplayer-header { padding: 16px 18px 12px; border-bottom: 1px solid var(--line); }
+.vplayer-cat { font-size: 9px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-4); margin-bottom: 4px; }
+.vplayer-name { font-size: 17px; font-weight: 700; letter-spacing: -0.4px; color: var(--ink); line-height: 1.2; }
+.vplayer-tagline { font-size: 12px; font-weight: 300; color: var(--ink-3); margin-top: 4px; line-height: 1.5; }
+.vplayer-viewport { position: relative; background: #111; aspect-ratio: 16/9; overflow: hidden; }
+.vplayer-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; background: linear-gradient(135deg, #141414, #1e1e1e); }
+.vph-label { font-size: 10px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,0.2); }
+.vplayer-mode-label { position: absolute; top: 12px; left: 12px; font-size: 10px; font-weight: 600; letter-spacing: 0.8px; padding: 4px 10px; border-radius: 4px; pointer-events: none; transition: all 0.3s; }
+.vplayer-mode-label.with-buds { background: var(--ink); color: white; }
+.vplayer-mode-label.without-buds { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.6); backdrop-filter: blur(4px); }
+.vplayer-play-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 52px; height: 52px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: transform 0.15s, opacity 0.15s; box-shadow: 0 4px 16px rgba(0,0,0,0.35); border: none; }
+.vplayer-play-btn:active { transform: translate(-50%,-50%) scale(0.92); }
+.vplayer-play-btn svg { color: var(--ink); margin-left: 3px; }
+.vplayer-play-btn.playing { opacity: 0; pointer-events: none; }
+.vplayer-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.3s; }
+.vplayer-video.loaded { opacity: 1; }
+.vplayer-toggle { display: flex; border-top: 1px solid var(--line); }
+.vtoggle-btn { flex: 1; padding: 13px 12px; display: flex; flex-direction: column; align-items: center; gap: 3px; cursor: pointer; border: none; background: var(--white); transition: background 0.15s; font-family: var(--font); }
+.vtoggle-btn:first-child { border-right: 1px solid var(--line); }
+.vtoggle-btn:active { background: var(--bg); }
+.vtoggle-btn.active { background: var(--ink); }
+.vtoggle-label { font-size: 11px; font-weight: 600; color: var(--ink-3); transition: color 0.15s; }
+.vtoggle-sublabel { font-size: 9px; font-weight: 400; color: var(--ink-4); transition: color 0.15s; }
+.vtoggle-btn.active .vtoggle-label { color: white; }
+.vtoggle-btn.active .vtoggle-sublabel { color: rgba(255,255,255,0.5); }
+.vplayer-insight { padding: 14px 18px; border-top: 1px solid var(--line); font-size: 12px; font-weight: 300; color: var(--ink-3); line-height: 1.65; background: var(--bg); transition: all 0.3s; }
+.vplayer-insight strong { color: var(--ink); font-weight: 500; }
+.vwave { display: flex; align-items: center; gap: 3px; height: 60px; }
+.vwave-bar { width: 3px; border-radius: 2px; background: white; opacity: var(--op, 0.4); animation: vwaveAnim var(--dur, 0.7s) ease-in-out infinite alternate; animation-delay: var(--delay, 0s); }
+@keyframes vwaveAnim { from { height: var(--min, 4px); } to { height: var(--max, 32px); } }
+
+/* Journey */
+.journey-bar { display: flex; align-items: center; padding: 14px 20px 12px; gap: 0; background: var(--white); border-bottom: 1px solid var(--line); flex-shrink: 0; }
+.jstep { display: flex; flex-direction: column; align-items: center; gap: 5px; flex: 1; position: relative; }
+.jstep:not(:last-child)::after { content: ''; position: absolute; top: 11px; left: 50%; width: 100%; height: 1.5px; background: var(--line-2); z-index: 0; transition: background 0.3s; }
+.jstep.done:not(:last-child)::after { background: var(--ink); }
+.jstep-circle { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--line-2); background: var(--white); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: var(--ink-4); position: relative; z-index: 1; transition: all 0.25s; flex-shrink: 0; }
+.jstep.active .jstep-circle { border-color: var(--ink); background: var(--ink); color: white; }
+.jstep.done .jstep-circle { border-color: var(--ink); background: var(--ink); color: white; font-size: 10px; }
+.jstep-label { font-size: 8px; font-weight: 500; color: var(--ink-4); text-align: center; max-width: 58px; }
+.jstep.active .jstep-label { color: var(--ink); font-weight: 600; }
+.stage-panel { display: none; }
+.stage-panel.on { display: block; }
+.feat-progress { margin: 12px 20px 0; padding: 0 0 4px; }
+.fp-bar-wrap { height: 2px; background: var(--line); border-radius: 2px; overflow: hidden; margin-bottom: 8px; }
+.fp-bar { height: 100%; background: var(--ink); border-radius: 2px; width: 0%; transition: width 0.5s ease; }
+.fp-hint { font-size: 11px; color: var(--ink-3); font-weight: 300; text-align: center; }
+@keyframes btnPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(28,28,28,0); } 50% { box-shadow: 0 0 0 5px rgba(28,28,28,0.1); } }
+.btn-pulse { animation: btnPulse 1.8s ease-in-out infinite; }
+
+.confirm-card { margin: 20px 20px 0; background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; }
+.confirm-top { padding: 20px 20px 16px; text-align: center; }
+.confirm-icon { font-size: 36px; margin-bottom: 12px; }
+.confirm-h { font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--ink); }
+.confirm-sub { font-size: 12px; font-weight: 300; color: var(--ink-3); line-height: 1.65; }
+.confirm-features { padding: 0 20px 16px; display: flex; flex-direction: column; gap: 6px; }
+.cf-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; background: var(--bg); border-radius: var(--r); font-size: 12px; font-weight: 500; color: var(--ink-2); }
+.cf-check { width: 18px; height: 18px; background: var(--ink); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; color: white; font-weight: 700; flex-shrink: 0; }
+.confirm-cta { padding: 0 20px 20px; }
+.confirm-cta .btn-ink { width: 100%; padding: 13px 0; border-radius: var(--r); }
+
+.deals-stage { padding: 16px 20px 0; }
+.ds-intro { font-size: 12px; font-weight: 300; color: var(--ink-3); line-height: 1.65; margin-bottom: 16px; }
+.deal-row { display: flex; align-items: flex-start; gap: 12px; padding: 14px; background: var(--white); border: 1px solid var(--line); border-radius: var(--r); margin-bottom: 8px; cursor: pointer; transition: all 0.15s; }
+.deal-row.viewed { border-color: var(--ink); }
+.dr-icon { width: 36px; height: 36px; flex-shrink: 0; background: var(--bg); border-radius: 8px; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: 16px; }
+.dr-body { flex: 1; }
+.dr-name { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+.dr-desc { font-size: 11px; font-weight: 300; color: var(--ink-3); line-height: 1.4; }
+.dr-check { width: 20px; height: 20px; flex-shrink: 0; border-radius: 50%; border: 1.5px solid var(--line-2); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: transparent; transition: all 0.2s; margin-top: 2px; }
+.deal-row.viewed .dr-check { background: var(--ink); border-color: var(--ink); color: white; }
+.ds-cta { margin-top: 16px; }
+.ds-cta .btn-ink { width: 100%; padding: 13px 0; border-radius: var(--r); opacity: 0.35; pointer-events: none; }
+.ds-cta .btn-ink.ready { opacity: 1; pointer-events: all; }
+
+.code-stage { padding: 20px 20px 0; text-align: center; }
+.code-icon { font-size: 40px; margin-bottom: 14px; }
+.code-h { font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--ink); }
+.code-sub { font-size: 12px; font-weight: 300; color: var(--ink-3); margin-bottom: 20px; }
+.code-input-wrap { display: flex; gap: 8px; margin-bottom: 10px; }
+.code-input { flex: 1; height: 48px; background: var(--bg); border: 1.5px solid var(--line-2); border-radius: var(--r); text-align: center; font-family: var(--font); font-size: 20px; font-weight: 700; letter-spacing: 6px; color: var(--ink); outline: none; transition: border-color 0.15s; text-transform: uppercase; }
+.code-input:focus { border-color: var(--ink); }
+.code-input.error { border-color: var(--red); animation: shake 0.3s; }
+.code-input.success { border-color: var(--teal); background: rgba(0,131,143,0.05); }
+@keyframes shake { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-6px)} 75%{transform:translateX(6px)} }
+.code-submit { width: 48px; height: 48px; background: var(--ink); border: none; border-radius: var(--r); cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.code-submit svg { color: white; }
+.code-error { font-size: 11px; color: var(--red); font-weight: 500; min-height: 16px; margin-bottom: 4px; }
+.code-hint { font-size: 10px; color: var(--ink-4); font-weight: 300; margin-top: 8px; }
+
+.stamp-earned-state { padding: 20px 20px 0; text-align: center; }
+.se-icon { font-size: 48px; margin-bottom: 12px; }
+.se-h { font-size: 20px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+.se-sub { font-size: 12px; font-weight: 300; color: var(--ink-3); margin-bottom: 20px; }
+.se-stamp-row { display: flex; align-items: center; gap: 10px; justify-content: center; margin-bottom: 20px; }
+.se-dot { width: 32px; height: 32px; border-radius: 8px; background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 14px; color: white; font-weight: 700; }
+.se-stamp-label { font-size: 15px; font-weight: 600; color: var(--ink); }
+.se-actions { display: flex; gap: 8px; }
+
+.detail-screen { position: absolute; inset: 0; background: var(--white); z-index: 100; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.32,0.72,0,1); display: flex; flex-direction: column; overflow: hidden; }
+.detail-screen.open { transform: translateX(0); }
+.detail-topbar { display: flex; align-items: center; justify-content: space-between; padding: 54px 20px 12px; border-bottom: 1px solid var(--line); flex-shrink: 0; background: var(--white); }
+.detail-back { display: flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 500; color: var(--blue); border: none; background: none; cursor: pointer; font-family: var(--font); padding: 0; }
+.detail-title { font-size: 13px; font-weight: 600; color: var(--ink-2); }
+.detail-body { flex: 1; overflow-y: auto; padding: 0 0 24px; -webkit-overflow-scrolling: touch; }
+.detail-body::-webkit-scrollbar { display: none; }
+.detail-hero { padding: 28px 20px 20px; text-align: center; border-bottom: 1px solid var(--line); }
+.detail-icon { font-size: 72px; margin-bottom: 10px; }
+.detail-cat { font-size: 9px; font-weight: 600; letter-spacing: 2.5px; text-transform: uppercase; color: var(--ink-4); margin-bottom: 6px; }
+.detail-name { font-size: 26px; font-weight: 700; letter-spacing: -0.8px; margin-bottom: 10px; }
+.detail-desc { font-size: 13px; font-weight: 300; line-height: 1.7; color: var(--ink-3); max-width: 300px; margin: 0 auto; }
+.detail-specs { padding: 20px 20px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+.spec-cell { background: var(--bg); border: 1px solid var(--line); border-radius: var(--r); padding: 10px 12px; }
+.spec-k { font-size: 9px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: var(--ink-4); margin-bottom: 3px; }
+.spec-v { font-size: 13px; font-weight: 500; color: var(--ink); }
+
+.scanner-screen { position: absolute; inset: 0; background: #111; z-index: 200; display: flex; flex-direction: column; transform: translateY(100%); transition: transform 0.38s cubic-bezier(0.32,0.72,0,1); }
+.scanner-screen.open { transform: translateY(0); }
+.scan-topbar { display: flex; align-items: center; justify-content: space-between; padding: 54px 20px 14px; background: #111; }
+.scan-back-btn { font-size: 13px; font-weight: 400; color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.08); border: none; border-radius: 20px; padding: 7px 14px; cursor: pointer; }
+.scan-h { font-size: 14px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; color: white; }
+.scan-mode { display: flex; background: rgba(255,255,255,0.1); border-radius: 20px; padding: 2px; gap: 1px; }
+.sm-btn { padding: 5px 13px; font-size: 10px; font-weight: 500; text-transform: uppercase; color: rgba(255,255,255,0.4); border: none; background: none; cursor: pointer; transition: all 0.15s; }
+.sm-btn.on { background: white; color: var(--ink); font-weight: 600; border-radius: 16px; }
+.cam-view { flex: 1; position: relative; display: flex; align-items: center; justify-content: center; background: #0d0d0d; overflow: hidden; }
+.cam-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.012) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.012) 1px, transparent 1px); background-size: 28px 28px; }
+.cam-vig { position: absolute; inset: 0; background: radial-gradient(ellipse 56% 60% at 50% 44%, transparent, rgba(0,0,0,0.6) 100%); pointer-events: none; }
+.scan-box { position: relative; z-index: 2; width: 210px; height: 210px; }
+.sc { position: absolute; width: 22px; height: 22px; }
+.sc.tl { top:0;left:0; border-top:2px solid #fff; border-left:2px solid #fff; border-radius:3px 0 0 0; }
+.sc.tr { top:0;right:0; border-top:2px solid #fff; border-right:2px solid #fff; border-radius:0 3px 0 0; }
+.sc.bl { bottom:0;left:0; border-bottom:2px solid #fff; border-left:2px solid #fff; border-radius:0 0 0 3px; }
+.sc.br { bottom:0;right:0; border-bottom:2px solid #fff; border-right:2px solid #fff; border-radius:0 0 3px 0; }
+.scan-laser { position: absolute; left:10px; right:10px; height:1.5px; background: linear-gradient(90deg, transparent, var(--blue), transparent); box-shadow: 0 0 6px rgba(33,137,255,0.7); animation: laser 2s ease-in-out infinite; top: 10px; }
+@keyframes laser { 0%,100%{top:10px} 50%{top:calc(100% - 12px)} }
+.mock-qr { position:absolute; inset:26px; display:flex; align-items:center; justify-content:center; opacity:0; transition:opacity 0.3s; }
+.mock-qr.vis { opacity:1; }
+.qr-svg { width:64px; height:64px; opacity:0.2; }
+.scan-status-txt { position: absolute; bottom: 22px; left:0; right:0; text-align: center; font-size: 10px; font-weight: 500; letter-spacing: 1.5px; text-transform: uppercase; color: rgba(255,255,255,0.35); }
+.scan-result { position: absolute; bottom:0; left:0; right:0; background: var(--white); border-radius: 20px 20px 0 0; padding: 14px 20px 90px; transform: translateY(100%); transition: transform 0.35s; z-index: 10; }
+.scan-result.open { transform: translateY(0); }
+.sr-knob { width:30px;height:3px;background:var(--line-2);border-radius:2px;margin:0 auto 14px; }
+.sr-prod { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+.sr-ico { font-size:36px; }
+.sr-prod-cat { font-size:9px; font-weight:600; letter-spacing:2px; text-transform:uppercase; color:var(--ink-4); margin-bottom:3px; }
+.sr-prod-name { font-size:18px; font-weight:700; }
+.sr-prod-price { font-size:12px; color:var(--ink-3); margin-top:2px; }
+.sr-stamp-note { display:flex; align-items:flex-start; gap:8px; background:var(--n1); border:1px solid var(--blue-bd); border-radius:var(--r); padding:10px 12px; margin-bottom:12px; font-size:12px; color:var(--ink-2); }
+.sr-stamp-note.done { background:var(--bg); border-color:var(--line); color:var(--ink-3); }
+.sr-stamp-note strong { color:var(--blue); }
+.sr-row { display:flex; gap:8px; }
+.sr-row .btn-ink { flex:1; padding:11px 0; border-radius:var(--r); font-size:13px; }
+.sr-row .btn-out { flex:1; padding:11px 0; border-radius:var(--r); font-size:13px; }
+
+.search-panel { position:absolute; inset:0; background:var(--bg); z-index:5; padding:16px 20px; display:none; flex-direction:column; }
+.search-panel.open { display:flex; }
+.search-inp-wrap { display:flex; align-items:center; gap:9px; background:var(--white); border:1px solid var(--line-2); border-radius:var(--r); padding:10px 14px; margin-bottom:16px; }
+.search-inp-wrap .s-ico { font-size:15px; color:var(--ink-3); }
+.search-inp { flex:1; border:none; background:none; outline:none; font-family:var(--font); font-size:14px; color:var(--ink); }
+.search-section-lbl { font-size:9px; font-weight:600; letter-spacing:2.5px; text-transform:uppercase; color:var(--ink-4); margin-bottom:10px; }
+.s-list { display:flex; flex-direction:column; gap:6px; overflow-y:auto; }
+.s-list::-webkit-scrollbar { display:none; }
+.s-item { display:flex; align-items:center; gap:12px; background:var(--white); border:1px solid var(--line); border-radius:var(--r); padding:11px 13px; cursor:pointer; }
+.s-item-ico { font-size:22px; }
+.s-item-info { flex:1; }
+.s-item-name { font-size:13px; font-weight:500; color:var(--ink); }
+.s-item-cat { font-size:9px; letter-spacing:1.5px; text-transform:uppercase; color:var(--ink-4); margin-top:1px; }
+.s-item-right { font-size:11px; color:var(--ink-3); }
+.s-item.done .s-item-right { color:var(--blue); font-weight:600; font-size:10px; }
+
+.toast { position:absolute; top:58px; left:16px; right:16px; background:var(--ink); color:white; border-radius:12px; padding:11px 15px; display:flex; align-items:center; gap:10px; z-index:500; opacity:0; transform:translateY(-6px); transition:all 0.28s; box-shadow:0 8px 20px rgba(0,0,0,0.18); }
+.toast.show { opacity:1; transform:translateY(0); }
+.t-ico { font-size:18px; }
+.t-title { font-size:13px; font-weight:500; }
+.t-sub { font-size:11px; opacity:0.5; }
+
+.unlock-modal { position:absolute; inset:0; background:rgba(28,28,28,0.45); backdrop-filter:blur(6px); z-index:600; display:flex; align-items:center; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.25s; }
+.unlock-modal.show { opacity:1; pointer-events:all; }
+.unlock-card { background:var(--white); border-radius:20px; padding:28px 22px; width:88%; text-align:center; transform:scale(0.9); transition:transform 0.3s; }
+.unlock-modal.show .unlock-card { transform:scale(1); }
+.uc-pill { display:inline-block; background:var(--blue-bg); color:var(--blue); font-size:9px; font-weight:700; letter-spacing:2px; text-transform:uppercase; padding:4px 12px; border-radius:20px; margin-bottom:12px; }
+.uc-ico { font-size:40px; margin-bottom:8px; }
+.uc-h { font-size:20px; font-weight:700; margin-bottom:6px; }
+.uc-p { font-size:12px; font-weight:300; color:var(--ink-3); margin-bottom:20px; }
+.uc-btn { width:100%; padding:12px 0; background:var(--blue); color:white; border:none; border-radius:var(--r); font-family:var(--font); font-size:13px; font-weight:500; cursor:pointer; }
+</style>
+</head>
+<body>
+<div class="phone">
+
+  <div class="status">
+    <span class="s-time" id="sTime">9:41</span>
+    <div class="s-icons"><span>▲▲▲</span><span>WiFi</span><span>▐█</span></div>
+  </div>
+
+  <div class="site-header">
+    <div class="header-main">
+      <div class="site-logo">🏪 Retail Curator</div>
+      <div class="header-actions">
+        <div class="lang-pill">
+          <button class="lang-btn on" id="lEN" onclick="setLang('en')">EN</button>
+          <button class="lang-btn" id="lTH" onclick="setLang('th')">TH</button>
+        </div>
+        <div class="stamp-counter" onclick="scrollTo('stampSec')">
+          ◈ <span class="sc-num" id="hStamp">0</span>
+        </div>
+        <div class="user-icon">👤</div>
+      </div>
+    </div>
+    <div class="location-bar">
+      <div class="loc-info">
+        Samsung Experience Store <strong>Central World 3F</strong>
+        <span>📍 4th Floor, Zone C · Ratchaprasong</span>
+      </div>
+      <div class="btn-change">Change</div>
+    </div>
+    <div class="anchor-nav" id="anchorNav">
+      <button class="anav-link active" data-i18n="nav1" onclick="scrollTo('heroSec')">Experience</button>
+      <button class="anav-link" data-i18n="nav2" onclick="scrollTo('prodSec')">Products</button>
+      <button class="anav-link" data-i18n="nav3" onclick="scrollTo('stampSec')">Stamps</button>
+      <button class="anav-link" data-i18n="nav4" onclick="scrollTo('dealsSec')">Deals</button>
+    </div>
+  </div>
+
+  <div class="page" id="page">
+
+    <div class="hero" id="heroSec">
+      <h1 class="hero-h1" data-i18n="heroH1">Welcome to our store.</h1>
+      <p class="hero-p" data-i18n="heroP">Explore today's lineup, scan products, and earn stamps that unlock exclusive in-store rewards on top of existing deals.</p>
+      <div class="hero-cta">
+        <button class="btn-ink" data-i18n="heroCta1" onclick="scrollTo('prodSec')">Explore Products</button>
+        <button class="btn-out" data-i18n="heroCta2" onclick="scrollTo('stampSec')">My Stamps</button>
+      </div>
+    </div>
+
+    <div class="promo-strip">
+      <div class="chip"><span class="chip-tag" data-i18n="c1t">Today</span><span data-i18n="c1">Trade-in S25 → ฿4,000 off</span></div>
+      <div class="chip"><span class="chip-tag r" data-i18n="c2t">Flash</span><span data-i18n="c2">Free Buds 4 Pro w/ S26 Ultra</span></div>
+      <div class="chip"><span class="chip-tag t" data-i18n="c3t">New</span><span data-i18n="c3">Galaxy Ring now in-store</span></div>
+      <div class="chip"><span class="chip-tag" data-i18n="c4t">Staff</span><span data-i18n="c4">Ask for AI demo → +1 Stamp</span></div>
+    </div>
+
+    <div class="section section-white" id="prodSec">
+      <div class="section-label" data-i18n="prodLabel">Today's Floor</div>
+      <div class="section-title">Galaxy Product Demo Lineup</div>
+      <div class="section-sub" data-i18n="prodSub">Tap any product to explore it and earn a stamp.</div>
+
+      <div class="scan-banner" onclick="openScanner()">
+        <div class="scan-thumb"></div>
+        <div class="scan-text">
+          <h4>✨ Galaxy AI Explore</h4>
+          <p><strong data-i18n="scanCtaTitle">Scan a Product or QR Code</strong><br><span data-i18n="scanCtaSub">Point your camera at any product or QR Tag to earn a stamp</span></p>
+        </div>
+        <div class="scan-arrow">›</div>
+      </div>
+
+      <div class="filters">
+        <div class="filter-chip active">All</div>
+        <div class="filter-chip">Smartphone<div class="chip-img">📱</div></div>
+        <div class="filter-chip">Galaxy Tab<div class="chip-img">🖥️</div></div>
+        <div class="filter-chip">Wearables<div class="chip-img">🎧</div></div>
+      </div>
+
+      <div class="prod-list" id="prodList">
+        <div class="prod-row" id="pr-0" onclick="openDetail(0)">
+          <div class="prod-thumb" style="background:#222;">📱</div>
+          <div class="prod-info">
+            <div style="margin-bottom:4px;"><span class="badge new" data-i18n="bNew">NEW</span><span class="prod-cat" data-pid-cat="0"></span></div>
+            <div class="prod-name" data-pid-name="0"></div>
+            <div class="prod-price"><span class="was">฿49,900</span><span class="now">฿45,900</span></div>
+          </div>
+          <div class="prod-arrow">›</div>
+        </div>
+
+        <div class="prod-row" id="pr-1" onclick="openDetail(1)">
+          <div class="prod-thumb" style="background:#eee;">🎧</div>
+          <div class="prod-info">
+            <div style="margin-bottom:4px;"><span class="badge new" data-i18n="bNew">NEW</span><span class="prod-cat" data-pid-cat="1"></span></div>
+            <div class="prod-name" data-pid-name="1"></div>
+            <div class="prod-price"><span class="was">฿9,900</span><span class="now">฿7,490</span></div>
+          </div>
+          <div class="prod-arrow">›</div>
+        </div>
+
+        <div class="prod-row" id="pr-2" onclick="openDetail(2)">
+          <div class="prod-thumb" style="background:#f9f9f9;">⌚</div>
+          <div class="prod-info">
+            <div style="margin-bottom:4px;"><span class="badge new" data-i18n="bNew">NEW</span><span class="prod-cat" data-pid-cat="2"></span></div>
+            <div class="prod-name" data-pid-name="2"></div>
+            <div class="prod-price"><span class="now">฿12,900</span></div>
+          </div>
+          <div class="prod-arrow">›</div>
+        </div>
+
+        <div class="prod-row" id="pr-4" onclick="openDetail(4)">
+          <div class="prod-thumb" style="background:#333;">🖥️</div>
+          <div class="prod-info">
+            <div style="margin-bottom:4px;"><span class="badge down">PRICE DOWN</span><span class="prod-cat" data-pid-cat="4"></span></div>
+            <div class="prod-name" data-pid-name="4"></div>
+            <div class="prod-price"><span class="was">฿35,900</span><span class="now">฿31,900</span></div>
+          </div>
+          <div class="prod-arrow">›</div>
+        </div>
+        
+        <div class="prod-row" id="pr-3" onclick="openDetail(3)">
+          <div class="prod-thumb" style="background:#e9e9e9;">💍</div>
+          <div class="prod-info">
+            <div style="margin-bottom:4px;"><span class="badge new" data-i18n="bNew">NEW</span><span class="prod-cat" data-pid-cat="3"></span></div>
+            <div class="prod-name" data-pid-name="3"></div>
+            <div class="prod-price"><span class="now">฿14,900</span></div>
+          </div>
+          <div class="prod-arrow">›</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section section-bg" id="stampSec">
+      <div class="section-label" data-i18n="stampLabel">Stamp Card</div>
+      <div class="stamp-card">
+        <div class="sc-row1">
+          <div>
+            <div class="sc-left-title" data-i18n="stampTitle">Demo Stamps</div>
+            <div class="sc-left-sub" data-i18n="stampSub">Explore products to earn stamps and unlock in-store rewards.</div>
+          </div>
+          <div class="sc-big"><span id="bigStamp">0</span><span data-i18n="stampOf"> / 8</span></div>
+        </div>
+        <div class="dots" id="dots"></div>
+        <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+        <div class="rewards">
+          <div class="rcard" id="rc-2">
+            <div class="rcard-at" data-i18n="rc2at">At <b>2</b> stamps</div>
+            <div class="rcard-ico">🎁</div>
+            <div class="rcard-name" data-i18n="rc2n">Free Samsung Case</div>
+            <div class="rcard-val" data-i18n="rc2v">Worth ฿890</div>
+          </div>
+          <div class="rcard" id="rc-4">
+            <div class="rcard-at" data-i18n="rc4at">At <b>4</b> stamps</div>
+            <div class="rcard-ico">🛡️</div>
+            <div class="rcard-name" data-i18n="rc4n">1-Year Care+ Free</div>
+            <div class="rcard-val" data-i18n="rc4v">Worth ฿2,490</div>
+          </div>
+          <div class="rcard" id="rc-6">
+            <div class="rcard-at" data-i18n="rc6at">At <b>6</b> stamps</div>
+            <div class="rcard-ico">💳</div>
+            <div class="rcard-name" data-i18n="rc6n">฿1,500 Store Credit</div>
+            <div class="rcard-val" data-i18n="rc6v">Stackable with promos</div>
+          </div>
+          <div class="rcard" id="rc-8">
+            <div class="rcard-at" data-i18n="rc8at">At <b>8</b> stamps</div>
+            <div class="rcard-ico">◈</div>
+            <div class="rcard-name" data-i18n="rc8n">Galaxy VIP Bundle</div>
+            <div class="rcard-val" data-i18n="rc8v">฿5,000+ in extras</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section section-white" id="dealsSec">
+      <div class="section-label" data-i18n="dealsLabel">Promotions</div>
+      <div class="section-title" data-i18n="dealsTitle">Floor Deals</div>
+      <div class="section-sub" data-i18n="dealsSub">Exclusive in-store offers — not available online.</div>
+      <div class="deal-list">
+
+        <div class="deal dark">
+          <div class="deal-type dk"><span class="d"></span><span data-i18n="d1type">Featured This Week</span></div>
+          <div class="deal-name" data-i18n="d1name">Galaxy Ecosystem Bundle</div>
+          <div class="deal-desc" data-i18n="d1desc">S26 Ultra + Buds 4 Pro + Watch 7. Exclusive in-store price.</div>
+          <div class="deal-val white">฿59,900</div>
+          <div class="deal-save" data-i18n="d1save">Save ฿12,800 vs. buying separately</div>
+        </div>
+
+        <div class="deal">
+          <div class="deal-type lv"><span class="d"></span><span data-i18n="d2type">Live Now</span></div>
+          <div class="deal-name" data-i18n="d2name">Free Buds 4 Pro with S26</div>
+          <div class="deal-desc" data-i18n="d2desc">Buy any S26 series today. First 20 customers only.</div>
+          <div class="deal-val coral" data-i18n="d2val">฿9,900 Free</div>
+          <div class="cd-row">
+            <div class="cd-cell"><span class="cd-v" id="ch">03</span><span class="cd-l" data-i18n="hrs">Hrs</span></div>
+            <div class="cd-cell"><span class="cd-v" id="cm">00</span><span class="cd-l" data-i18n="min">Min</span></div>
+            <div class="cd-cell"><span class="cd-v" id="cs">00</span><span class="cd-l" data-i18n="sec">Sec</span></div>
+          </div>
+        </div>
+
+        <div class="deal">
+          <div class="deal-type tl"><span class="d"></span><span data-i18n="d3type">Trade-In</span></div>
+          <div class="deal-name" data-i18n="d3name">S25 Upgrade Offer</div>
+          <div class="deal-desc" data-i18n="d3desc">Bring your S25 in any condition for instant valuation at the counter.</div>
+          <div class="deal-val teal" data-i18n="d3val">Up to ฿4,000</div>
+        </div>
+
+        <div class="deal">
+          <div class="deal-type bl"><span class="d"></span><span data-i18n="d4type">Stamp Bonus</span></div>
+          <div class="deal-name" data-i18n="d4name">Staff Demo Stamp</div>
+          <div class="deal-desc" data-i18n="d4desc">Ask any floor staff for a live Galaxy AI demo to earn a bonus stamp.</div>
+          <div class="stamp-btn" data-i18n="d4stamp">◈ +1 Stamp</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <div class="footer-note" data-i18n="footerNote">Promotions valid in-store only · Bangkok Flagship · March 2026<br>Terms and conditions apply.</div>
+    </div>
+
+  </div><div class="detail-screen" id="detailScreen">
+    <div class="detail-topbar">
+      <button class="detail-back" onclick="closeDetail()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+        <span data-i18n="back">Back</span>
+      </button>
+      <div class="detail-title" id="detailTitle"></div>
+      <div style="width:56px"></div>
+    </div>
+
+    <div class="journey-bar" id="journeyBar">
+      <div class="jstep active" id="js0">
+        <div class="jstep-circle">1</div>
+        <div class="jstep-label">Explore</div>
+      </div>
+      <div class="jstep" id="js1">
+        <div class="jstep-circle">2</div>
+        <div class="jstep-label">Confirm</div>
+      </div>
+      <div class="jstep" id="js2">
+        <div class="jstep-circle">3</div>
+        <div class="jstep-label">Deals</div>
+      </div>
+      <div class="jstep" id="js3">
+        <div class="jstep-circle">4</div>
+        <div class="jstep-label">Get Stamp</div>
+      </div>
+    </div>
+
+    <div class="detail-body" id="detailBody">
+
+      <div class="stage-panel on" id="stage1">
+        <div class="detail-hero">
+          <div class="detail-icon" id="dIcon"></div>
+          <div class="detail-cat" id="dCat"></div>
+          <div class="detail-name" id="dName"></div>
+          <div class="detail-desc" id="dDesc"></div>
+        </div>
+        <div class="detail-specs" id="dSpecs"></div>
+        <div id="dExp" style="display:none;padding:0 0 4px;"></div>
+        <div class="feat-progress" id="featProgress">
+          <div class="fp-bar-wrap"><div class="fp-bar" id="fpBar"></div></div>
+          <div class="fp-hint" id="fpHint">Tap a feature above to start exploring.</div>
+        </div>
+        <div style="padding:12px 20px 24px;">
+          <button class="btn-ink" id="toStage2Btn" onclick="goToStage(2)"
+            style="width:100%;padding:13px 0;border-radius:var(--r);opacity:0.3;cursor:not-allowed;transition:opacity 0.3s,cursor 0.3s;">
+            Continue
+          </button>
+        </div>
+      </div>
+
+      <div class="stage-panel" id="stage2">
+        <div class="confirm-card">
+          <div class="confirm-top">
+            <div class="confirm-icon" id="confirmIcon">🎧</div>
+            <div class="confirm-h" id="confirmH">You've explored Galaxy Buds4 Pro</div>
+            <div class="confirm-sub">Here's what you just saw. Tap confirm to move on to the deals.</div>
+          </div>
+          <div class="confirm-features" id="confirmFeatures"></div>
+          <div class="confirm-cta">
+            <button class="btn-ink" onclick="goToStage(3)">Confirmed — Show me the deals</button>
+          </div>
+        </div>
+        <div style="height:24px;"></div>
+      </div>
+
+      <div class="stage-panel" id="stage3">
+        <div class="deals-stage">
+          <p class="ds-intro" id="dsIntro">These are the active deals on this product. Tap each one to read it — then you're ready to get your stamp.</p>
+          <div id="dealsStageList"></div>
+          <div class="ds-cta">
+            <button class="btn-ink" id="toStage4Btn" onclick="goToStage(4)">I've checked the deals</button>
+          </div>
+        </div>
+        <div style="height:24px;"></div>
+      </div>
+
+      <div class="stage-panel" id="stage4">
+        <div class="code-stage">
+          <div class="code-icon">🔑</div>
+          <div class="code-h">One last step</div>
+          <div class="code-sub">Ask a floor staff member for today's code — or have them scan the QR on your screen to complete your stamp.</div>
+          <div class="code-input-wrap">
+            <input class="code-input" id="codeInput" maxlength="4" placeholder="----"
+              oninput="onCodeInput(this)" autocomplete="off" autocorrect="off" spellcheck="false"/>
+            <button class="code-submit" onclick="submitCode()">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </button>
+          </div>
+          <div class="code-error" id="codeError"></div>
+          <div class="code-hint">Today's code changes daily. Any staff member can give it to you.</div>
+        </div>
+        <div style="height:24px;"></div>
+      </div>
+
+      <div class="stage-panel" id="stageEarned">
+        <div class="stamp-earned-state">
+          <div class="se-icon">✦</div>
+          <div class="se-h" id="seH">Stamp earned.</div>
+          <div class="se-sub" id="seSub">You explored the product, checked the deals, and confirmed with a staff member. That's the full experience.</div>
+          <div class="se-stamp-row">
+            <div class="se-dot">✓</div>
+            <div class="se-stamp-label" id="seStampLabel">1 stamp added · 7 to go</div>
+          </div>
+          <div class="se-actions">
+            <button class="btn-ink" onclick="closeDetail(); scrollTo('stampSec')">See My Stamps</button>
+            <button class="btn-out" onclick="closeDetail()">Back to Floor</button>
+          </div>
+        </div>
+        <div style="height:24px;"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="scanner-screen" id="scanScreen">
+    <div class="scan-topbar">
+      <button class="scan-back-btn" data-i18n="scanBack" onclick="closeScanner()">← Back</button>
+      <div class="scan-h" data-i18n="scanTitle">Scan Product</div>
+      <div class="scan-mode">
+        <button class="sm-btn on" id="smQR" onclick="swMode('cam')">QR</button>
+        <button class="sm-btn" id="smSearch" onclick="swMode('search')">
+          <span data-i18n="searchLabel2">Search</span>
+        </button>
+      </div>
+    </div>
+    <div class="cam-view" id="camView">
+      <div class="cam-grid"></div>
+      <div class="cam-vig"></div>
+      <div class="scan-box">
+        <div class="sc tl"></div><div class="sc tr"></div>
+        <div class="sc bl"></div><div class="sc br"></div>
+        <div class="scan-laser"></div>
+        <div class="mock-qr" id="mockQR">
+          <svg class="qr-svg" viewBox="0 0 100 100" fill="white">
+            <rect x="5" y="5" width="35" height="35" rx="3" fill="none" stroke="white" stroke-width="4"/>
+            <rect x="14" y="14" width="17" height="17" rx="1"/>
+            <rect x="60" y="5" width="35" height="35" rx="3" fill="none" stroke="white" stroke-width="4"/>
+            <rect x="69" y="14" width="17" height="17" rx="1"/>
+            <rect x="5" y="60" width="35" height="35" rx="3" fill="none" stroke="white" stroke-width="4"/>
+            <rect x="14" y="69" width="17" height="17" rx="1"/>
+            <rect x="60" y="60" width="8" height="8"/><rect x="72" y="60" width="8" height="8"/>
+            <rect x="84" y="60" width="11" height="8"/><rect x="60" y="72" width="8" height="8"/>
+            <rect x="72" y="72" width="23" height="8"/><rect x="60" y="84" width="20" height="11"/>
+          </svg>
+        </div>
+      </div>
+      <div class="scan-status-txt" id="scanStatusTxt">Point at product QR code</div>
+      <div class="scan-result" id="scanResult">
+        <div class="sr-knob"></div>
+        <div class="sr-prod">
+          <div class="sr-ico" id="srIco">📱</div>
+          <div>
+            <div class="sr-prod-cat" id="srCat">PRODUCT FOUND</div>
+            <div class="sr-prod-name" id="srName">Galaxy S26 Ultra</div>
+            <div class="sr-prod-price" id="srPrice">฿45,900</div>
+          </div>
+        </div>
+        <div class="sr-stamp-note" id="srStampNote">
+          <span>◈</span>
+          <span id="srStampTxt"><strong>+1 Stamp</strong> — tap View Details to earn it.</span>
+        </div>
+        <div class="sr-row">
+          <button class="btn-ink" onclick="openFromScan()" data-i18n="viewDetails">View Details</button>
+          <button class="btn-out" onclick="closeScanResult()" data-i18n="scanMore">Scan More</button>
+        </div>
+      </div>
+    </div>
+    <div class="search-panel" id="searchPanel">
+      <div class="search-inp-wrap">
+        <span class="s-ico">⊕</span>
+        <input class="search-inp" id="searchInp" placeholder="Search products…" oninput="filterSearch(this.value)" autocomplete="off"/>
+      </div>
+      <div class="search-section-lbl" data-i18n="allProducts">All Products on Floor</div>
+      <div class="s-list" id="sList"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast">
+    <div class="t-ico">◈</div>
+    <div>
+      <div class="t-title" id="tTitle">Stamp earned</div>
+      <div class="t-sub" id="tSub">Keep exploring</div>
+    </div>
+  </div>
+
+  <div class="unlock-modal" id="unlockModal" onclick="closeUnlock()">
+    <div class="unlock-card">
+      <div class="uc-pill" id="ucPill" data-i18n="ucPill">Reward Unlocked</div>
+      <div class="uc-ico" id="ucIco">🎁</div>
+      <div class="uc-h" id="ucH">Free Samsung Case</div>
+      <div class="uc-p" id="ucP">Show this screen to floor staff to claim.</div>
+      <button class="uc-btn" id="ucBtn" data-i18n="ucBtn" onclick="closeUnlock()">Claim Reward →</button>
+    </div>
+  </div>
+
+</div><script>
+const P = [
+  {icon:'📱',cat:'Smartphone',name:'Galaxy S26 Ultra',desc:'Galaxy AI transforms your photos, summarizes documents, and adapts to how you work — powered by the new Snapdragon 8 Elite 2.',specs:[{k:'Display',v:'6.9" QD-AMOLED 120Hz'},{k:'Camera',v:'200MP Adaptive Pixel'},{k:'AI',v:'Galaxy AI 3.0'},{k:'Battery',v:'5,500mAh / 45W'}],price:'฿45,900'},
+  {icon:'🎧',cat:'Audio',name:'Galaxy Buds4 Pro',
+    desc:"Samsung's best-sounding earbuds yet. Super Wide Woofer + tweeter dual-driver, 24-bit/96kHz UHQ audio, Adaptive ANC 2.0, and deeper Galaxy AI integration — built for all-day wear.",
+    specs:[
+      {k:'Drivers',v:'Super Wide Woofer + Tweeter'},
+      {k:'Audio',v:'24-bit / 96kHz UHQ'},
+      {k:'ANC',v:'Adaptive ANC 2.0'},
+      {k:'Battery',v:'6hr (ANC on) + 30hr case'},
+      {k:'Connectivity',v:'Bluetooth 6.1 + Auracast'},
+      {k:'Resistance',v:'IP57 dust & water'},
+      {k:'Design',v:'Canal-fit · Real Metal Blade'},
+      {k:'Colors',v:'White · Black · Pink Gold'},
+    ],
+    price:'฿7,490'},
+  {icon:'⌚',cat:'Wearable',name:'Galaxy Watch 7',desc:'3nm chip brings Galaxy AI to your wrist. BioActive tracks body composition, sleep, and stress.',specs:[{k:'Chip',v:'3nm Exynos W1000'},{k:'Health',v:'BioActive + ECG'},{k:'Battery',v:'40hr typical'},{k:'OS',v:'Wear OS 5'}],price:'฿12,900'},
+  {icon:'💍',cat:'Wearable',name:'Galaxy Ring',desc:'The most discreet health tracker Samsung has made. Titanium body, 9-day battery, continuous monitoring.',specs:[{k:'Material',v:'Grade 5 Titanium'},{k:'Battery',v:'Up to 9 days'},{k:'Sensors',v:'HR, SpO2, sleep'},{k:'Sizes',v:'5–13'}],price:'฿14,900'},
+  {icon:'🖥️',cat:'Tablet',name:'Galaxy Tab S10+',desc:'12.4" Dynamic AMOLED 2X. DeX mode for desktop productivity. AI-powered S Pen included.',specs:[{k:'Display',v:'12.4" AMOLED 2X'},{k:'Chip',v:'Snapdragon 8 Gen 3'},{k:'RAM',v:'12GB'},{k:'S Pen',v:'Included'}],price:'฿31,900'},
+  {icon:'💻',cat:'Laptop',name:'Galaxy Book5 Pro',desc:'3K AMOLED, Intel Core Ultra AI, 22-hour battery. Galaxy AI native on Windows.',specs:[{k:'Display',v:'14" 3K AMOLED'},{k:'Chip',v:'Intel Core Ultra 7'},{k:'Battery',v:'22hr'},{k:'Weight',v:'1.23kg'}],price:'฿54,900'},
+];
+const P_TH = [
+  {icon:'📱',cat:'สมาร์ทโฟน',name:'Galaxy S26 Ultra',desc:'Galaxy AI แปลงภาพถ่าย สรุปเอกสาร ปรับตามการทำงานของคุณ — ขับเคลื่อนด้วย Snapdragon 8 Elite 2 รุ่นใหม่',specs:[{k:'จอภาพ',v:'6.9" QD-AMOLED 120Hz'},{k:'กล้อง',v:'200MP Adaptive Pixel'},{k:'AI',v:'Galaxy AI 3.0'},{k:'แบตเตอรี่',v:'5,500mAh / 45W'}],price:'฿45,900'},
+  {icon:'🎧',cat:'เสียง',name:'Galaxy Buds4 Pro',desc:'Super Wide Woofer + ทวีตเตอร์ ดูอัลไดรฟ์เวอร์ เสียง 24-bit/96kHz UHQ, Adaptive ANC 2.0 และ Galaxy AI ลึกขึ้น — สวมใส่สบายทั้งวัน',specs:[{k:'ไดรฟ์เวอร์',v:'Super Wide Woofer + Tweeter'},{k:'เสียง',v:'24-bit / 96kHz UHQ'},{k:'ANC',v:'Adaptive ANC 2.0'},{k:'แบตเตอรี่',v:'6 ชม. (ANC เปิด) + 30 ชม. เคส'},{k:'การเชื่อมต่อ',v:'Bluetooth 6.1 + Auracast'},{k:'กันน้ำ',v:'IP57'},{k:'ดีไซน์',v:'Canal-fit · Real Metal Blade'},{k:'สี',v:'ขาว · ดำ · ชมพูทอง'}],price:'฿7,490'},
+  {icon:'⌚',cat:'อุปกรณ์สวมใส่',name:'Galaxy Watch 7',desc:'ชิป 3nm นำ Galaxy AI มาสู่ข้อมือ เซ็นเซอร์ BioActive ติดตามองค์ประกอบร่างกาย การนอน และความเครียด',specs:[{k:'ชิป',v:'3nm Exynos W1000'},{k:'สุขภาพ',v:'BioActive + ECG'},{k:'แบตเตอรี่',v:'40 ชม.'},{k:'OS',v:'Wear OS 5'}],price:'฿12,900'},
+  {icon:'💍',cat:'อุปกรณ์สวมใส่',name:'Galaxy Ring',desc:'อุปกรณ์ติดตามสุขภาพที่ดูเป็นธรรมชาติที่สุด ตัวเรือนไทเทเนียม แบตอยู่ 9 วัน ติดตามต่อเนื่อง',specs:[{k:'วัสดุ',v:'Titanium Grade 5'},{k:'แบตเตอรี่',v:'สูงสุด 9 วัน'},{k:'เซ็นเซอร์',v:'HR, SpO2, การนอน'},{k:'ขนาด',v:'5–13'}],price:'฿14,900'},
+  {icon:'🖥️',cat:'แท็บเล็ต',name:'Galaxy Tab S10+',desc:'จอ Dynamic AMOLED 2X 12.4 นิ้ว โหมด DeX เปลี่ยนเป็นเดสก์ท็อป รวม S Pen ขับเคลื่อนด้วย AI',specs:[{k:'จอ',v:'12.4" AMOLED 2X'},{k:'ชิป',v:'Snapdragon 8 Gen 3'},{k:'RAM',v:'12GB'},{k:'S Pen',v:'รวมอยู่แล้ว'}],price:'฿31,900'},
+  {icon:'💻',cat:'แล็ปท็อป',name:'Galaxy Book5 Pro',desc:'จอ 3K AMOLED, Intel Core Ultra AI และแบตเตอรี่ใช้งานจริง 22 ชั่วโมง พร้อม Galaxy AI บน Windows',specs:[{k:'จอ',v:'14" 3K AMOLED'},{k:'ชิป',v:'Intel Core Ultra 7'},{k:'แบตเตอรี่',v:'22 ชม.'},{k:'น้ำหนัก',v:'1.23 กก.'}],price:'฿54,900'},
+];
+
+const MILESTONES = [2,4,6,8];
+const REWARDS = {
+  2:{ico:'🎁',h:'Free Samsung Case',p:'Show this screen to any floor staff to claim your complimentary Samsung case.'},
+  4:{ico:'🛡️',h:'Care+ Unlocked',p:'1 year Samsung Care+ — free. Show staff at checkout to redeem.'},
+  6:{ico:'💳',h:'฿1,500 Store Credit',p:'In-store credit for your next purchase. Stackable with all current floor deals.'},
+  8:{ico:'◈',h:'Galaxy VIP Bundle',p:'You\'ve explored everything. Claim the full Galaxy VIP Bundle from any floor staff.'},
+};
+const REWARDS_TH = {
+  2:{ico:'🎁',h:'เคสซัมซุงฟรี',p:'แสดงหน้าจอนี้กับพนักงานเพื่อรับเคสซัมซุงฟรี'},
+  4:{ico:'🛡️',h:'Care+ ฟรี 1 ปี',p:'Samsung Care+ 1 ปีฟรี — แสดงที่เคาน์เตอร์ตอนชำระเงิน'},
+  6:{ico:'💳',h:'เครดิตในร้าน ฿1,500',p:'เครดิตสำหรับการซื้อครั้งถัดไป ใช้ร่วมกับโปรโมชั่นได้ทุกรายการ'},
+  8:{ico:'◈',h:'Galaxy VIP Bundle',p:'คุณสำรวจครบแล้ว รับ Galaxy VIP Bundle เต็มรูปแบบจากพนักงานได้เลย'},
+};
+
+let lang = 'en', stamps = 0, scanned = new Set(), scanIdx = null, scanMode = 'cam', autoT = null, autoN = 0, detailIdx = null;
+
+const T = {
+  en: {
+    nav1:'Experience', nav0:'This Store', nav2:'Products', nav3:'Stamps', nav4:'Deals',
+    liveBanner:'Free Buds 4 Pro with any S26 Ultra purchase today — first 20 customers', liveTag:'Live',
+    heroLabel:'Bangkok Flagship · March 2026',
+    heroH1:'Welcome to our store.',
+    heroP:'Explore today\'s lineup, scan products, and earn stamps that unlock exclusive in-store rewards on top of existing deals.',
+    heroCta1:'Explore Products', heroCta2:'My Stamps',
+    c1t:'Today', c1:'Trade-in S25 → ฿4,000 off',
+    c2t:'Flash', c2:'Free Buds 4 Pro w/ S26 Ultra',
+    c3t:'New', c3:'Galaxy Ring now in-store',
+    c4t:'Staff', c4:'Ask for AI demo → +1 Stamp',
+    prodLabel:"Today's Floor", prodTitle:'Demo Lineup', prodSub:'Tap any product to explore it and earn a stamp.',
+    scanCtaTitle:'Scan a Product QR', scanCtaSub:'Point at any in-store QR tag to earn a stamp instantly',
+    bDeal:'In-Store', bFlash:'Flash', bNew:'New',
+    stampLabel:'Stamp Card', stampTitle:'Demo Stamps', stampSub:'Explore products to earn stamps and unlock in-store rewards.', stampOf:' / 8',
+    rc2at:'At <b>2</b> stamps', rc2n:'Free Samsung Case', rc2v:'Worth ฿890',
+    rc4at:'At <b>4</b> stamps', rc4n:'1-Year Care+ Free', rc4v:'Worth ฿2,490',
+    rc6at:'At <b>6</b> stamps', rc6n:'฿1,500 Store Credit', rc6v:'Stackable with promos',
+    rc8at:'At <b>8</b> stamps', rc8n:'Galaxy VIP Bundle', rc8v:'฿5,000+ in extras',
+    dealsLabel:'Promotions', dealsTitle:'Floor Deals', dealsSub:'Exclusive in-store offers — not available online.',
+    d1type:'Featured This Week', d1name:'Galaxy Ecosystem Bundle', d1desc:'S26 Ultra + Buds 4 Pro + Watch 7. Exclusive in-store price.',
+    d1save:'Save ฿12,800 vs. buying separately',
+    d2type:'Live Now', d2name:'Free Buds 4 Pro with S26', d2desc:'Buy any S26 series today. First 20 customers only.', d2val:'฿9,900 Free',
+    d3type:'Trade-In', d3name:'S25 Upgrade Offer', d3desc:'Bring your S25 in any condition for instant valuation at the counter.', d3val:'Up to ฿4,000',
+    d4type:'Stamp Bonus', d4name:'Staff Demo Stamp', d4desc:'Ask any floor staff for a live Galaxy AI demo to earn a bonus stamp.', d4stamp:'◈ +1 Stamp',
+    hrs:'Hrs', min:'Min', sec:'Sec',
+    storeLabel:'Location', storeTitle:'This Store',
+    storeNameLabel:'Samsung Experience Store', storeName:'CentralWorld, Bangkok',
+    storeAddress:'4th Floor, Zone C · Ratchaprasong',
+    storeOpen:'Open',
+    infoFloor:'Floor', infoHours:'Today', infoBusy:'Crowd', infoBusyVal:'Busy',
+    zonesLabel:'Active Demo Zones',
+    z1floor:'Zone A · Front', z1name:'Galaxy AI Lab', z1desc:'S26 Ultra live demos with staff',
+    z2floor:'Zone B · Center', z2name:'Wearables Wall', z2desc:'Watch 7, Ring, Buds try-on',
+    z3floor:'Zone C · Right', z3name:'Screens & Tabs', z3desc:'Tab S10+, Book5 Pro, DeX',
+    z4floor:'Zone D · Back', z4name:'Trade-In Counter', z4desc:'Instant valuation · S25 upgrade',
+    staffPicksLabel:'Staff Picks Today',
+    hoursLabel:'Store Hours',
+    dayWed:'Wednesday', dayThu:'Thursday', dayFri:'Friday', daySat:'Saturday', daySun:'Sunday',
+    footerNote:'Promotions valid in-store only · Bangkok Flagship · March 2026\nTerms and conditions apply.',
+    back:'Back', back2:'Back', viewDeals:'View Deals', viewDetails:'View Details', scanMore:'Scan More',
+    scanBack:'← Back', scanTitle:'Scan Product', searchLabel2:'Search',
+    allProducts:'All Products on Floor', searchPlaceholder:'Search products…',
+    ucPill:'Reward Unlocked', ucBtn:'Claim Reward →',
+    doneLabel:'✓ Explored', srFound:'Product Found',
+    srStampNew:'<strong>+1 Stamp</strong> — tap View Details to earn it.',
+    srStampDone:'Already explored — stamp already counted.',
+    stampEarned:(left) => left > 0 ? `<strong>+1 Stamp earned.</strong> ${left} more to unlock all rewards.` : '<strong>+1 Stamp earned.</strong> All stamps collected!',
+    stampDone:'Already explored — stamp already counted.',
+    toastTitle:'Stamp earned',
+  },
+  th: {
+    nav1:'ประสบการณ์', nav0:'สาขานี้', nav2:'สินค้า', nav3:'แสตมป์', nav4:'ดีล',
+    liveBanner:'รับ Buds 4 Pro ฟรี เมื่อซื้อ S26 Ultra วันนี้ — สำหรับ 20 คนแรก', liveTag:'ล่าสุด',
+    heroLabel:'สาขาแบงค็อก · มีนาคม 2026',
+    heroH1:'ยินดีต้อนรับสู่ร้านค้าของเรา',
+    heroP:'สำรวจสินค้าวันนี้ สแกน QR รับแสตมป์ ปลดล็อกรางวัลพิเศษเฉพาะในร้านเท่านั้น',
+    heroCta1:'สำรวจสินค้า', heroCta2:'แสตมป์ของฉัน',
+    c1t:'วันนี้', c1:'แลกเปลี่ยน S25 → ลด ฿4,000',
+    c2t:'ลดด่วน', c2:'รับ Buds 4 Pro ฟรี เมื่อซื้อ S26 Ultra',
+    c3t:'ใหม่', c3:'Galaxy Ring มาถึงแล้ว',
+    c4t:'พนักงาน', c4:'ขอดูการสาธิต AI → +1 แสตมป์',
+    prodLabel:'สินค้าวันนี้', prodTitle:'ไลน์อัปสาธิต', prodSub:'แตะสินค้าเพื่อสำรวจและรับแสตมป์',
+    scanCtaTitle:'สแกน QR สินค้า', scanCtaSub:'ชี้กล้องที่ป้าย QR ของสินค้าในร้านเพื่อรับแสตมป์ทันที',
+    bDeal:'ในร้าน', bFlash:'ลดด่วน', bNew:'ใหม่',
+    stampLabel:'บัตรแสตมป์', stampTitle:'แสตมป์สาธิต', stampSub:'สำรวจสินค้าเพื่อสะสมแสตมป์และปลดล็อกรางวัล', stampOf:' / 8',
+    rc2at:'ครบ <b>2</b> แสตมป์', rc2n:'เคสซัมซุงฟรี', rc2v:'มูลค่า ฿890',
+    rc4at:'ครบ <b>4</b> แสตมป์', rc4n:'Care+ ฟรี 1 ปี', rc4v:'มูลค่า ฿2,490',
+    rc6at:'ครบ <b>6</b> แสตมป์', rc6n:'เครดิตในร้าน ฿1,500', rc6v:'ใช้ร่วมกับโปรโมชั่นได้',
+    rc8at:'ครบ <b>8</b> แสตมป์', rc8n:'Galaxy VIP Bundle', rc8v:'ของแถมมูลค่า ฿5,000+',
+    dealsLabel:'โปรโมชั่น', dealsTitle:'ดีลในร้าน', dealsSub:'โปรเฉพาะในร้าน ไม่มีออนไลน์',
+    d1type:'แนะนำสัปดาห์นี้', d1name:'Galaxy Ecosystem Bundle', d1desc:'S26 Ultra + Buds 4 Pro + Watch 7 ราคาพิเศษเฉพาะในร้าน',
+    d1save:'ประหยัด ฿12,800 เมื่อเทียบกับซื้อแยก',
+    d2type:'ตอนนี้เลย', d2name:'รับ Buds 4 Pro ฟรี เมื่อซื้อ S26', d2desc:'ซื้อ S26 ทุกรุ่นวันนี้ สำหรับ 20 คนแรกเท่านั้น', d2val:'ฟรี มูลค่า ฿9,900',
+    d3type:'แลกเปลี่ยน', d3name:'อัปเกรด S25', d3desc:'นำ S25 มาได้ทุกสภาพ ประเมินราคาทันทีที่เคาน์เตอร์', d3val:'สูงสุด ฿4,000',
+    d4type:'โบนัสแสตมป์', d4name:'แสตมป์จากพนักงาน', d4desc:'ขอพนักงานสาธิตฟีเจอร์ Galaxy AI สดๆ เพื่อรับแสตมป์โบนัส', d4stamp:'◈ +1 แสตมป์',
+    hrs:'ชม.', min:'นาที', sec:'วิ',
+    storeLabel:'สถานที่', storeTitle:'สาขานี้',
+    storeNameLabel:'Samsung Experience Store', storeName:'เซ็นทรัลเวิลด์ กรุงเทพฯ',
+    storeAddress:'ชั้น 4 โซน C · ราชประสงค์',
+    storeOpen:'เปิดอยู่',
+    infoFloor:'ชั้น', infoHours:'วันนี้', infoBusy:'ผู้คน', infoBusyVal:'คนเยอะ',
+    zonesLabel:'โซนสาธิตที่เปิดอยู่',
+    z1floor:'โซน A · หน้าร้าน', z1name:'Galaxy AI Lab', z1desc:'สาธิต S26 Ultra สดๆ กับพนักงาน',
+    z2floor:'โซน B · กลาง', z2name:'Wearables Wall', z2desc:'ลองใส่ Watch 7, Ring, Buds',
+    z3floor:'โซน C · ขวา', z3name:'หน้าจอ &amp; แท็บเล็ต', z3desc:'Tab S10+, Book5 Pro, DeX',
+    z4floor:'โซน D · ด้านหลัง', z4name:'เคาน์เตอร์รับเทิร์น', z4desc:'ประเมินราคาทันที · อัปเกรด S25',
+    staffPicksLabel:'สินค้าแนะนำจากพนักงาน',
+    hoursLabel:'เวลาทำการ',
+    dayWed:'พุธ', dayThu:'พฤหัส', dayFri:'ศุกร์', daySat:'เสาร์', daySun:'อาทิตย์',
+    footerNote:'โปรโมชั่นสำหรับในร้านเท่านั้น · สาขาแบงค็อก · มีนาคม 2026\nเงื่อนไขและข้อกำหนดมีผลบังคับใช้',
+    back:'กลับ', back2:'กลับ', viewDeals:'ดูโปรโมชั่น', viewDetails:'ดูรายละเอียด', scanMore:'สแกนเพิ่ม',
+    scanBack:'← กลับ', scanTitle:'สแกนสินค้า', searchLabel2:'ค้นหา',
+    allProducts:'สินค้าทั้งหมดในร้าน', searchPlaceholder:'ค้นหาสินค้า…',
+    ucPill:'ปลดล็อกรางวัลแล้ว', ucBtn:'รับรางวัล →',
+    doneLabel:'✓ สแกนแล้ว', srFound:'พบสินค้า',
+    srStampNew:'<strong>+1 แสตมป์</strong> — กด "ดูรายละเอียด" เพื่อรับ',
+    srStampDone:'สแกนแล้ว — นับแสตมป์เรียบร้อย',
+    stampEarned:(left) => left > 0 ? `<strong>ได้รับ +1 แสตมป์</strong> อีก ${left} แสตมป์เพื่อรับรางวัลครบ` : '<strong>ได้รับ +1 แสตมป์</strong> สะสมครบแล้ว!',
+    stampDone:'สแกนแล้ว — นับแสตมป์เรียบร้อย',
+    toastTitle:'ได้รับแสตมป์',
+  }
+};
+
+function t() { return T[lang]; }
+function prods() { return lang === 'th' ? P_TH : P; }
+
+function setLang(l) {
+  lang = l;
+  document.getElementById('lEN').classList.toggle('on', l==='en');
+  document.getElementById('lTH').classList.toggle('on', l==='th');
+  document.body.classList.toggle('lang-th', l==='th');
+  const tl = t();
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    if (tl[k] !== undefined) el.innerHTML = tl[k];
+  });
+  renderProdRows();
+  renderSearchList(document.getElementById('searchInp').value || '');
+  document.getElementById('searchInp').placeholder = tl.searchPlaceholder;
+  document.querySelector('.search-section-lbl').textContent = tl.allProducts;
+  document.getElementById('smSearch').innerHTML = `<span data-i18n="searchLabel2">${tl.searchLabel2}</span>`;
+  document.getElementById('scanStatusTxt').textContent = tl.scanHint || 'Point at product QR code';
+}
+
+function renderProdRows() {
+  prods().forEach((p,i) => {
+    const catEl = document.querySelector(`[data-pid-cat="${i}"]`);
+    const nameEl = document.querySelector(`[data-pid-name="${i}"]`);
+    if (catEl) catEl.textContent = p.cat;
+    if (nameEl) nameEl.textContent = p.name;
+  });
+}
+
+function renderStamps() {
+  const d = document.getElementById('dots');
+  d.innerHTML = '';
+  for (let i=0;i<8;i++) {
+    const on = i < stamps;
+    const el = document.createElement('div');
+    el.className = 'dot' + (on ? ' on' : '');
+    el.textContent = on ? '✓' : i+1;
+    d.appendChild(el);
+  }
+  document.getElementById('bigStamp').textContent = stamps;
+  document.getElementById('hStamp').textContent = stamps;
+  document.getElementById('progFill').style.width = (stamps/8*100)+'%';
+}
+
+function checkMilestones(prev, next) {
+  MILESTONES.forEach(m => {
+    if (prev < m && next >= m) {
+      const rc = document.getElementById(`rc-${m}`);
+      if (rc && !rc.querySelector('.rcard-tag')) {
+        rc.classList.add('on');
+        const tag = document.createElement('div');
+        tag.className = 'rcard-tag'; tag.textContent = lang==='th'?'ปลดล็อก':'Unlocked';
+        rc.appendChild(tag);
+      }
+      const rw = lang==='th' ? REWARDS_TH[m] : REWARDS[m];
+      setTimeout(() => showUnlock(rw), 600);
+    }
+  });
+}
+
+function addStamp() {
+  if (stamps < 8) { const p=stamps; stamps++; renderStamps(); checkMilestones(p,stamps); }
+}
+
+let journeyIdx = null;
+let journeyStage = 1;
+let featuresViewed = new Set();
+const FEAT_REQUIRED = 1;
+const DAILY_CODE = 'BUDS';
+
+const PRODUCT_DEALS = {
+  1: [
+    { icon:'🔥', name:'Free Buds 4 Pro with S26 Ultra', desc:'Buy any S26 Ultra today and get Buds4 Pro at no extra cost. First 20 customers only.' },
+    { icon:'📦', name:'Galaxy Ecosystem Bundle', desc:'S26 Ultra + Buds4 Pro + Watch 7 at ฿59,900. Exclusive in-store price — not available online.' },
+    { icon:'🛡️', name:'Samsung Care+ for Buds', desc:'1 year of accidental damage protection. Add it at checkout today for ฿590.' },
+  ]
+};
+let dealsViewed = new Set();
+let autoToggleTimer = null;
+
+function openDetail(idx) {
+  detailIdx = idx;
+  journeyIdx = idx;
+
+  const alreadyDone = scanned.has(idx);
+  journeyStage = alreadyDone ? 'earned' : 1;
+  featuresViewed = new Set();
+  dealsViewed = new Set();
+
+  const p = prods()[idx];
+  const tl = t();
+
+  document.getElementById('dIcon').textContent = p.icon;
+  document.getElementById('dCat').textContent = p.cat.toUpperCase();
+  document.getElementById('dName').textContent = p.name;
+  document.getElementById('detailTitle').textContent = p.name;
+  document.getElementById('dDesc').textContent = p.desc;
+  document.getElementById('dSpecs').innerHTML = p.specs.map(s=>`
+    <div class="spec-cell"><div class="spec-k">${s.k}</div><div class="spec-v">${s.v}</div></div>`).join('');
+
+  const expEl = document.getElementById('dExp');
+  if (idx === 1) {
+    expEl.style.display = 'block';
+    expEl.innerHTML = buildBudsWidget();
+    initBudsWidget();
+  } else {
+    expEl.style.display = 'none';
+  }
+
+  featuresViewed = new Set();
+  dealsViewed = new Set();
+  const btn = document.getElementById('toStage2Btn');
+  if (btn) { btn.setAttribute('disabled','true'); btn.style.opacity='0.3'; btn.style.cursor='not-allowed'; btn.classList.remove('btn-pulse'); }
+  updateFeatProgress();
+
+  if (alreadyDone) {
+    showStage('earned');
+    updateJourneyBar('earned');
+    document.getElementById('seH').textContent = 'Already stamped.';
+    document.getElementById('seSub').textContent = `You've already completed the full experience for ${p.name}.`;
+    document.getElementById('seStampLabel').textContent = `${stamps} stamp${stamps!==1?'s':''} collected`;
+  } else {
+    showStage(1);
+    updateJourneyBar(1);
+  }
+
+  document.getElementById('detailScreen').classList.add('open');
+  document.getElementById('detailBody').scrollTop = 0;
+}
+
+function closeDetail() { document.getElementById('detailScreen').classList.remove('open'); }
+
+const origSelectVFeature = typeof selectVFeature !== 'undefined' ? selectVFeature : null;
+
+function updateFeatProgress() {
+  const total = BUDS_FEATURES.length;
+  const viewed = featuresViewed.size;
+  const pct = Math.min(100, (viewed / total) * 100);
+
+  const fpBar = document.getElementById('fpBar');
+  const fpHint = document.getElementById('fpHint');
+  const btn = document.getElementById('toStage2Btn');
+  if (!fpBar || !btn) return;
+
+  fpBar.style.width = pct + '%';
+
+  if (viewed > 0) {
+    const remaining = total - viewed;
+    fpHint.textContent = remaining > 0 ? `${remaining} more feature${remaining !== 1 ? 's' : ''} to explore — or continue when ready.` : "You've seen everything.";
+    btn.removeAttribute('disabled');
+    btn.style.opacity = '1';
+    btn.style.cursor = 'pointer';
+    if (!btn.classList.contains('btn-pulse')) {
+      btn.classList.add('btn-pulse');
+      setTimeout(() => btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 150);
+    }
+  } else {
+    fpHint.textContent = 'Tap a feature above to start exploring.';
+    btn.setAttribute('disabled', 'true');
+    btn.style.opacity = '0.3';
+    btn.style.cursor = 'not-allowed';
+    btn.classList.remove('btn-pulse');
+  }
+}
+
+function goToStage(n) {
+  journeyStage = n;
+  clearTimeout(autoToggleTimer);
+  if (n === 2) {
+    const p = prods()[journeyIdx];
+    document.getElementById('confirmIcon').textContent = p.icon;
+    document.getElementById('confirmH').textContent = `You've explored ${p.name}`;
+    const features = Array.from(featuresViewed).map(i => BUDS_FEATURES[i]?.name).filter(Boolean);
+    document.getElementById('confirmFeatures').innerHTML = features.map(f => `<div class="cf-item"><div class="cf-check">✓</div>${f}</div>`).join('');
+  }
+  if (n === 3) {
+    const deals = PRODUCT_DEALS[journeyIdx] || [];
+    document.getElementById('dealsStageList').innerHTML = deals.map((d,i) => `
+      <div class="deal-row" id="dr-${i}" onclick="viewDeal(${i})">
+        <div class="dr-icon">${d.icon}</div>
+        <div class="dr-body"><div class="dr-name">${d.name}</div><div class="dr-desc">${d.desc}</div></div>
+        <div class="dr-check" id="drc-${i}">✓</div>
+      </div>`).join('');
+    checkDealsProgress();
+  }
+  if (n === 4) {
+    document.getElementById('codeInput').value = '';
+    document.getElementById('codeError').textContent = '';
+    document.getElementById('codeInput').className = 'code-input';
+  }
+  showStage(n);
+  updateJourneyBar(n);
+  document.getElementById('detailBody').scrollTop = 0;
+}
+
+function showStage(n) {
+  ['stage1','stage2','stage3','stage4','stageEarned'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.classList.remove('on');
+  });
+  const target = n === 'earned' ? 'stageEarned' : `stage${n}`;
+  const el = document.getElementById(target);
+  if (el) el.classList.add('on');
+}
+
+function updateJourneyBar(stage) {
+  const steps = [0,1,2,3];
+  const stageNum = stage === 'earned' ? 5 : stage;
+  steps.forEach(i => {
+    const el = document.getElementById(`js${i}`);
+    if (!el) return;
+    const circle = el.querySelector('.jstep-circle');
+    el.classList.remove('active','done');
+    if (i + 1 < stageNum) { el.classList.add('done'); circle.textContent = '✓'; }
+    else if (i + 1 === stageNum) { el.classList.add('active'); circle.textContent = i + 1; }
+    else { circle.textContent = i + 1; }
+  });
+}
+
+function viewDeal(i) {
+  dealsViewed.add(i);
+  document.getElementById(`dr-${i}`)?.classList.add('viewed');
+  checkDealsProgress();
+}
+
+function checkDealsProgress() {
+  const total = (PRODUCT_DEALS[journeyIdx] || []).length;
+  const btn = document.getElementById('toStage4Btn');
+  if (!btn) return;
+  if (dealsViewed.size >= total) btn.classList.add('ready');
+}
+
+function onCodeInput(el) {
+  el.value = el.value.toUpperCase().replace(/[^A-Z0-9]/g,'');
+  document.getElementById('codeError').textContent = '';
+  el.classList.remove('error');
+  if (el.value.length === 4) submitCode();
+}
+
+function submitCode() {
+  const val = document.getElementById('codeInput').value.trim().toUpperCase();
+  const inp = document.getElementById('codeInput');
+  const err = document.getElementById('codeError');
+  if (val === DAILY_CODE) {
+    inp.classList.add('success');
+    err.textContent = '';
+    setTimeout(() => earnStamp(), 600);
+  } else {
+    inp.classList.add('error');
+    err.textContent = 'Incorrect code. Ask any floor staff member.';
+    inp.value = '';
+    setTimeout(() => inp.classList.remove('error'), 800);
+  }
+}
+
+function earnStamp() {
+  const idx = journeyIdx;
+  if (!scanned.has(idx)) { scanned.add(idx); markDone(idx); addStamp(); }
+  const p = prods()[idx];
+  const left = 8 - stamps;
+  document.getElementById('seH').textContent = 'Stamp earned.';
+  document.getElementById('seSub').textContent = `You explored ${p.name}, checked the deals, and confirmed with a staff member.`;
+  document.getElementById('seStampLabel').textContent = left > 0 ? `${stamps} stamp${stamps!==1?'s':''} collected · ${left} to go` : 'All 8 stamps collected!';
+  showStage('earned');
+  updateJourneyBar('earned');
+  document.getElementById('detailBody').scrollTop = 0;
+  showToast(t().toastTitle, `${stamps} / 8`);
+}
+
+function markDone(idx) {
+  const row = document.getElementById(`pr-${idx}`);
+  if (!row) return;
+  row.classList.add('done');
+}
+
+function openScanner() {
+  document.getElementById('scanScreen').classList.add('open');
+  if (scanMode==='cam') startAutoScan();
+  renderSearchList('');
+}
+function closeScanner() {
+  document.getElementById('scanScreen').classList.remove('open');
+  closeScanResult(); clearTimeout(autoT);
+}
+function swMode(m) {
+  scanMode = m; clearTimeout(autoT); closeScanResult();
+  document.getElementById('smQR').classList.toggle('on', m==='cam');
+  document.getElementById('smSearch').classList.toggle('on', m==='search');
+  const cv = document.getElementById('camView');
+  const sp = document.getElementById('searchPanel');
+  cv.style.display = m==='cam' ? 'flex' : 'none';
+  sp.style.display = m==='search' ? 'flex' : 'none';
+  if (m==='cam') startAutoScan();
+  else document.getElementById('searchInp').focus();
+}
+function startAutoScan() {
+  document.getElementById('scanStatusTxt').textContent = t().scanCtaTitle||'Point at product QR code';
+  document.getElementById('mockQR').classList.remove('vis');
+  autoT = setTimeout(()=>{ simulateScan(autoN % prods().length); autoN++; }, 2200);
+}
+function simulateScan(idx) {
+  scanIdx = idx;
+  document.getElementById('mockQR').classList.add('vis');
+  document.getElementById('scanStatusTxt').textContent = '✓ QR detected';
+  setTimeout(()=>showScanResult(idx), 350);
+}
+function showScanResult(idx) {
+  const p = prods()[idx]; const tl = t();
+  document.getElementById('srIco').textContent = p.icon;
+  document.getElementById('srCat').textContent = tl.srFound;
+  document.getElementById('srName').textContent = p.name;
+  document.getElementById('srPrice').textContent = p.price;
+  const note = document.getElementById('srStampNote');
+  const ntxt = document.getElementById('srStampTxt');
+  note.className = scanned.has(idx) ? 'sr-stamp-note done' : 'sr-stamp-note';
+  ntxt.innerHTML = scanned.has(idx) ? tl.srStampDone : tl.srStampNew;
+  document.querySelectorAll('.sr-row .btn-ink').forEach(b=>b.textContent=tl.viewDetails);
+  document.querySelectorAll('.sr-row .btn-out').forEach(b=>b.textContent=tl.scanMore);
+  document.getElementById('scanResult').classList.add('open');
+}
+function closeScanResult() {
+  document.getElementById('scanResult').classList.remove('open');
+  document.getElementById('mockQR').classList.remove('vis');
+  if (scanMode==='cam') setTimeout(startAutoScan, 700);
+}
+function openFromScan() {
+  if (scanIdx===null) return;
+  closeScanner(); setTimeout(()=>openDetail(scanIdx), 300);
+}
+
+function renderSearchList(q) {
+  const c = document.getElementById('sList'); const tl = t(); const ps = prods();
+  c.innerHTML = ps.map((p,i) => {
+    if (q && !p.name.toLowerCase().includes(q.toLowerCase()) && !p.cat.toLowerCase().includes(q.toLowerCase())) return '';
+    const done = scanned.has(i);
+    return `<div class="s-item ${done?'done':''}" onclick="selectSearch(${i})">
+      <div class="s-item-ico">${p.icon}</div>
+      <div class="s-item-info"><div class="s-item-name">${p.name}</div><div class="s-item-cat">${p.cat}</div></div>
+      <div class="s-item-right">${done ? tl.doneLabel : p.price}</div>
+    </div>`;
+  }).join('');
+}
+function filterSearch(v) { renderSearchList(v); }
+function selectSearch(idx) { closeScanner(); setTimeout(()=>openDetail(idx), 300); }
+
+let tT;
+function showToast(title, sub) {
+  clearTimeout(tT);
+  document.getElementById('tTitle').textContent = title;
+  document.getElementById('tSub').textContent = sub;
+  const el = document.getElementById('toast');
+  el.classList.add('show');
+  tT = setTimeout(()=>el.classList.remove('show'), 2800);
+}
+
+function showUnlock(rw) {
+  document.getElementById('ucIco').textContent = rw.ico;
+  document.getElementById('ucH').textContent = rw.h;
+  document.getElementById('ucP').textContent = rw.p;
+  document.getElementById('ucPill').textContent = t().ucPill;
+  document.getElementById('ucBtn').textContent = t().ucBtn;
+  document.getElementById('unlockModal').classList.add('show');
+}
+function closeUnlock() { document.getElementById('unlockModal').classList.remove('show'); }
+
+function scrollTo(id) { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }); }
+
+const page = document.getElementById('page');
+const sections = ['heroSec','prodSec','stampSec','dealsSec'];
+page.addEventListener('scroll', () => {
+  const st = page.scrollTop;
+  let active = 0;
+  sections.forEach((id,i) => {
+    const el = document.getElementById(id);
+    if (el && el.offsetTop - 100 <= st) active = i;
+  });
+  document.querySelectorAll('.anav-link').forEach((el,i) => el.classList.toggle('active', i===active));
+});
+
+const BUDS_FEATURES = [
+  { id: 'anc', cat: 'Noise Control', name: 'Active Noise Cancellation', tagline: 'Hear the difference between the world with and without Buds4 Pro.', with: { label: 'With Galaxy Buds4 Pro', sublabel: 'ANC on', video: null, insight: '<strong>Adaptive ANC 2.0 reads the noise in real time</strong> and generates an opposing sound wave — cancelling background noise before it reaches you. The commute disappears. Your music doesn\'t.', }, without: { label: 'Without Galaxy Buds4 Pro', sublabel: 'No ANC', video: null, insight: 'Every sound in the environment competes for your attention — engine hum, conversations, air conditioning. <strong>This is the baseline most people accept.</strong>', } },
+  { id: 'sound', cat: 'Hi-Fi Sound', name: '360 Audio', tagline: 'Flat stereo vs. sound that exists in the space around you.', with: { label: 'With Galaxy Buds4 Pro', sublabel: '360 Audio on', video: null, insight: '<strong>360 Audio places each instrument in its own position in space</strong> — front, back, sides, above. Move your head and the soundstage stays fixed, like you\'re inside the recording.', }, without: { label: 'Without Galaxy Buds4 Pro', sublabel: 'Standard stereo', video: null, insight: 'Standard stereo is a flat left-right channel. The guitar is "left." The drums are "right." <strong>Everything exists on the same plane</strong> with no depth or space.', } },
+  { id: 'hifi', cat: 'Hi-Fi Sound', name: 'Ultra High Quality Audio', tagline: '24-bit/96kHz — hearing the track exactly as it was recorded.', with: { label: 'With Galaxy Buds4 Pro', sublabel: '24-bit / 96kHz UHQ', video: null, insight: 'The Super Wide Woofer increases speaker area by ~20% vs. the previous generation. <strong>The result is deeper bass, cleaner highs, and full lossless playback</strong> — no compression, no detail lost.', }, without: { label: 'Without Galaxy Buds4 Pro', sublabel: 'Standard audio', video: null, insight: 'Compressed audio removes frequencies the algorithm decides you won\'t notice. <strong>Over time, you notice.</strong> The bass feels thin. High notes lose their edge.', } },
+  { id: 'fit', cat: 'Design', name: 'Comfort Fit', tagline: 'Engineered from 100 million ear shapes to stay in — all day.', with: { label: 'With Galaxy Buds4 Pro', sublabel: 'Canal-fit design', video: null, insight: '<strong>10,000+ simulations and data from hundreds of millions of ears</strong> produced this fit. It seals passively — which also means better ANC performance and more bass even before the EQ kicks in.', }, without: { label: 'Generic earbuds', sublabel: 'One-size fit', video: null, insight: 'A poor seal means ANC can\'t work properly and bass bleeds out. <strong>Most fit issues aren\'t about the ear — they\'re about the earbud.</strong>', } },
+];
+
+let vActiveFeature = 0;
+let vActiveMode = 'with';
+
+function buildBudsWidget() {
+  return `<div class="vdemo-wrap"><div class="vdemo-features" id="vFeatRow">${BUDS_FEATURES.map((f,i) => `<button class="vfeat-chip ${i===0?'on':''}" onclick="selectVFeature(${i})">${f.name}</button>`).join('')}</div><div class="vplayer-card" id="vPlayerCard"></div></div>`;
+}
+
+function initBudsWidget() {
+  vActiveFeature = 0; vActiveMode = 'with';
+  renderVPlayer();
+}
+
+function selectVFeature(idx) {
+  vActiveFeature = idx; vActiveMode = 'with';
+  document.querySelectorAll('.vfeat-chip').forEach((c,i) => c.classList.toggle('on', i===idx));
+  renderVPlayer();
+  featuresViewed.add(idx);
+  const btn = document.getElementById('toStage2Btn');
+  if (btn) { btn.removeAttribute('disabled'); btn.style.opacity = '1'; btn.style.cursor = 'pointer'; btn.classList.add('btn-pulse'); }
+  const fpBar = document.getElementById('fpBar');
+  if (fpBar) fpBar.style.width = Math.min(100, (featuresViewed.size / BUDS_FEATURES.length) * 100) + '%';
+  const fpHint = document.getElementById('fpHint');
+  if (fpHint) {
+    const remaining = BUDS_FEATURES.length - featuresViewed.size;
+    fpHint.textContent = remaining > 0 ? `${remaining} more feature${remaining !== 1 ? 's' : ''} to explore — or continue when ready.` : "You've seen everything.";
+  }
+  clearTimeout(autoToggleTimer);
+  autoToggleTimer = setTimeout(() => { if (vActiveFeature === idx) switchVMode('without'); }, 3000);
+}
+
+function switchVMode(mode) {
+  vActiveMode = mode;
+  renderVPlayer(true);
+}
+
+function renderVPlayer(modeOnly = false) {
+  const f = BUDS_FEATURES[vActiveFeature]; const m = f[vActiveMode];
+  const card = document.getElementById('vPlayerCard');
+  if (!card) return;
+  if (!modeOnly) {
+    card.innerHTML = `<div class="vplayer-header"><div class="vplayer-cat">${f.cat}</div><div class="vplayer-name">${f.name}</div><div class="vplayer-tagline">${f.tagline}</div></div><div class="vplayer-viewport" id="vViewport">${buildViewport(f, vActiveMode)}</div><div class="vplayer-toggle"><button class="vtoggle-btn ${vActiveMode==='with'?'active':''}" onclick="switchVMode('with')"><span class="vtoggle-label">With Galaxy Buds4 Pro</span><span class="vtoggle-sublabel">${f.with.sublabel}</span></button><button class="vtoggle-btn ${vActiveMode==='without'?'active':''}" onclick="switchVMode('without')"><span class="vtoggle-label">Without</span><span class="vtoggle-sublabel">${f.without.sublabel}</span></button></div><div class="vplayer-insight" id="vInsight">${m.insight}</div>`;
+  } else {
+    const vp = document.getElementById('vViewport');
+    if (vp) vp.innerHTML = buildViewport(f, vActiveMode);
+    document.querySelectorAll('.vtoggle-btn').forEach((b,i) => { b.classList.toggle('active', (i===0 && vActiveMode==='with') || (i===1 && vActiveMode==='without')); });
+    const ins = document.getElementById('vInsight');
+    if (ins) { ins.style.opacity='0'; setTimeout(()=>{ ins.innerHTML=m.insight; ins.style.opacity='1'; }, 180); }
+  }
+}
+
+function buildViewport(f, mode) {
+  const m = f[mode]; const isWithBuds = mode === 'with';
+  const bars = Array.from({length: 28}, (_,i) => {
+    const min = isWithBuds ? 6 + Math.random()*8 : 2 + Math.random()*3;
+    const max = isWithBuds ? 28 + Math.random()*28 : 4 + Math.random()*6;
+    const dur = (0.4 + Math.random()*0.7).toFixed(2);
+    const delay = (i * 0.035).toFixed(2);
+    const opacity = isWithBuds ? (0.5 + Math.random()*0.5).toFixed(2) : (0.2 + Math.random()*0.2).toFixed(2);
+    return `<div class="vwave-bar" style="--min:${min}px;--max:${max}px;--dur:${dur}s;--delay:${delay}s;--op:${opacity};"></div>`;
+  }).join('');
+  if (m.video) {
+    return `<video class="vplayer-video" id="vVideo" src="${m.video}" playsinline preload="metadata" oncanplay="this.classList.add('loaded')" onplay="document.getElementById('vPlayBtn').classList.add('playing')"></video><div class="vplayer-mode-label ${isWithBuds?'with-buds':'without-buds'}">${m.label}</div><button class="vplayer-play-btn" id="vPlayBtn" onclick="toggleVPlay()"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></button>`;
+  } else {
+    return `<div class="vplayer-placeholder"><div class="vwave" id="vwave-${mode}">${bars}</div><div class="vph-label" style="margin-top:14px;">${f.name}</div><div style="font-size:9px;color:rgba(255,255,255,0.2);letter-spacing:1.5px;margin-top:6px;text-transform:uppercase;">${isWithBuds ? 'With Galaxy Buds4 Pro' : 'Without'}</div></div><div class="vplayer-mode-label ${isWithBuds?'with-buds':'without-buds'}">${m.label}</div><button class="vplayer-play-btn" id="vPlayBtn" onclick="toggleVPlay()" style="opacity:0.25;pointer-events:none;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></button>`;
+  }
+}
+
+function toggleVPlay() {
+  const video = document.getElementById('vVideo');
+  if (!video) return;
+  video.paused ? video.play() : video.pause();
+}
+
+function startTimer() {
+  let total = 3*3600;
+  setInterval(()=>{
+    if(total<=0)return; total--;
+    const h=Math.floor(total/3600),m=Math.floor((total%3600)/60),s=total%60;
+    document.getElementById('ch').textContent=String(h).padStart(2,'0');
+    document.getElementById('cm').textContent=String(m).padStart(2,'0');
+    document.getElementById('cs').textContent=String(s).padStart(2,'0');
+  },1000);
+}
+
+function tick() {
+  const n=new Date();
+  document.getElementById('sTime').textContent=`${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`;
+}
+tick(); setInterval(tick,15000);
+
+// ── BOOT ──
+renderProdRows();
+renderStamps();
+startTimer();
+renderSearchList('');
+document.getElementById('camView').style.display='flex';
+document.getElementById('searchPanel').style.display='none';
+</script>
+</body>
+</html>
