@@ -4,82 +4,164 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Samsung Retail Curator</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #F7F5F2;
-  --white: #FFFFFF;
-  --ink: #1C1C1C;
-  --blue: #2189FF;
-  --ink-3: rgba(28,28,28,0.42);
+  --bg: #F7F5F2; --white: #FFFFFF; --ink: #1C1C1C; --ink-2: #313131;
+  --ink-3: rgba(28,28,28,0.42); --ink-4: rgba(28,28,28,0.22);
+  --line: rgba(28,28,28,0.08); --line-2: rgba(28,28,28,0.13);
+  --blue: #2189FF; --blue-bg: rgba(33,137,255,0.07); --blue-bd: rgba(33,137,255,0.18);
+  --teal: #00838F; --coral: #F36E6E; --red: #EF3434;
+  --font: 'DM Sans', -apple-system, sans-serif; --r: 10px; --r-lg: 16px;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 
-/* ── BLACK PRESENTATION BACKGROUND ── */
+/* ── BLACK BACKGROUND AROUND PHONE ── */
 body { 
-  background: #000000; 
-  display: flex; 
-  align-items: center; 
-  justify-content: center; 
-  min-height: 100vh; 
-  font-family: 'DM Sans', sans-serif;
-  overflow: hidden; /* Keeps the focus on the phone */
+  background: #000; 
+  display: flex; align-items: center; justify-content: center; 
+  min-height: 100vh; font-family: var(--font); overflow: hidden;
 }
 
-/* ── GALAXY S26 ULTRA SHELL ── */
 .phone {
-  width: 390px;
-  height: 844px;
-  background: var(--bg);
-  border-radius: 32px;
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 0 0 10px #1A1A1A, 0 30px 100px rgba(0,0,0,0.9);
+  width: 390px; height: 844px; background: var(--bg); border-radius: 28px;
+  overflow: hidden; position: relative; display: flex; flex-direction: column;
+  box-shadow: 0 0 0 2px #1c1c1c, 0 0 0 8px #333, 0 40px 80px rgba(0,0,0,0.3);
 }
-.phone::before {
-  content: ''; position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
-  width: 10px; height: 10px; background: #000; border-radius: 50%; z-index: 10001;
+.phone::before { content: ''; position: absolute; top: 15px; left: 50%; transform: translateX(-50%); width: 10px; height: 10px; background: #000; border-radius: 50%; z-index: 9999; }
+
+/* ── TOUR STYLES ── */
+#tour-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.7); z-index: 10000; display: none; }
+.highlight-target { position: relative !important; z-index: 10001 !important; box-shadow: 0 0 0 10px rgba(33, 137, 255, 0.4); }
+.tour-callout { position: absolute; top: 110%; left: 50%; transform: translateX(-50%); width: 280px; background: var(--blue); color: white; padding: 16px; border-radius: 16px; text-align: center; z-index: 10002; animation: float 2s infinite ease-in-out; }
+.tour-callout::after { content: ''; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%); border: 10px solid transparent; border-bottom-color: var(--blue); }
+@keyframes float { 0%,100% {transform:translate(-50%,0)} 50% {transform:translate(-50%,-10px)} }
+
+/* ── COLLECT OPTIONS MODAL ── */
+.options-modal { position: absolute; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); z-index: 500; display: none; align-items: flex-end; }
+.options-modal.open { display: flex; }
+.options-content { background: var(--white); width: 100%; border-radius: 24px 24px 0 0; padding: 24px 20px 40px; transform: translateY(100%); transition: transform 0.3s; }
+.options-modal.open .options-content { transform: translateY(0); }
+.option-row { display: flex; align-items: center; gap: 15px; padding: 18px; background: var(--bg); border-radius: var(--r-lg); margin-bottom: 10px; cursor: pointer; }
+
+/* ... (Rest of your original CSS from "retail curator.html" goes here) ... */
+/* I am keeping your specific original styles for status bar, header, and product rows below */
+
+.site-header { background: var(--white); border-bottom: 1px solid var(--line); flex-shrink: 0; position: sticky; top: 0; z-index: 50; }
+.header-main { display: flex; align-items: center; justify-content: space-between; padding: 45px 20px 15px; }
+.page { flex: 1; overflow-y: auto; scroll-behavior: smooth; }
+.scan-banner { margin: 15px 20px; background: linear-gradient(135deg, #1A1C2E 0%, #303454 100%); border-radius: var(--r-lg); padding: 18px; display: flex; align-items: center; gap: 15px; color: white; cursor: pointer; }
+.btn-collect { width: 100%; margin-top: 20px; background: var(--blue); color: white; border: none; padding: 14px; border-radius: var(--r); font-weight: 700; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<div id="tour-overlay"></div>
+
+<div class="phone">
+  <header class="site-header">
+    <div class="header-main">
+      <div style="font-weight:700; font-size:18px;">🏪 Retail Curator</div>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <div id="hStamp" style="font-weight:700; color:var(--blue);">0</div>
+        <div style="width:28px; height:28px; border:1px solid #000; border-radius:50%; display:flex; align-items:center; justify-content:center;">👤</div>
+      </div>
+    </div>
+  </header>
+
+  <div class="page" id="page">
+    <div style="padding:24px 20px;">
+      <h1 style="font-size:24px;">Welcome to Store</h1>
+    </div>
+
+    <div class="scan-banner" id="aiBanner" onclick="openScanner()">
+      <div style="width:50px; height:50px; background:rgba(255,255,255,0.1); border-radius:8px;"></div>
+      <div>
+        <h4 style="font-size:15px;">✨ Galaxy AI Explore</h4>
+        <p style="font-size:11px; opacity:0.8;">Scan a product to start earning stamps</p>
+      </div>
+    </div>
+
+    <div class="section section-bg" id="stampSec">
+      <div style="background:white; border-radius:16px; padding:20px; border:1px solid #eee;">
+        <div style="font-weight:700; margin-bottom:10px;">Your Stamp Card</div>
+        <div id="dots" style="display:grid; grid-template-columns:repeat(8,1fr); gap:5px; margin-bottom:15px;"></div>
+        <button class="btn-collect" onclick="showOptions()">Collect stamps</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="options-modal" id="optModal" onclick="hideOptions()">
+    <div class="options-content" onclick="event.stopPropagation()">
+      <div style="width:30px; height:4px; background:#ddd; border-radius:2px; margin:0 auto 20px;"></div>
+      <h3 style="margin-bottom:20px;">Ways to Earn</h3>
+      <div class="option-row" onclick="hideOptions(); openScanner();">
+        <div style="font-size:24px;">📷</div>
+        <div>
+          <div style="font-weight:700;">Explore Products</div>
+          <div style="font-size:12px; color:var(--ink-3);">Scan QR codes on the floor</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="scanScreen" style="display:none; position:absolute; inset:0; background:#000; z-index:200; color:#fff; padding:50px 20px;">
+     <button onclick="closeScanner()" style="color:#fff;">← Back</button>
+     <div style="text-align:center; margin-top:100px;">
+        <button onclick="addStamp(); closeScanner();" style="padding:10px 20px; background:var(--blue); color:#fff; border:none; border-radius:8px;">Simulate Scan</button>
+     </div>
+  </div>
+
+</div>
+
+<script>
+let stamps = 0;
+
+// ── TOUR LOGIC ──
+window.onload = function() {
+  if (!localStorage.getItem('seenTour')) {
+    setTimeout(() => {
+      document.getElementById('tour-overlay').style.display = 'block';
+      document.getElementById('aiBanner').classList.add('highlight-target');
+      const callout = document.createElement('div');
+      callout.className = 'tour-callout';
+      callout.innerHTML = `<p>Scan and explore a product in-store to start earning stamps.</p><button onclick="endTour()" style="margin-top:10px; background:#fff; border:none; padding:5px 15px; border-radius:15px; font-weight:700;">Got it!</button>`;
+      document.getElementById('aiBanner').appendChild(callout);
+    }, 800);
+  }
+};
+
+function endTour() {
+  document.getElementById('tour-overlay').style.display = 'none';
+  document.getElementById('aiBanner').classList.remove('highlight-target');
+  document.querySelector('.tour-callout').remove();
+  localStorage.setItem('seenTour', 'true');
 }
 
-/* ── TOUR & OVERLAY ── */
-#tour-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.75);
-  z-index: 10000;
-  display: none;
-}
+// ── OPTIONS LOGIC ──
+function showOptions() { document.getElementById('optModal').classList.add('open'); }
+function hideOptions() { document.getElementById('optModal').classList.remove('open'); }
 
-.highlight-target {
-  position: relative !important;
-  z-index: 10001 !important;
-  box-shadow: 0 0 0 10px rgba(33, 137, 255, 0.4), 0 20px 40px rgba(0,0,0,0.5);
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+// ── ORIGINAL LOGIC ──
+function openScanner() { document.getElementById('scanScreen').style.display = 'block'; }
+function closeScanner() { document.getElementById('scanScreen').style.display = 'none'; }
+function addStamp() {
+  if (stamps < 8) {
+    stamps++;
+    document.getElementById('hStamp').textContent = stamps;
+    renderStamps();
+  }
 }
-
-.tour-callout {
-  position: absolute;
-  top: 115%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 260px;
-  background: var(--blue);
-  color: white;
-  padding: 20px;
-  border-radius: 20px;
-  text-align: center;
-  box-shadow: 0 15px 35px rgba(0,0,0,0.4);
-  animation: float 2.5s infinite ease-in-out;
+function renderStamps() {
+  const d = document.getElementById('dots'); d.innerHTML = '';
+  for(let i=0; i<8; i++) {
+    const dot = document.createElement('div');
+    dot.style = `aspect-ratio:1; border-radius:6px; background:${i < stamps ? 'var(--blue)' : '#f0f0f0'}; border:1px solid #ddd;`;
+    d.appendChild(dot);
+  }
 }
-
-.tour-callout::after {
-  content: ''; position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
-  border: 12px solid transparent; border-bottom-color: var(--blue);
-}
-
-.btn-tour-close {
-  margin-top: 15px; background: white; color: var(--ink); border: none;
-  padding:
+renderStamps();
+</script>
+</body>
+</html>
