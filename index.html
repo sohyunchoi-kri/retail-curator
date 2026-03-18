@@ -6,58 +6,30 @@
 <title>Samsung In-Store Experience</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,300&family=Sarabun:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
+/* ── BASE THEME ── */
 :root {
-  --bg:       #F7F5F2;
-  --white:    #FFFFFF;
-  --ink:      #1C1C1C;
-  --ink-2:    #313131;
-  --ink-3:    rgba(28,28,28,0.42);
-  --ink-4:    rgba(28,28,28,0.22);
-  --line:     rgba(28,28,28,0.08);
-  --line-2:   rgba(28,28,28,0.13);
-  --blue:     #2189FF;
-  --blue-bg:  rgba(33,137,255,0.07);
-  --blue-bd:  rgba(33,137,255,0.18);
-  --teal:     #00838F;
-  --teal-bg:  rgba(0,131,143,0.07);
-  --coral:    #F36E6E;
-  --coral-bg: rgba(243,110,110,0.07);
-  --red:      #EF3434;
-  --red-bg:   rgba(239,52,52,0.07);
-  --n1:       #F5F7FE;
-  --n2:       #FEF6F3;
-  --font:     'DM Sans', -apple-system, 'Helvetica Neue', sans-serif;
-  --r:        10px;
-  --r-lg:     16px;
+  --bg: #F7F5F2; --white: #FFFFFF; --ink: #1C1C1C; --ink-2: #313131;
+  --ink-3: rgba(28,28,28,0.42); --ink-4: rgba(28,28,28,0.22);
+  --line: rgba(28,28,28,0.08); --line-2: rgba(28,28,28,0.13);
+  --blue: #2189FF; --blue-bg: rgba(33,137,255,0.07); --blue-bd: rgba(33,137,255,0.18);
+  --teal: #00838F; --coral: #F36E6E; --red: #EF3434;
+  --font: 'DM Sans', -apple-system, sans-serif; --r: 10px; --r-lg: 16px;
 }
 
 * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 html { font-size: 14px; }
 
-/* ── BLACK BACKGROUND WRAPPER ── */
 body {
   background: #000000;
-  color: var(--ink);
-  font-family: var(--font);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  overflow: hidden;
+  color: var(--ink); font-family: var(--font);
+  display: flex; align-items: center; justify-content: center;
+  min-height: 100vh; overflow: hidden;
 }
 
-/* ── GALAXY S26 ULTRA SHELL ── */
 .phone {
-  width: 390px;
-  height: 844px;
-  background: var(--bg);
-  border-radius: 28px;
-  overflow: hidden;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  box-shadow: 0 0 0 2px #1c1c1c, 0 0 0 8px #333, 0 40px 80px rgba(0,0,0,0.3);
-  z-index: 10;
+  width: 390px; height: 844px; background: var(--bg); border-radius: 28px;
+  overflow: hidden; position: relative; display: flex; flex-direction: column;
+  box-shadow: 0 0 0 2px #1c1c1c, 0 0 0 8px #333, 0 40px 80px rgba(0,0,0,0.3); z-index: 10;
 }
 .phone::before {
   content: ''; position: absolute; top: 15px; left: 50%; transform: translateX(-50%);
@@ -66,125 +38,218 @@ body {
 
 /* ── WELCOME SCREEN ── */
 #welcome-screen {
-  position: absolute; inset: 0; background: var(--bg); z-index: 20000;
-  display: none; flex-direction: column; align-items: center; justify-content: center;
-  padding: 32px; text-align: center; transition: opacity 0.3s ease;
+  position: absolute; inset: 0; background: var(--bg); z-index: 20000; display: none; flex-direction: column; align-items: center; justify-content: center; padding: 32px; text-align: center; transition: opacity 0.3s ease;
 }
-.ws-icon { font-size: 64px; margin-bottom: 24px; animation: rise 0.5s ease-out; }
-.ws-title { font-size: 26px; font-weight: 700; line-height: 1.1; margin-bottom: 16px; letter-spacing: -0.5px; color: var(--ink); animation: rise 0.5s 0.1s both; }
-.ws-desc { font-size: 14px; color: var(--ink-3); line-height: 1.6; margin-bottom: 36px; animation: rise 0.5s 0.2s both; }
-.ws-btn { width: 100%; padding: 16px; border-radius: 12px; font-size: 15px; font-weight: 700; background: var(--ink); color: white; border: none; cursor: pointer; animation: rise 0.5s 0.3s both; transition: transform 0.1s; }
+.ws-icon { font-size: 64px; margin-bottom: 24px; }
+.ws-title { font-size: 26px; font-weight: 700; line-height: 1.1; margin-bottom: 16px; letter-spacing: -0.5px; color: var(--ink); }
+.ws-desc { font-size: 14px; color: var(--ink-3); line-height: 1.6; margin-bottom: 36px; }
+.ws-btn { width: 100%; padding: 16px; border-radius: 12px; font-size: 15px; font-weight: 700; background: var(--ink); color: white; border: none; cursor: pointer; transition: transform 0.1s; }
 .ws-btn:active { transform: scale(0.98); }
 
-/* ── FEATURE TOUR STYLES ── */
+/* ── FEATURE TOUR ── */
 .no-scroll { overflow: hidden !important; }
-#tour-overlay {
-  position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.7); z-index: 10000; display: none; pointer-events: auto;
-}
-.highlight-target {
-  position: relative !important; z-index: 10001 !important;
-  box-shadow: 0 0 0 8px rgba(33, 137, 255, 0.4) !important;
-  pointer-events: none; /* Prevents errant clicks during tour */
-}
-.tour-callout {
-  position: absolute; 
-  bottom: calc(100% + 18px); /* Positioned ABOVE the banner */
-  left: 50%; transform: translateX(-50%); width: 280px; 
-  background: var(--blue); color: white; padding: 24px 20px 20px; 
-  border-radius: 16px; text-align: center; z-index: 10002; 
-  animation: floatAbove 2.5s infinite ease-in-out; 
-  pointer-events: auto; box-shadow: 0 12px 30px rgba(0,0,0,0.35);
-}
-.tour-callout::after {
-  content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
-  border: 10px solid transparent; border-top-color: var(--blue);
-}
-.btn-tour-close {
-  margin-top: 16px; background: white; color: var(--blue); border: none; 
-  padding: 10px 24px; border-radius: 20px; font-size: 13px; font-weight: 700; cursor: pointer; transition: transform 0.1s;
-}
+#tour-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.7); z-index: 10000; display: none; pointer-events: auto; }
+.highlight-target { position: relative !important; z-index: 10001 !important; box-shadow: 0 0 0 8px rgba(33, 137, 255, 0.4) !important; pointer-events: none; }
+.tour-callout { position: absolute; bottom: calc(100% + 18px); left: 50%; transform: translateX(-50%); width: 280px; background: var(--blue); color: white; padding: 24px 20px 20px; border-radius: 16px; text-align: center; z-index: 10002; animation: floatAbove 2.5s infinite ease-in-out; pointer-events: auto; box-shadow: 0 12px 30px rgba(0,0,0,0.35); }
+.tour-callout::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 10px solid transparent; border-top-color: var(--blue); }
+.btn-tour-close { margin-top: 16px; background: white; color: var(--blue); border: none; padding: 10px 24px; border-radius: 20px; font-size: 13px; font-weight: 700; cursor: pointer; transition: transform 0.1s; }
 .btn-tour-close:active { transform: scale(0.95); }
-.btn-tour-dismiss {
-  position: absolute; top: 8px; right: 12px; background: none; border: none; 
-  color: rgba(255,255,255,0.6); font-size: 20px; line-height: 1; cursor: pointer; padding: 4px; transition: color 0.2s;
-}
+.btn-tour-dismiss { position: absolute; top: 8px; right: 12px; background: none; border: none; color: rgba(255,255,255,0.6); font-size: 20px; line-height: 1; cursor: pointer; padding: 4px; transition: color 0.2s; }
 .btn-tour-dismiss:active { color: white; }
-
 @keyframes floatAbove { 0%, 100% { transform: translate(-50%, 0); } 50% { transform: translate(-50%, -8px); } }
 
-/* ── COLLECT OPTIONS MODAL ── */
-.options-modal {
-  position: absolute; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); z-index: 9000; display: none; align-items: flex-end; border-radius: inherit;
-}
+/* ── OPTIONS MODAL ── */
+.options-modal { position: absolute; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); z-index: 9000; display: none; align-items: flex-end; border-radius: inherit; pointer-events: auto; }
 .options-modal.open { display: flex; }
-.options-content {
-  background: var(--white); width: 100%; border-radius: 24px 24px 0 0; padding: 24px 20px 40px; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
-}
+.options-content { background: var(--white); width: 100%; border-radius: 24px 24px 0 0; padding: 24px 20px 40px; transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1); }
 .options-modal.open .options-content { transform: translateY(0); }
-.option-row {
-  display: flex; align-items: center; gap: 15px; padding: 18px; background: var(--bg); border-radius: var(--r-lg); margin-bottom: 10px; cursor: pointer; transition: background 0.2s;
-}
+.option-row { display: flex; align-items: center; gap: 15px; padding: 18px; background: var(--bg); border-radius: var(--r-lg); margin-bottom: 10px; cursor: pointer; transition: background 0.2s; }
 .option-row:active { background: #eee; }
 .option-icon { font-size: 24px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: var(--white); border-radius: 12px; }
 
-/* ── ORIGINAL COMPONENTS (STRICTLY PRESERVED) ── */
+/* ── HEADER & LAYOUT ── */
 .status { height:50px; display:flex; align-items:flex-end; justify-content:space-between; padding:0 26px 9px; flex-shrink:0; background:var(--white); }
-.s-time { font-size:13px; font-weight:600; }
-.s-icons { font-size:11px; opacity:0.6; display:flex; gap:5px; }
-
 .site-header { background: var(--white); border-bottom: 1px solid var(--line); flex-shrink: 0; position: sticky; top: 0; z-index: 50; }
 .header-main { display: flex; align-items: center; justify-content: space-between; padding: 10px 20px; }
-.site-logo { font-size: 18px; font-weight: 700; display: flex; align-items: center; gap: 8px; }
-.location-bar { background: #F9F9F9; padding: 12px 20px; display: flex; justify-content: space-between; border-bottom: 1px solid var(--line); }
-.loc-info { font-size: 11px; line-height: 1.4; }
-.lang-pill { display: flex; background: var(--bg); border: 1px solid var(--line-2); border-radius: 20px; padding: 2px; }
-.lang-btn { padding: 3px 9px; font-size: 11px; border: none; background: none; border-radius: 14px; cursor: pointer; }
-.lang-btn.on { background: var(--ink); color: #fff; }
-
-.anchor-nav { display: flex; overflow-x: auto; border-top: 1px solid var(--line); background: var(--white); }
-.anav-link { flex-shrink: 0; padding: 12px 14px; font-size: 11px; border: none; background: none; border-bottom: 2px solid transparent; }
-.anav-link.active { color: var(--ink); border-bottom-color: var(--ink); font-weight: 600; }
-
-.page { flex: 1; overflow-y: auto; scroll-behavior: smooth; position: relative; } /* position relative is required for overlay positioning */
+.site-logo { font-size: 18px; font-weight: 700; color: var(--ink); display: flex; align-items: center; gap: 8px; }
+.location-bar { background: #F9F9F9; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--line); }
+.anchor-nav { display: flex; overflow-x: auto; border-top: 1px solid var(--line); background: var(--white); scrollbar-width: none; }
+.anchor-nav::-webkit-scrollbar { display: none; }
+.anav-link { flex-shrink: 0; padding: 12px 14px; font-size: 11px; font-weight: 500; color: var(--ink-3); border: none; background: none; cursor: pointer; border-bottom: 2px solid transparent; }
+.anav-link.active { color: var(--ink); border-bottom-color: var(--ink); }
+.page { flex: 1; overflow-y: auto; overflow-x: hidden; scroll-behavior: smooth; position: relative; }
 .page::-webkit-scrollbar { display: none; }
 .section { padding: 28px 20px; }
 .section + .section { border-top: 8px solid var(--bg); }
+.section-white { background: var(--white); }
+.section-bg { background: var(--bg); }
+.btn-ink { flex: 1; background: var(--ink); color: white; border: none; padding: 12px 0; font-family: var(--font); font-size: 13px; font-weight: 500; border-radius: var(--r); cursor: pointer; text-align: center; }
+.btn-out { flex: 1; background: transparent; color: var(--ink); border: 1px solid var(--line-2); padding: 12px 0; border-radius: var(--r); cursor: pointer; text-align: center; }
 
-.hero { background: var(--white); padding: 32px 20px 28px; }
-.hero-h1 { font-size: 42px; font-weight: 700; line-height: 0.93; margin-bottom: 14px; }
-.hero-p { font-size: 13px; color: var(--ink-3); margin-bottom: 22px; }
-
-.scan-banner {
-  background: linear-gradient(135deg, #1A1C2E 0%, #303454 100%);
-  border-radius: var(--r-lg); padding: 18px; display: flex; align-items: center; gap: 15px; color: white; cursor: pointer; margin-bottom: 20px;
-}
+/* ── UI COMPONENTS ── */
+.scan-banner { background: linear-gradient(135deg, #1A1C2E 0%, #303454 100%); border-radius: var(--r-lg); padding: 18px; display: flex; align-items: center; gap: 15px; color: white; cursor: pointer; margin-bottom: 20px; }
 .scan-thumb { width: 60px; height: 60px; border-radius: 8px; background: #444 url('https://images.unsplash.com/photo-1512428559087-560fa5ceab42?auto=format&fit=crop&w=100') center/cover; }
-
-.prod-row { display: flex; align-items: center; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--line); cursor: pointer; }
-.prod-thumb { width: 65px; height: 65px; background: #F2F2F2; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 28px; }
+.prod-row { display: flex; align-items: center; gap: 14px; padding: 18px 0; border-bottom: 1px solid var(--line); cursor: pointer; position: relative; }
+.prod-thumb { width: 65px; height: 65px; background: #F2F2F2; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 28px; flex-shrink: 0; }
+.prod-row.done .prod-thumb::after { content: '✓'; position: absolute; inset: 0; background: var(--ink); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; color: white; font-weight: 700; }
+.prod-info { flex: 1; min-width: 0; }
 
 .stamp-card { background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); padding: 20px; margin-bottom: 16px; }
-.btn-collect { width: 100%; margin-top: 15px; margin-bottom: 15px; background: var(--blue); color: white; border: none; padding: 14px; border-radius: var(--r); font-weight: 700; cursor: pointer; }
+.dots { display: grid; grid-template-columns: repeat(8,1fr); gap: 5px; margin-bottom: 12px; }
+.dot { aspect-ratio: 1; border-radius: 6px; border: 1px solid var(--line-2); display: flex; align-items: center; justify-content: center; font-size: 10px; color: var(--ink-4); background: var(--bg); transition: all 0.3s; font-weight: 500; }
+.dot.on { background: var(--blue); border-color: var(--blue); color: white; font-size: 11px; font-weight: 700; }
+.prog-bar { height: 2px; background: var(--line); border-radius: 1px; margin-bottom: 18px; overflow: hidden; }
+.prog-fill { height: 100%; background: var(--blue); width: 0; transition: width 0.5s ease; }
+.btn-collect { width: 100%; margin-top: 16px; margin-bottom: 16px; background: var(--blue); color: white; border: none; padding: 14px; border-radius: var(--r); font-family: var(--font); font-weight: 700; font-size: 14px; cursor: pointer; }
+.rewards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.rcard { background: var(--bg); border: 1px solid var(--line); border-radius: var(--r); padding: 12px; position: relative; transition: all 0.25s; }
+.rcard.on { background: var(--n1); border-color: var(--blue); }
 
-/* ... All other original styles (Buds demo, Journey, Scanner) strictly preserved ... */
-.detail-screen, .scanner-screen { position: absolute; inset: 0; background: var(--white); z-index: 100; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.32,0.72,0,1); display: flex; flex-direction: column; overflow: hidden; }
+/* ── DETAIL SCREEN ── */
+.detail-screen { position: absolute; inset: 0; background: var(--bg); z-index: 100; transform: translateX(100%); transition: transform 0.35s cubic-bezier(0.32,0.72,0,1); display: flex; flex-direction: column; overflow: hidden; }
 .detail-screen.open { transform: translateX(0); }
-.scanner-screen { transform: translateY(100%); background: #111; }
+.detail-topbar { position: relative; z-index: 150; display: flex; align-items: center; justify-content: space-between; padding: 54px 20px 12px; border-bottom: 1px solid var(--line); flex-shrink: 0; background: var(--white); }
+/* Fix for back buttons */
+.detail-back { display: flex; align-items: center; gap: 4px; font-size: 14px; font-weight: 500; color: var(--blue); border: none; background: none; cursor: pointer; font-family: var(--font); padding: 8px; margin-left: -8px; }
+.detail-body { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+.detail-body::-webkit-scrollbar { display: none; }
+.stage-panel { display: none; }
+.stage-panel.on { display: block; }
+
+/* Standard Specs (For Non-Buds Products) */
+.detail-hero { padding: 28px 20px 20px; text-align: center; border-bottom: 1px solid var(--line); background: var(--white); }
+.detail-specs { padding: 20px 20px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; background: var(--bg); }
+.spec-cell { background: var(--white); border: 1px solid var(--line); border-radius: var(--r); padding: 10px 12px; }
+
+/* ── 🌟 NEW: SLIDER "TRY ZONE" UI 🌟 ── */
+.tz-wrap { padding: 20px 20px 40px; background: var(--bg); }
+.tz-header { font-size: 10px; font-weight: 700; color: var(--ink-4); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+.tz-title { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 4px; color: var(--ink); }
+.tz-sub { font-size: 12px; color: var(--ink-3); margin-bottom: 20px; line-height: 1.5; }
+
+.tz-tabs { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; scrollbar-width: none; }
+.tz-tabs::-webkit-scrollbar { display: none; }
+.tz-tab { padding: 10px 16px; border: 1px solid var(--line-2); border-radius: 20px; font-size: 12px; color: var(--ink-3); background: var(--white); cursor: pointer; white-space: nowrap; transition: all 0.2s; font-family: var(--font); font-weight: 500; }
+.tz-tab.active { background: var(--ink); color: white; border-color: var(--ink); font-weight: 700; }
+
+.tz-card { border: 1px solid var(--line); border-radius: 20px; overflow: hidden; background: var(--white); margin-bottom: 20px; box-shadow: 0 4px 12px rgba(0,0,0,0.03); }
+.tz-img-wrap { background: #111; height: 220px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+.tz-img { width: 100%; height: 100%; object-fit: cover; opacity: 0.6; transition: filter 0.4s ease, opacity 0.4s ease; }
+.tz-img.loaded { opacity: 1; }
+
+.tz-content { padding: 20px; }
+.tz-cat { font-size: 10px; font-weight: 700; color: var(--ink-4); letter-spacing: 1px; margin-bottom: 6px; }
+.tz-feat { font-size: 18px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.4px; }
+.tz-desc { font-size: 12px; color: var(--ink-3); line-height: 1.6; margin-bottom: 20px; min-height: 58px; }
+
+.tz-toggle { display: flex; background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 4px; margin-bottom: 20px; }
+.tz-tgl-btn { flex: 1; padding: 10px; text-align: center; font-size: 12px; font-weight: 600; color: var(--ink-3); border-radius: 8px; cursor: pointer; transition: all 0.2s; border: none; font-family: var(--font); }
+.tz-tgl-btn.active { background: var(--ink); color: white; }
+
+.tz-player { display: flex; align-items: center; gap: 14px; }
+.tz-play { width: 44px; height: 44px; border-radius: 50%; background: var(--ink-4); display: flex; align-items: center; justify-content: center; color: white; cursor: pointer; border: none; transition: background 0.2s; }
+.tz-play:active { background: var(--ink-3); }
+.tz-track { flex: 1; height: 4px; background: var(--line); border-radius: 2px; position: relative; }
+.tz-prog { position: absolute; left: 0; top: 0; height: 100%; width: 0%; background: var(--ink); border-radius: 2px; transition: width 0.3s; }
+
+.tz-nav { display: flex; align-items: center; gap: 12px; }
+.tz-arrow { width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--line-2); background: var(--white); display: flex; align-items: center; justify-content: center; font-size: 18px; cursor: pointer; border: none; color: var(--ink); transition: background 0.2s; }
+.tz-arrow:active { background: var(--bg); }
+.tz-next { flex: 1; background: var(--ink-4); color: white; font-weight: 700; font-size: 14px; border: none; border-radius: 16px; padding: 16px; cursor: not-allowed; transition: all 0.3s; font-family: var(--font); }
+.tz-next.ready { background: var(--ink); cursor: pointer; }
+.tz-next.ready:active { transform: scale(0.98); }
+
+/* ── 🌟 NEW: SAVE SPEC MODAL 🌟 ── */
+.btn-save-trigger { background: var(--ink); color: white; border: none; padding: 8px 16px; border-radius: 20px; font-size: 11px; font-weight: 600; display: inline-flex; align-items: center; gap: 6px; cursor: pointer; margin-top: 12px; transition: transform 0.1s; font-family: var(--font); }
+.btn-save-trigger:active { transform: scale(0.95); }
+
+.spec-modal { position: absolute; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 10500; display: none; align-items: center; justify-content: center; padding: 20px; pointer-events: auto; }
+.spec-modal.open { display: flex; }
+.sm-card { background: #292929; color: white; border-radius: 24px; width: 100%; overflow: hidden; transform: scale(0.95); opacity: 0; transition: all 0.3s cubic-bezier(0.32, 0.72, 0, 1); box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+.spec-modal.open .sm-card { transform: scale(1); opacity: 1; }
+.sm-hero { padding: 24px; display: flex; gap: 16px; align-items: center; border-bottom: 1px solid rgba(255,255,255,0.08); }
+.sm-img { width: 70px; height: 70px; background: rgba(255,255,255,0.05); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 32px; }
+.sm-specs { display: grid; grid-template-columns: 1fr 1fr; background: white; color: var(--ink); }
+.sm-cell { padding: 16px; border-bottom: 1px solid var(--line); border-right: 1px solid var(--line); }
+.sm-cell:nth-child(even) { border-right: none; }
+.sm-k { font-size: 9px; font-weight: 700; color: var(--ink-4); letter-spacing: 1px; margin-bottom: 4px; text-transform: uppercase; }
+.sm-v { font-size: 13px; font-weight: 500; }
+.sm-btn-wrap { padding: 20px; background: white; text-align: center; }
+.sm-btn { width: 100%; background: var(--ink); color: white; padding: 16px; border-radius: 16px; font-weight: 700; font-size: 14px; border: none; cursor: pointer; transition: background 0.2s; font-family: var(--font); }
+.sm-btn.saved { background: var(--teal); }
+
+/* ── STAGE JOURNEY (Top Bar) ── */
+.journey-bar { display: flex; align-items: center; padding: 14px 20px 12px; background: var(--bg); border-bottom: 1px solid var(--line); }
+.jstep { display: flex; flex-direction: column; align-items: center; gap: 5px; flex: 1; position: relative; }
+.jstep:not(:last-child)::after { content: ''; position: absolute; top: 11px; left: 50%; width: 100%; height: 1.5px; background: var(--line-2); z-index: 0; transition: background 0.3s; }
+.jstep.done:not(:last-child)::after { background: var(--ink); }
+.jstep-circle { width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid var(--line-2); background: var(--white); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: var(--ink-4); position: relative; z-index: 1; transition: all 0.25s; }
+.jstep.active .jstep-circle { border-color: var(--ink); background: var(--ink); color: white; }
+.jstep.done .jstep-circle { border-color: var(--ink); background: var(--ink); color: white; font-size: 10px; }
+.jstep-label { font-size: 8px; font-weight: 500; color: var(--ink-4); text-align: center; max-width: 58px; }
+.jstep.active .jstep-label { color: var(--ink); font-weight: 600; }
+
+/* ── 4-STAGE PANELS ── */
+.confirm-card { margin: 20px 20px 0; background: var(--white); border: 1px solid var(--line); border-radius: var(--r-lg); overflow: hidden; }
+.confirm-top { padding: 20px 20px 16px; text-align: center; }
+.confirm-icon { font-size: 36px; margin-bottom: 12px; }
+.confirm-h { font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--ink); }
+.confirm-sub { font-size: 12px; font-weight: 300; color: var(--ink-3); line-height: 1.65; }
+.confirm-features { padding: 0 20px 16px; display: flex; flex-direction: column; gap: 6px; }
+.cf-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; background: var(--bg); border-radius: var(--r); font-size: 12px; font-weight: 500; color: var(--ink-2); }
+.cf-check { width: 18px; height: 18px; background: var(--ink); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 9px; color: white; font-weight: 700; flex-shrink: 0; }
+.confirm-cta { padding: 0 20px 20px; }
+.confirm-cta .btn-ink { width: 100%; padding: 13px 0; border-radius: var(--r); }
+
+.deals-stage { padding: 16px 20px 0; }
+.ds-intro { font-size: 12px; font-weight: 300; color: var(--ink-3); line-height: 1.65; margin-bottom: 16px; }
+.deal-row { display: flex; align-items: flex-start; gap: 12px; padding: 14px; background: var(--white); border: 1px solid var(--line); border-radius: var(--r); margin-bottom: 8px; cursor: pointer; transition: all 0.15s; }
+.deal-row.viewed { border-color: var(--ink); }
+.dr-icon { width: 36px; height: 36px; flex-shrink: 0; background: var(--bg); border-radius: 8px; border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; font-size: 16px; }
+.dr-body { flex: 1; }
+.dr-name { font-size: 13px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+.dr-desc { font-size: 11px; font-weight: 300; color: var(--ink-3); line-height: 1.4; }
+.dr-check { width: 20px; height: 20px; flex-shrink: 0; border-radius: 50%; border: 1.5px solid var(--line-2); display: flex; align-items: center; justify-content: center; font-size: 9px; font-weight: 700; color: transparent; transition: all 0.2s; margin-top: 2px; }
+.deal-row.viewed .dr-check { background: var(--ink); border-color: var(--ink); color: white; }
+.ds-cta { margin-top: 16px; }
+.ds-cta .btn-ink { width: 100%; padding: 13px 0; border-radius: var(--r); opacity: 0.35; pointer-events: none; }
+.ds-cta .btn-ink.ready { opacity: 1; pointer-events: all; }
+
+.code-stage { padding: 20px 20px 0; text-align: center; }
+.code-icon { font-size: 40px; margin-bottom: 14px; }
+.code-h { font-size: 17px; font-weight: 700; margin-bottom: 8px; color: var(--ink); }
+.code-sub { font-size: 12px; font-weight: 300; color: var(--ink-3); margin-bottom: 20px; }
+.code-input-wrap { display: flex; gap: 8px; margin-bottom: 10px; }
+.code-input { flex: 1; height: 48px; background: var(--bg); border: 1.5px solid var(--line-2); border-radius: var(--r); text-align: center; font-family: var(--font); font-size: 20px; font-weight: 700; letter-spacing: 6px; color: var(--ink); outline: none; transition: border-color 0.15s; text-transform: uppercase; }
+.code-input:focus { border-color: var(--ink); }
+.code-input.error { border-color: var(--red); }
+.code-input.success { border-color: var(--teal); background: rgba(0,131,143,0.05); }
+.code-submit { width: 48px; height: 48px; background: var(--ink); border: none; border-radius: var(--r); cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+/* Scanner Screen - Improved Z-index for back button */
+.scanner-screen { position: absolute; inset: 0; background: #111; z-index: 200; display: flex; flex-direction: column; transform: translateY(100%); transition: transform 0.38s cubic-bezier(0.32,0.72,0,1); }
 .scanner-screen.open { transform: translateY(0); }
+.scan-topbar { position: relative; z-index: 250; padding: 54px 20px 14px; display: flex; align-items: center; justify-content: space-between; }
+.scan-back-btn { font-size: 14px; font-weight: 500; color: rgba(255,255,255,0.8); background: rgba(255,255,255,0.15); border: none; border-radius: 20px; padding: 8px 16px; cursor: pointer; font-family: var(--font); }
+.cam-view { flex: 1; display: flex; align-items: center; justify-content: center; background: #0d0d0d; position: relative; overflow: hidden; }
+.scan-box { width: 210px; height: 210px; border: 2px dashed rgba(255,255,255,0.4); border-radius: 20px; position: relative; z-index: 10;}
+.scan-laser { position: absolute; left: 0; right: 0; height: 2px; background: var(--blue); box-shadow: 0 0 15px var(--blue); animation: scan 2s infinite; }
+@keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+
 </style>
 </head>
 <body>
 
-<div class="phone">
-  
-  <div id="welcome-screen">
-    <div class="ws-icon">🏪</div>
-    <h2 class="ws-title">Welcome to<br>Retail Curator</h2>
-    <p class="ws-desc">Explore products to earn stamps, unlock exclusive rewards, and discover in-store promotions.</p>
-    <button class="ws-btn" onclick="closeWelcomeAndStartTour()">Get Started</button>
-  </div>
+<div id="welcome-screen">
+  <div class="ws-icon">🏪</div>
+  <h2 class="ws-title">Welcome to<br>Retail Curator</h2>
+  <p class="ws-desc">Explore products to earn stamps, unlock exclusive rewards, and discover in-store promotions.</p>
+  <button class="ws-btn" onclick="closeWelcomeAndStartTour()">Get Started</button>
+</div>
 
+<div id="tour-overlay" onclick="dismissTour(event)"></div>
+
+<div class="phone">
   <div class="status">
     <span class="s-time" id="sTime">9:41</span>
     <div class="s-icons"><span>▲▲▲</span><span>WiFi</span><span>▐█</span></div>
@@ -206,8 +271,8 @@ body {
     </div>
     <div class="location-bar">
       <div class="loc-info">
-        Samsung Experience Store <strong>Central World 3F</strong>
-        <span>📍 4th Floor, Zone C · Ratchaprasong</span>
+        Samsung Experience Store <strong data-i18n="storeName">CentralWorld, Bangkok</strong>
+        <span>📍 4th Floor, Zone C</span>
       </div>
       <div class="btn-change">Change</div>
     </div>
@@ -220,23 +285,10 @@ body {
   </div>
 
   <div class="page" id="page">
-    
-    <div id="tour-overlay" onclick="dismissTour(event)"></div>
 
     <div class="hero" id="heroSec">
       <h1 class="hero-h1" data-i18n="heroH1">Welcome to our store.</h1>
       <p class="hero-p" data-i18n="heroP">Explore today's lineup, scan products, and earn stamps that unlock exclusive in-store rewards on top of existing deals.</p>
-      <div class="hero-cta">
-        <button class="btn-ink" data-i18n="heroCta1" onclick="scrollTo('prodSec')">Explore Products</button>
-        <button class="btn-out" data-i18n="heroCta2" onclick="scrollTo('stampSec')">My Stamps</button>
-      </div>
-    </div>
-
-    <div class="promo-strip">
-      <div class="chip"><span class="chip-tag" data-i18n="c1t">Today</span><span data-i18n="c1">Trade-in S25 → ฿4,000 off</span></div>
-      <div class="chip"><span class="chip-tag r" data-i18n="c2t">Flash</span><span data-i18n="c2">Free Buds 4 Pro w/ S26 Ultra</span></div>
-      <div class="chip"><span class="chip-tag t" data-i18n="c3t">New</span><span data-i18n="c3">Galaxy Ring now in-store</span></div>
-      <div class="chip"><span class="chip-tag" data-i18n="c4t">Staff</span><span data-i18n="c4">Ask for AI demo → +1 Stamp</span></div>
     </div>
 
     <div class="section section-white" id="prodSec">
@@ -246,11 +298,11 @@ body {
 
       <div class="scan-banner" id="scanBanner" onclick="openScanner()">
         <div class="scan-thumb"></div>
-        <div class="scan-text">
-          <h4>✨ Galaxy AI Explore</h4>
-          <p><strong data-i18n="scanCtaTitle">Scan a Product or QR Code</strong><br><span data-i18n="scanCtaSub">Point your camera at any product or QR Tag to earn a stamp</span></p>
+        <div style="flex:1;">
+          <h4 style="font-size:15px; margin-bottom:4px;">✨ Galaxy AI Explore</h4>
+          <p style="font-size:11px; opacity:0.8; line-height:1.4;"><strong data-i18n="scanCtaTitle">Scan a Product or QR Code</strong><br><span data-i18n="scanCtaSub">Point your camera at any product to earn a stamp</span></p>
         </div>
-        <div class="scan-arrow">›</div>
+        <div style="font-size:20px; opacity:0.6;">›</div>
       </div>
 
       <div class="filters">
@@ -264,51 +316,41 @@ body {
         <div class="prod-row" id="pr-0" onclick="openDetail(0)">
           <div class="prod-thumb" style="background:#222;">📱</div>
           <div class="prod-info">
-            <div style="margin-bottom:4px;"><span class="badge new" data-i18n="bNew">NEW</span><span class="prod-cat" data-pid-cat="0"></span></div>
-            <div class="prod-name" data-pid-name="0"></div>
+            <div style="margin-bottom:4px;"><span class="badge new" data-i18n="bNew">NEW</span><span class="prod-cat" data-pid-cat="0">SMARTPHONE</span></div>
+            <div class="prod-name" data-pid-name="0">Galaxy S26 Ultra</div>
             <div class="prod-price"><span class="was">฿49,900</span><span class="now">฿45,900</span></div>
           </div>
-          <div class="prod-arrow">›</div>
+          <div class="prod-right"><div style="font-size:18px; color:#ccc;">›</div></div>
         </div>
 
         <div class="prod-row" id="pr-1" onclick="openDetail(1)">
           <div class="prod-thumb" style="background:#eee;">🎧</div>
           <div class="prod-info">
-            <div style="margin-bottom:4px;"><span class="badge new" data-i18n="bNew">NEW</span><span class="prod-cat" data-pid-cat="1"></span></div>
-            <div class="prod-name" data-pid-name="1"></div>
+            <div style="margin-bottom:4px;"><span class="badge new" data-i18n="bNew">NEW</span><span class="prod-cat" data-pid-cat="1">WEARABLE</span></div>
+            <div class="prod-name" data-pid-name="1">Galaxy Buds 4 Pro</div>
             <div class="prod-price"><span class="was">฿9,900</span><span class="now">฿7,490</span></div>
           </div>
-          <div class="prod-arrow">›</div>
+          <div class="prod-right"><div style="font-size:18px; color:#ccc;">›</div></div>
         </div>
 
         <div class="prod-row" id="pr-2" onclick="openDetail(2)">
           <div class="prod-thumb" style="background:#f9f9f9;">⌚</div>
           <div class="prod-info">
-            <div style="margin-bottom:4px;"><span class="badge new" data-i18n="bNew">NEW</span><span class="prod-cat" data-pid-cat="2"></span></div>
-            <div class="prod-name" data-pid-name="2"></div>
+            <div style="margin-bottom:4px;"><span class="badge new" data-i18n="bNew">NEW</span><span class="prod-cat" data-pid-cat="2">WEARABLE</span></div>
+            <div class="prod-name" data-pid-name="2">Galaxy Watch 7</div>
             <div class="prod-price"><span class="now">฿12,900</span></div>
           </div>
-          <div class="prod-arrow">›</div>
+          <div class="prod-right"><div style="font-size:18px; color:#ccc;">›</div></div>
         </div>
 
         <div class="prod-row" id="pr-4" onclick="openDetail(4)">
           <div class="prod-thumb" style="background:#333;">🖥️</div>
           <div class="prod-info">
-            <div style="margin-bottom:4px;"><span class="badge down">PRICE DOWN</span><span class="prod-cat" data-pid-cat="4"></span></div>
-            <div class="prod-name" data-pid-name="4"></div>
+            <div style="margin-bottom:4px;"><span class="badge down">PRICE DOWN</span><span class="prod-cat" data-pid-cat="4">TABLET</span></div>
+            <div class="prod-name" data-pid-name="4">Galaxy Tab S10+</div>
             <div class="prod-price"><span class="was">฿35,900</span><span class="now">฿31,900</span></div>
           </div>
-          <div class="prod-arrow">›</div>
-        </div>
-        
-        <div class="prod-row" id="pr-3" onclick="openDetail(3)">
-          <div class="prod-thumb" style="background:#e9e9e9;">💍</div>
-          <div class="prod-info">
-            <div style="margin-bottom:4px;"><span class="badge new" data-i18n="bNew">NEW</span><span class="prod-cat" data-pid-cat="3"></span></div>
-            <div class="prod-name" data-pid-name="3"></div>
-            <div class="prod-price"><span class="now">฿14,900</span></div>
-          </div>
-          <div class="prod-arrow">›</div>
+          <div class="prod-right"><div style="font-size:18px; color:#ccc;">›</div></div>
         </div>
       </div>
     </div>
@@ -316,99 +358,25 @@ body {
     <div class="section section-bg" id="stampSec">
       <div class="section-label" data-i18n="stampLabel">Stamp Card</div>
       <div class="stamp-card">
-        <div class="sc-row1">
+        <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:16px;">
           <div>
-            <div class="sc-left-title" data-i18n="stampTitle">Demo Stamps</div>
-            <div class="sc-left-sub" data-i18n="stampSub">Explore products to earn stamps and unlock in-store rewards.</div>
+            <div style="font-size:18px; font-weight:700;" data-i18n="stampTitle">Demo Stamps</div>
+            <div style="font-size:11px; color:var(--ink-3); margin-top:4px;" data-i18n="stampSub">Explore products to earn stamps.</div>
           </div>
-          <div class="sc-big"><span id="bigStamp">0</span><span data-i18n="stampOf"> / 8</span></div>
+          <div style="font-size:48px; font-weight:700; line-height:1;"><span id="bigStamp">0</span><span style="font-size:14px; color:var(--ink-3);" data-i18n="stampOf">/8</span></div>
         </div>
         <div class="dots" id="dots"></div>
         <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
         
         <button class="btn-collect" onclick="toggleCollectOptions(true)">Collect stamps</button>
-        
-        <div class="rewards">
-          <div class="rcard" id="rc-2">
-            <div class="rcard-at" data-i18n="rc2at">At <b>2</b> stamps</div>
-            <div class="rcard-ico">🎁</div>
-            <div class="rcard-name" data-i18n="rc2n">Free Samsung Case</div>
-            <div class="rcard-val" data-i18n="rc2v">Worth ฿890</div>
-          </div>
-          <div class="rcard" id="rc-4">
-            <div class="rcard-at" data-i18n="rc4at">At <b>4</b> stamps</div>
-            <div class="rcard-ico">🛡️</div>
-            <div class="rcard-name" data-i18n="rc4n">1-Year Care+ Free</div>
-            <div class="rcard-val" data-i18n="rc4v">Worth ฿2,490</div>
-          </div>
-          <div class="rcard" id="rc-6">
-            <div class="rcard-at" data-i18n="rc6at">At <b>6</b> stamps</div>
-            <div class="rcard-ico">💳</div>
-            <div class="rcard-name" data-i18n="rc6n">฿1,500 Store Credit</div>
-            <div class="rcard-val" data-i18n="rc6v">Stackable with promos</div>
-          </div>
-          <div class="rcard" id="rc-8">
-            <div class="rcard-at" data-i18n="rc8at">At <b>8</b> stamps</div>
-            <div class="rcard-ico">◈</div>
-            <div class="rcard-name" data-i18n="rc8n">Galaxy VIP Bundle</div>
-            <div class="rcard-val" data-i18n="rc8v">฿5,000+ in extras</div>
-          </div>
-        </div>
       </div>
     </div>
-
-    <div class="section section-white" id="dealsSec">
-      <div class="section-label" data-i18n="dealsLabel">Promotions</div>
-      <div class="section-title" data-i18n="dealsTitle">Floor Deals</div>
-      <div class="section-sub" data-i18n="dealsSub">Exclusive in-store offers — not available online.</div>
-      <div class="deal-list">
-
-        <div class="deal dark">
-          <div class="deal-type dk"><span class="d"></span><span data-i18n="d1type">Featured This Week</span></div>
-          <div class="deal-name" data-i18n="d1name">Galaxy Ecosystem Bundle</div>
-          <div class="deal-desc" data-i18n="d1desc">S26 Ultra + Buds 4 Pro + Watch 7. Exclusive in-store price.</div>
-          <div class="deal-val white">฿59,900</div>
-          <div class="deal-save" data-i18n="d1save">Save ฿12,800 vs. buying separately</div>
-        </div>
-
-        <div class="deal">
-          <div class="deal-type lv"><span class="d"></span><span data-i18n="d2type">Live Now</span></div>
-          <div class="deal-name" data-i18n="d2name">Free Buds 4 Pro with S26</div>
-          <div class="deal-desc" data-i18n="d2desc">Buy any S26 series today. First 20 customers only.</div>
-          <div class="deal-val coral" data-i18n="d2val">฿9,900 Free</div>
-          <div class="cd-row">
-            <div class="cd-cell"><span class="cd-v" id="ch">03</span><span class="cd-l" data-i18n="hrs">Hrs</span></div>
-            <div class="cd-cell"><span class="cd-v" id="cm">00</span><span class="cd-l" data-i18n="min">Min</span></div>
-            <div class="cd-cell"><span class="cd-v" id="cs">00</span><span class="cd-l" data-i18n="sec">Sec</span></div>
-          </div>
-        </div>
-
-        <div class="deal">
-          <div class="deal-type tl"><span class="d"></span><span data-i18n="d3type">Trade-In</span></div>
-          <div class="deal-name" data-i18n="d3name">S25 Upgrade Offer</div>
-          <div class="deal-desc" data-i18n="d3desc">Bring your S25 in any condition for instant valuation at the counter.</div>
-          <div class="deal-val teal" data-i18n="d3val">Up to ฿4,000</div>
-        </div>
-
-        <div class="deal">
-          <div class="deal-type bl"><span class="d"></span><span data-i18n="d4type">Stamp Bonus</span></div>
-          <div class="deal-name" data-i18n="d4name">Staff Demo Stamp</div>
-          <div class="deal-desc" data-i18n="d4desc">Ask any floor staff for a live Galaxy AI demo to earn a bonus stamp.</div>
-          <div class="stamp-btn" data-i18n="d4stamp">◈ +1 Stamp</div>
-        </div>
-
-      </div>
-    </div>
-
-    <div class="page-footer">
-      <div class="footer-note" data-i18n="footerNote">Promotions valid in-store only · Bangkok Flagship · March 2026<br>Terms and conditions apply.</div>
-    </div>
-
+    
+    <div style="padding-bottom:40px;"></div>
   </div> <div class="options-modal" id="collectOptionsModal" onclick="toggleCollectOptions(false)">
     <div class="options-content" onclick="event.stopPropagation()">
       <div style="width:30px; height:4px; background:#ddd; border-radius:2px; margin:0 auto 20px;"></div>
       <h3 style="font-size:18px; margin-bottom:20px; color:var(--ink);">Earn your next stamp</h3>
-
       <div class="option-row" onclick="toggleCollectOptions(false); openScanner();">
         <div class="option-icon">📷</div>
         <div>
@@ -416,20 +384,11 @@ body {
           <div style="font-size:12px; color:var(--ink-3);">Scan a product QR code on the floor</div>
         </div>
       </div>
-
       <div class="option-row" onclick="toggleCollectOptions(false); alert('Find a specialist in the blue shirt to get your code!');">
         <div class="option-icon">💬</div>
         <div>
           <div style="font-weight:700; font-size:14px; color:var(--ink);">Ask a Specialist</div>
           <div style="font-size:12px; color:var(--ink-3);">Get a demo and a secret staff code</div>
-        </div>
-      </div>
-
-      <div class="option-row" onclick="toggleCollectOptions(false);">
-        <div class="option-icon">🎓</div>
-        <div>
-          <div style="font-weight:700; font-size:14px; color:var(--ink);">Join AI Class</div>
-          <div style="font-size:12px; color:var(--ink-3);">Attend a 10-min session (Coming soon)</div>
         </div>
       </div>
     </div>
@@ -438,52 +397,36 @@ body {
   <div class="detail-screen" id="detailScreen">
     <div class="detail-topbar">
       <button class="detail-back" onclick="closeDetail()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
         <span data-i18n="back">Back</span>
       </button>
-      <div class="detail-title" id="detailTitle"></div>
-      <div style="width:56px"></div>
     </div>
 
     <div class="journey-bar" id="journeyBar">
-      <div class="jstep active" id="js0">
-        <div class="jstep-circle">1</div>
-        <div class="jstep-label">Explore</div>
-      </div>
-      <div class="jstep" id="js1">
-        <div class="jstep-circle">2</div>
-        <div class="jstep-label">Confirm</div>
-      </div>
-      <div class="jstep" id="js2">
-        <div class="jstep-circle">3</div>
-        <div class="jstep-label">Deals</div>
-      </div>
-      <div class="jstep" id="js3">
-        <div class="jstep-circle">4</div>
-        <div class="jstep-label">Get Stamp</div>
-      </div>
+      <div class="jstep active" id="js0"><div class="jstep-circle">1</div><div class="jstep-label">Explore</div></div>
+      <div class="jstep" id="js1"><div class="jstep-circle">2</div><div class="jstep-label">Confirm</div></div>
+      <div class="jstep" id="js2"><div class="jstep-circle">3</div><div class="jstep-label">Deals</div></div>
+      <div class="jstep" id="js3"><div class="jstep-circle">4</div><div class="jstep-label">Get Stamp</div></div>
     </div>
 
     <div class="detail-body" id="detailBody">
-
+      
       <div class="stage-panel on" id="stage1">
-        <div class="detail-hero">
-          <div class="detail-icon" id="dIcon"></div>
-          <div class="detail-cat" id="dCat"></div>
-          <div class="detail-name" id="dName"></div>
-          <div class="detail-desc" id="dDesc"></div>
+        
+        <div id="standardHero">
+          <div class="detail-hero">
+            <div class="detail-icon" id="dIcon">📱</div>
+            <div class="detail-cat" id="dCat">SMARTPHONE</div>
+            <div class="detail-name" id="dName">Galaxy Product</div>
+            <div class="detail-desc" id="dDesc">Product description here.</div>
+          </div>
+          <div class="detail-specs" id="dSpecs"></div>
         </div>
-        <div class="detail-specs" id="dSpecs"></div>
-        <div id="dExp" style="display:none;padding:0 0 4px;"></div>
-        <div class="feat-progress" id="featProgress">
-          <div class="fp-bar-wrap"><div class="fp-bar" id="fpBar"></div></div>
-          <div class="fp-hint" id="fpHint">Tap a feature above to start exploring.</div>
-        </div>
-        <div style="padding:12px 20px 24px;">
-          <button class="btn-ink" id="toStage2Btn" onclick="goToStage(2)"
-            style="width:100%;padding:13px 0;border-radius:var(--r);opacity:0.3;cursor:not-allowed;transition:opacity 0.3s,cursor 0.3s;">
-            Continue
-          </button>
+
+        <div id="dExp"></div>
+
+        <div style="padding:12px 20px 24px;" id="standardBtnWrap">
+          <button class="btn-ink" id="toStage2Btn" onclick="goToStage(2)" style="width:100%;padding:14px 0;border-radius:12px;opacity:0.3;">Continue</button>
         </div>
       </div>
 
@@ -491,7 +434,7 @@ body {
         <div class="confirm-card">
           <div class="confirm-top">
             <div class="confirm-icon" id="confirmIcon">🎧</div>
-            <div class="confirm-h" id="confirmH">You've explored Galaxy Buds4 Pro</div>
+            <div class="confirm-h" id="confirmH">You've explored the product</div>
             <div class="confirm-sub">Here's what you just saw. Tap confirm to move on to the deals.</div>
           </div>
           <div class="confirm-features" id="confirmFeatures"></div>
@@ -499,776 +442,128 @@ body {
             <button class="btn-ink" onclick="goToStage(3)">Confirmed — Show me the deals</button>
           </div>
         </div>
-        <div style="height:24px;"></div>
       </div>
 
       <div class="stage-panel" id="stage3">
         <div class="deals-stage">
-          <p class="ds-intro" id="dsIntro">These are the active deals on this product. Tap each one to read it — then you're ready to get your stamp.</p>
+          <p class="ds-intro">These are the active deals on this product. Tap each one to read it — then you're ready to get your stamp.</p>
           <div id="dealsStageList"></div>
           <div class="ds-cta">
             <button class="btn-ink" id="toStage4Btn" onclick="goToStage(4)">I've checked the deals</button>
           </div>
         </div>
-        <div style="height:24px;"></div>
       </div>
 
       <div class="stage-panel" id="stage4">
         <div class="code-stage">
           <div class="code-icon">🔑</div>
           <div class="code-h">One last step</div>
-          <div class="code-sub">Ask a floor staff member for today's code — or have them scan the QR on your screen to complete your stamp.</div>
+          <div class="code-sub">Ask a floor staff member for today's code to complete your stamp.</div>
           <div class="code-input-wrap">
-            <input class="code-input" id="codeInput" maxlength="4" placeholder="----"
-              oninput="onCodeInput(this)" autocomplete="off" autocorrect="off" spellcheck="false"/>
+            <input class="code-input" id="codeInput" maxlength="4" placeholder="----" oninput="onCodeInput(this)" autocomplete="off">
             <button class="code-submit" onclick="submitCode()">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
             </button>
           </div>
           <div class="code-error" id="codeError"></div>
-          <div class="code-hint">Today's code changes daily. Any staff member can give it to you.</div>
+          <div class="code-hint">Today's code is "BUDS" for testing.</div>
         </div>
-        <div style="height:24px;"></div>
       </div>
 
       <div class="stage-panel" id="stageEarned">
         <div class="stamp-earned-state">
           <div class="se-icon">✦</div>
           <div class="se-h" id="seH">Stamp earned.</div>
-          <div class="se-sub" id="seSub">You explored the product, checked the deals, and confirmed with a staff member. That's the full experience.</div>
+          <div class="se-sub" id="seSub">You explored the product and confirmed with a staff member.</div>
           <div class="se-stamp-row">
             <div class="se-dot">✓</div>
-            <div class="se-stamp-label" id="seStampLabel">1 stamp added · 7 to go</div>
+            <div class="se-stamp-label" id="seStampLabel">1 stamp added</div>
           </div>
           <div class="se-actions">
             <button class="btn-ink" onclick="closeDetail(); scrollTo('stampSec')">See My Stamps</button>
-            <button class="btn-out" onclick="closeDetail()">Back to Floor</button>
           </div>
         </div>
-        <div style="height:24px;"></div>
       </div>
 
+    </div>
+  </div>
+
+  <div class="spec-modal" id="specModal" onclick="closeSpecModal()">
+    <div class="sm-card" onclick="event.stopPropagation()">
+      <div class="sm-hero">
+        <div class="sm-img">🎧</div>
+        <div>
+          <div style="font-size:8px; font-weight:700; color:#aaa; letter-spacing:1px; margin-bottom:2px;">SPEC SHEET</div>
+          <div style="font-size:16px; font-weight:700; margin-bottom:2px;">Galaxy Buds 4 Pro</div>
+          <div style="font-size:14px; font-weight:700; color:var(--white);">฿7,990.00</div>
+        </div>
+      </div>
+      <div class="sm-specs">
+        <div class="sm-cell"><div class="sm-k">Drivers</div><div class="sm-v">Dual-Driver UHQ</div></div>
+        <div class="sm-cell"><div class="sm-k">Audio</div><div class="sm-v">24-bit / 96 kHz</div></div>
+        <div class="sm-cell"><div class="sm-k">ANC</div><div class="sm-v">Adaptive 2.0</div></div>
+        <div class="sm-cell"><div class="sm-k">Battery</div><div class="sm-v">6hr + 30hr case</div></div>
+      </div>
+      <div class="sm-btn-wrap">
+        <button class="sm-btn" id="btnDoSave" onclick="doSaveSpecs()">Save spec sheet</button>
+      </div>
     </div>
   </div>
 
   <div class="scanner-screen" id="scanScreen">
     <div class="scan-topbar">
-      <button class="scan-back-btn" data-i18n="scanBack" onclick="closeScanner()">← Back</button>
-      <div class="scan-h" data-i18n="scanTitle">Scan Product</div>
-      <div class="scan-mode">
-        <button class="sm-btn on" id="smQR" onclick="swMode('cam')">QR</button>
-        <button class="sm-btn" id="smSearch" onclick="swMode('search')">
-          <span data-i18n="searchLabel2">Search</span>
-        </button>
-      </div>
+      <button class="scan-back-btn" onclick="closeScanner()">← Back</button>
+      <div style="font-size:14px; font-weight:600; letter-spacing:1px; color:white; text-transform:uppercase;">Scan Product</div>
+      <div style="width:70px;"></div>
     </div>
-    <div class="cam-view" id="camView">
-      <div class="cam-grid"></div>
-      <div class="cam-vig"></div>
-      <div class="scan-box">
-        <div class="sc tl"></div><div class="sc tr"></div>
-        <div class="sc bl"></div><div class="sc br"></div>
-        <div class="scan-laser"></div>
-        <div class="mock-qr" id="mockQR">
-          <svg class="qr-svg" viewBox="0 0 100 100" fill="white">
-            <rect x="5" y="5" width="35" height="35" rx="3" fill="none" stroke="white" stroke-width="4"/>
-            <rect x="14" y="14" width="17" height="17" rx="1"/>
-            <rect x="60" y="5" width="35" height="35" rx="3" fill="none" stroke="white" stroke-width="4"/>
-            <rect x="69" y="14" width="17" height="17" rx="1"/>
-            <rect x="5" y="60" width="35" height="35" rx="3" fill="none" stroke="white" stroke-width="4"/>
-            <rect x="14" y="69" width="17" height="17" rx="1"/>
-            <rect x="60" y="60" width="8" height="8"/><rect x="72" y="60" width="8" height="8"/>
-            <rect x="84" y="60" width="11" height="8"/><rect x="60" y="72" width="8" height="8"/>
-            <rect x="72" y="72" width="23" height="8"/><rect x="60" y="84" width="20" height="11"/>
-          </svg>
-        </div>
+    <div class="cam-view">
+      <div class="scan-box"><div class="scan-laser"></div></div>
+      <div style="position:absolute; bottom:100px;">
+        <button style="padding:12px 24px; border-radius:20px; border:none; font-weight:700; cursor:pointer;" onclick="simulateScan(1)">Simulate Success</button>
       </div>
-      <div class="scan-status-txt" id="scanStatusTxt">Point at product QR code</div>
-      <div class="scan-result" id="scanResult">
-        <div class="sr-knob"></div>
-        <div class="sr-prod">
-          <div class="sr-ico" id="srIco">📱</div>
-          <div>
-            <div class="sr-prod-cat" id="srCat">PRODUCT FOUND</div>
-            <div class="sr-prod-name" id="srName">Galaxy S26 Ultra</div>
-            <div class="sr-prod-price" id="srPrice">฿45,900</div>
-          </div>
-        </div>
-        <div class="sr-stamp-note" id="srStampNote">
-          <span>◈</span>
-          <span id="srStampTxt"><strong>+1 Stamp</strong> — tap View Details to earn it.</span>
-        </div>
-        <div class="sr-row">
-          <button class="btn-ink" onclick="openFromScan()" data-i18n="viewDetails">View Details</button>
-          <button class="btn-out" onclick="closeScanResult()" data-i18n="scanMore">Scan More</button>
-        </div>
-      </div>
-    </div>
-    <div class="search-panel" id="searchPanel">
-      <div class="search-inp-wrap">
-        <span class="s-ico">⊕</span>
-        <input class="search-inp" id="searchInp" placeholder="Search products…" oninput="filterSearch(this.value)" autocomplete="off"/>
-      </div>
-      <div class="search-section-lbl" data-i18n="allProducts">All Products on Floor</div>
-      <div class="s-list" id="sList"></div>
-    </div>
-  </div>
-
-  <div class="toast" id="toast">
-    <div class="t-ico">◈</div>
-    <div>
-      <div class="t-title" id="tTitle">Stamp earned</div>
-      <div class="t-sub" id="tSub">Keep exploring</div>
-    </div>
-  </div>
-
-  <div class="unlock-modal" id="unlockModal" onclick="closeUnlock()">
-    <div class="unlock-card">
-      <div class="uc-pill" id="ucPill" data-i18n="ucPill">Reward Unlocked</div>
-      <div class="uc-ico" id="ucIco">🎁</div>
-      <div class="uc-h" id="ucH">Free Samsung Case</div>
-      <div class="uc-p" id="ucP">Show this screen to floor staff to claim.</div>
-      <button class="uc-btn" id="ucBtn" data-i18n="ucBtn" onclick="closeUnlock()">Claim Reward →</button>
     </div>
   </div>
 
 </div><script>
-// ── UNTOUCHED JAVASCRIPT DATA & LOGIC ──
+// ── DATA ARRAYS ──
 const P = [
   {icon:'📱',cat:'Smartphone',name:'Galaxy S26 Ultra',desc:'Galaxy AI transforms your photos, summarizes documents, and adapts to how you work — powered by the new Snapdragon 8 Elite 2.',specs:[{k:'Display',v:'6.9" QD-AMOLED 120Hz'},{k:'Camera',v:'200MP Adaptive Pixel'},{k:'AI',v:'Galaxy AI 3.0'},{k:'Battery',v:'5,500mAh / 45W'}],price:'฿45,900'},
-  {icon:'🎧',cat:'Audio',name:'Galaxy Buds4 Pro',
-    desc:"Samsung's best-sounding earbuds yet. Super Wide Woofer + tweeter dual-driver, 24-bit/96kHz UHQ audio, Adaptive ANC 2.0, and deeper Galaxy AI integration — built for all-day wear.",
-    specs:[
-      {k:'Drivers',v:'Super Wide Woofer + Tweeter'},
-      {k:'Audio',v:'24-bit / 96kHz UHQ'},
-      {k:'ANC',v:'Adaptive ANC 2.0'},
-      {k:'Battery',v:'6hr (ANC on) + 30hr case'},
-      {k:'Connectivity',v:'Bluetooth 6.1 + Auracast'},
-      {k:'Resistance',v:'IP57 dust & water'},
-      {k:'Design',v:'Canal-fit · Real Metal Blade'},
-      {k:'Colors',v:'White · Black · Pink Gold'},
-    ],
-    price:'฿7,490'},
-  {icon:'⌚',cat:'Wearable',name:'Galaxy Watch 7',desc:'3nm chip brings Galaxy AI to your wrist. BioActive tracks body composition, sleep, and stress.',specs:[{k:'Chip',v:'3nm Exynos W1000'},{k:'Health',v:'BioActive + ECG'},{k:'Battery',v:'40hr typical'},{k:'OS',v:'Wear OS 5'}],price:'฿12,900'},
-  {icon:'💍',cat:'Wearable',name:'Galaxy Ring',desc:'The most discreet health tracker Samsung has made. Titanium body, 9-day battery, continuous monitoring.',specs:[{k:'Material',v:'Grade 5 Titanium'},{k:'Battery',v:'Up to 9 days'},{k:'Sensors',v:'HR, SpO2, sleep'},{k:'Sizes',v:'5–13'}],price:'฿14,900'},
-  {icon:'🖥️',cat:'Tablet',name:'Galaxy Tab S10+',desc:'12.4" Dynamic AMOLED 2X. DeX mode for desktop productivity. AI-powered S Pen included.',specs:[{k:'Display',v:'12.4" AMOLED 2X'},{k:'Chip',v:'Snapdragon 8 Gen 3'},{k:'RAM',v:'12GB'},{k:'S Pen',v:'Included'}],price:'฿31,900'},
-  {icon:'💻',cat:'Laptop',name:'Galaxy Book5 Pro',desc:'3K AMOLED, Intel Core Ultra AI, 22-hour battery. Galaxy AI native on Windows.',specs:[{k:'Display',v:'14" 3K AMOLED'},{k:'Chip',v:'Intel Core Ultra 7'},{k:'Battery',v:'22hr'},{k:'Weight',v:'1.23kg'}],price:'฿54,900'},
+  {icon:'🎧',cat:'Audio',name:'Galaxy Buds4 Pro',desc:"Samsung's best-sounding earbuds yet. Built for all-day wear.",specs:[],price:'฿7,490'},
+  {icon:'⌚',cat:'Wearable',name:'Galaxy Watch 7',desc:'3nm chip brings Galaxy AI to your wrist.',specs:[{k:'Chip',v:'3nm Exynos W1000'},{k:'Health',v:'BioActive + ECG'}],price:'฿12,900'},
+  {icon:'💍',cat:'Wearable',name:'Galaxy Ring',desc:'The most discreet health tracker Samsung has made.',specs:[{k:'Material',v:'Titanium'},{k:'Battery',v:'Up to 9 days'}],price:'฿14,900'},
+  {icon:'🖥️',cat:'Tablet',name:'Galaxy Tab S10+',desc:'12.4" Dynamic AMOLED 2X. DeX mode for desktop productivity.',specs:[{k:'Display',v:'12.4" AMOLED 2X'},{k:'S Pen',v:'Included'}],price:'฿31,900'}
 ];
 const P_TH = [
-  {icon:'📱',cat:'สมาร์ทโฟน',name:'Galaxy S26 Ultra',desc:'Galaxy AI แปลงภาพถ่าย สรุปเอกสาร ปรับตามการทำงานของคุณ — ขับเคลื่อนด้วย Snapdragon 8 Elite 2 รุ่นใหม่',specs:[{k:'จอภาพ',v:'6.9" QD-AMOLED 120Hz'},{k:'กล้อง',v:'200MP Adaptive Pixel'},{k:'AI',v:'Galaxy AI 3.0'},{k:'แบตเตอรี่',v:'5,500mAh / 45W'}],price:'฿45,900'},
-  {icon:'🎧',cat:'เสียง',name:'Galaxy Buds4 Pro',desc:'Super Wide Woofer + ทวีตเตอร์ ดูอัลไดรฟ์เวอร์ เสียง 24-bit/96kHz UHQ, Adaptive ANC 2.0 และ Galaxy AI ลึกขึ้น — สวมใส่สบายทั้งวัน',specs:[{k:'ไดรฟ์เวอร์',v:'Super Wide Woofer + Tweeter'},{k:'เสียง',v:'24-bit / 96kHz UHQ'},{k:'ANC',v:'Adaptive ANC 2.0'},{k:'แบตเตอรี่',v:'6 ชม. (ANC เปิด) + 30 ชม. เคส'},{k:'การเชื่อมต่อ',v:'Bluetooth 6.1 + Auracast'},{k:'กันน้ำ',v:'IP57'},{k:'ดีไซน์',v:'Canal-fit · Real Metal Blade'},{k:'สี',v:'ขาว · ดำ · ชมพูทอง'}],price:'฿7,490'},
-  {icon:'⌚',cat:'อุปกรณ์สวมใส่',name:'Galaxy Watch 7',desc:'ชิป 3nm นำ Galaxy AI มาสู่ข้อมือ เซ็นเซอร์ BioActive ติดตามองค์ประกอบร่างกาย การนอน และความเครียด',specs:[{k:'ชิป',v:'3nm Exynos W1000'},{k:'สุขภาพ',v:'BioActive + ECG'},{k:'แบตเตอรี่',v:'40 ชม.'},{k:'OS',v:'Wear OS 5'}],price:'฿12,900'},
-  {icon:'💍',cat:'อุปกรณ์สวมใส่',name:'Galaxy Ring',desc:'อุปกรณ์ติดตามสุขภาพที่ดูเป็นธรรมชาติที่สุด ตัวเรือนไทเทเนียม แบตอยู่ 9 วัน ติดตามต่อเนื่อง',specs:[{k:'วัสดุ',v:'Titanium Grade 5'},{k:'แบตเตอรี่',v:'สูงสุด 9 วัน'},{k:'เซ็นเซอร์',v:'HR, SpO2, การนอน'},{k:'ขนาด',v:'5–13'}],price:'฿14,900'},
-  {icon:'🖥️',cat:'แท็บเล็ต',name:'Galaxy Tab S10+',desc:'จอ Dynamic AMOLED 2X 12.4 นิ้ว โหมด DeX เปลี่ยนเป็นเดสก์ท็อป รวม S Pen ขับเคลื่อนด้วย AI',specs:[{k:'จอ',v:'12.4" AMOLED 2X'},{k:'ชิป',v:'Snapdragon 8 Gen 3'},{k:'RAM',v:'12GB'},{k:'S Pen',v:'รวมอยู่แล้ว'}],price:'฿31,900'},
-  {icon:'💻',cat:'แล็ปท็อป',name:'Galaxy Book5 Pro',desc:'จอ 3K AMOLED, Intel Core Ultra AI และแบตเตอรี่ใช้งานจริง 22 ชั่วโมง พร้อม Galaxy AI บน Windows',specs:[{k:'จอ',v:'14" 3K AMOLED'},{k:'ชิป',v:'Intel Core Ultra 7'},{k:'แบตเตอรี่',v:'22 ชม.'},{k:'น้ำหนัก',v:'1.23 กก.'}],price:'฿54,900'},
+  {icon:'📱',cat:'สมาร์ทโฟน',name:'Galaxy S26 Ultra',desc:'Galaxy AI แปลงภาพถ่าย สรุปเอกสาร ปรับตามการทำงานของคุณ',specs:[{k:'จอภาพ',v:'6.9" QD-AMOLED 120Hz'},{k:'กล้อง',v:'200MP Adaptive Pixel'},{k:'AI',v:'Galaxy AI 3.0'},{k:'แบตเตอรี่',v:'5,500mAh / 45W'}],price:'฿45,900'},
+  {icon:'🎧',cat:'เสียง',name:'Galaxy Buds4 Pro',desc:'Super Wide Woofer + ทวีตเตอร์ ดูอัลไดรฟ์เวอร์',specs:[],price:'฿7,490'},
+  {icon:'⌚',cat:'อุปกรณ์สวมใส่',name:'Galaxy Watch 7',desc:'ชิป 3nm นำ Galaxy AI มาสู่ข้อมือ',specs:[{k:'ชิป',v:'3nm Exynos W1000'}],price:'฿12,900'},
+  {icon:'💍',cat:'อุปกรณ์สวมใส่',name:'Galaxy Ring',desc:'อุปกรณ์ติดตามสุขภาพที่ดูเป็นธรรมชาติที่สุด',specs:[{k:'วัสดุ',v:'Titanium'}],price:'฿14,900'},
+  {icon:'🖥️',cat:'แท็บเล็ต',name:'Galaxy Tab S10+',desc:'จอ Dynamic AMOLED 2X 12.4 นิ้ว',specs:[{k:'จอ',v:'12.4" AMOLED 2X'}],price:'฿31,900'}
 ];
 
-const MILESTONES = [2,4,6,8];
-const REWARDS = {
-  2:{ico:'🎁',h:'Free Samsung Case',p:'Show this screen to any floor staff to claim your complimentary Samsung case.'},
-  4:{ico:'🛡️',h:'Care+ Unlocked',p:'1 year Samsung Care+ — free. Show staff at checkout to redeem.'},
-  6:{ico:'💳',h:'฿1,500 Store Credit',p:'In-store credit for your next purchase. Stackable with all current floor deals.'},
-  8:{ico:'◈',h:'Galaxy VIP Bundle',p:'You\'ve explored everything. Claim the full Galaxy VIP Bundle from any floor staff.'},
-};
-const REWARDS_TH = {
-  2:{ico:'🎁',h:'เคสซัมซุงฟรี',p:'แสดงหน้าจอนี้กับพนักงานเพื่อรับเคสซัมซุงฟรี'},
-  4:{ico:'🛡️',h:'Care+ ฟรี 1 ปี',p:'Samsung Care+ 1 ปีฟรี — แสดงที่เคาน์เตอร์ตอนชำระเงิน'},
-  6:{ico:'💳',h:'เครดิตในร้าน ฿1,500',p:'เครดิตสำหรับการซื้อครั้งถัดไป ใช้ร่วมกับโปรโมชั่นได้ทุกรายการ'},
-  8:{ico:'◈',h:'Galaxy VIP Bundle',p:'คุณสำรวจครบแล้ว รับ Galaxy VIP Bundle เต็มรูปแบบจากพนักงานได้เลย'},
+const PRODUCT_DEALS = {
+  1: [
+    { icon:'🔥', name:'Free Buds 4 Pro with S26 Ultra', desc:'Buy any S26 Ultra today and get Buds4 Pro at no extra cost.' },
+    { icon:'📦', name:'Galaxy Ecosystem Bundle', desc:'S26 Ultra + Buds4 Pro + Watch 7 at ฿59,900.' },
+    { icon:'🛡️', name:'Samsung Care+ for Buds', desc:'1 year of accidental damage protection for ฿590.' },
+  ]
 };
 
-let lang = 'en', stamps = 0, scanned = new Set(), scanIdx = null, scanMode = 'cam', autoT = null, autoN = 0, detailIdx = null;
+let lang = 'en', stamps = 0, scanned = new Set(), journeyIdx = null, journeyStage = 1, dealsViewed = new Set();
 
 const T = {
-  en: {
-    nav1:'Experience', nav0:'This Store', nav2:'Products', nav3:'Stamps', nav4:'Deals',
-    liveBanner:'Free Buds 4 Pro with any S26 Ultra purchase today — first 20 customers', liveTag:'Live',
-    heroLabel:'Bangkok Flagship · March 2026',
-    heroH1:'Welcome to our store.',
-    heroP:'Explore today\'s lineup, scan products, and earn stamps that unlock exclusive in-store rewards on top of existing deals.',
-    heroCta1:'Explore Products', heroCta2:'My Stamps',
-    c1t:'Today', c1:'Trade-in S25 → ฿4,000 off',
-    c2t:'Flash', c2:'Free Buds 4 Pro w/ S26 Ultra',
-    c3t:'New', c3:'Galaxy Ring now in-store',
-    c4t:'Staff', c4:'Ask for AI demo → +1 Stamp',
-    prodLabel:"Today's Floor", prodTitle:'Demo Lineup', prodSub:'Tap any product to explore it and earn a stamp.',
-    scanCtaTitle:'Scan a Product QR', scanCtaSub:'Point at any in-store QR tag to earn a stamp instantly',
-    bDeal:'In-Store', bFlash:'Flash', bNew:'New',
-    stampLabel:'Stamp Card', stampTitle:'Demo Stamps', stampSub:'Explore products to earn stamps and unlock in-store rewards.', stampOf:' / 8',
-    rc2at:'At <b>2</b> stamps', rc2n:'Free Samsung Case', rc2v:'Worth ฿890',
-    rc4at:'At <b>4</b> stamps', rc4n:'1-Year Care+ Free', rc4v:'Worth ฿2,490',
-    rc6at:'At <b>6</b> stamps', rc6n:'฿1,500 Store Credit', rc6v:'Stackable with promos',
-    rc8at:'At <b>8</b> stamps', rc8n:'Galaxy VIP Bundle', rc8v:'฿5,000+ in extras',
-    dealsLabel:'Promotions', dealsTitle:'Floor Deals', dealsSub:'Exclusive in-store offers — not available online.',
-    d1type:'Featured This Week', d1name:'Galaxy Ecosystem Bundle', d1desc:'S26 Ultra + Buds 4 Pro + Watch 7. Exclusive in-store price.',
-    d1save:'Save ฿12,800 vs. buying separately',
-    d2type:'Live Now', d2name:'Free Buds 4 Pro with S26', d2desc:'Buy any S26 series today. First 20 customers only.', d2val:'฿9,900 Free',
-    d3type:'Trade-In', d3name:'S25 Upgrade Offer', d3desc:'Bring your S25 in any condition for instant valuation at the counter.', d3val:'Up to ฿4,000',
-    d4type:'Stamp Bonus', d4name:'Staff Demo Stamp', d4desc:'Ask any floor staff for a live Galaxy AI demo to earn a bonus stamp.', d4stamp:'◈ +1 Stamp',
-    hrs:'Hrs', min:'Min', sec:'Sec',
-    storeLabel:'Location', storeTitle:'This Store',
-    storeNameLabel:'Samsung Experience Store', storeName:'CentralWorld, Bangkok',
-    storeAddress:'4th Floor, Zone C · Ratchaprasong',
-    storeOpen:'Open',
-    infoFloor:'Floor', infoHours:'Today', infoBusy:'Crowd', infoBusyVal:'Busy',
-    zonesLabel:'Active Demo Zones',
-    z1floor:'Zone A · Front', z1name:'Galaxy AI Lab', z1desc:'S26 Ultra live demos with staff',
-    z2floor:'Zone B · Center', z2name:'Wearables Wall', z2desc:'Watch 7, Ring, Buds try-on',
-    z3floor:'Zone C · Right', z3name:'Screens & Tabs', z3desc:'Tab S10+, Book5 Pro, DeX',
-    z4floor:'Zone D · Back', z4name:'Trade-In Counter', z4desc:'Instant valuation · S25 upgrade',
-    staffPicksLabel:'Staff Picks Today',
-    hoursLabel:'Store Hours',
-    dayWed:'Wednesday', dayThu:'Thursday', dayFri:'Friday', daySat:'Saturday', daySun:'Sunday',
-    footerNote:'Promotions valid in-store only · Bangkok Flagship · March 2026\nTerms and conditions apply.',
-    back:'Back', back2:'Back', viewDeals:'View Deals', viewDetails:'View Details', scanMore:'Scan More',
-    scanBack:'← Back', scanTitle:'Scan Product', searchLabel2:'Search',
-    allProducts:'All Products on Floor', searchPlaceholder:'Search products…',
-    ucPill:'Reward Unlocked', ucBtn:'Claim Reward →',
-    doneLabel:'✓ Explored', srFound:'Product Found',
-    srStampNew:'<strong>+1 Stamp</strong> — tap View Details to earn it.',
-    srStampDone:'Already explored — stamp already counted.',
-    stampEarned:(left) => left > 0 ? `<strong>+1 Stamp earned.</strong> ${left} more to unlock all rewards.` : '<strong>+1 Stamp earned.</strong> All stamps collected!',
-    stampDone:'Already explored — stamp already counted.',
-    toastTitle:'Stamp earned',
-  },
-  th: {
-    nav1:'ประสบการณ์', nav0:'สาขานี้', nav2:'สินค้า', nav3:'แสตมป์', nav4:'ดีล',
-    liveBanner:'รับ Buds 4 Pro ฟรี เมื่อซื้อ S26 Ultra วันนี้ — สำหรับ 20 คนแรก', liveTag:'ล่าสุด',
-    heroLabel:'สาขาแบงค็อก · มีนาคม 2026',
-    heroH1:'ยินดีต้อนรับสู่ร้านค้าของเรา',
-    heroP:'สำรวจสินค้าวันนี้ สแกน QR รับแสตมป์ ปลดล็อกรางวัลพิเศษเฉพาะในร้านเท่านั้น',
-    heroCta1:'สำรวจสินค้า', heroCta2:'แสตมป์ของฉัน',
-    c1t:'วันนี้', c1:'แลกเปลี่ยน S25 → ลด ฿4,000',
-    c2t:'ลดด่วน', c2:'รับ Buds 4 Pro ฟรี เมื่อซื้อ S26 Ultra',
-    c3t:'ใหม่', c3:'Galaxy Ring มาถึงแล้ว',
-    c4t:'พนักงาน', c4:'ขอดูการสาธิต AI → +1 แสตมป์',
-    prodLabel:'สินค้าวันนี้', prodTitle:'ไลน์อัปสาธิต', prodSub:'แตะสินค้าเพื่อสำรวจและรับแสตมป์',
-    scanCtaTitle:'สแกน QR สินค้า', scanCtaSub:'ชี้กล้องที่ป้าย QR ของสินค้าในร้านเพื่อรับแสตมป์ทันที',
-    bDeal:'ในร้าน', bFlash:'ลดด่วน', bNew:'ใหม่',
-    stampLabel:'บัตรแสตมป์', stampTitle:'แสตมป์สาธิต', stampSub:'สำรวจสินค้าเพื่อสะสมแสตมป์และปลดล็อกรางวัล', stampOf:' / 8',
-    rc2at:'ครบ <b>2</b> แสตมป์', rc2n:'เคสซัมซุงฟรี', rc2v:'มูลค่า ฿890',
-    rc4at:'ครบ <b>4</b> แสตมป์', rc4n:'Care+ ฟรี 1 ปี', rc4v:'มูลค่า ฿2,490',
-    rc6at:'ครบ <b>6</b> แสตมป์', rc6n:'เครดิตในร้าน ฿1,500', rc6v:'ใช้ร่วมกับโปรโมชั่นได้',
-    rc8at:'ครบ <b>8</b> แสตมป์', rc8n:'Galaxy VIP Bundle', rc8v:'ของแถมมูลค่า ฿5,000+',
-    dealsLabel:'โปรโมชั่น', dealsTitle:'ดีลในร้าน', dealsSub:'โปรเฉพาะในร้าน ไม่มีออนไลน์',
-    d1type:'แนะนำสัปดาห์นี้', d1name:'Galaxy Ecosystem Bundle', d1desc:'S26 Ultra + Buds 4 Pro + Watch 7 ราคาพิเศษเฉพาะในร้าน',
-    d1save:'ประหยัด ฿12,800 เมื่อเทียบกับซื้อแยก',
-    d2type:'ตอนนี้เลย', d2name:'รับ Buds 4 Pro ฟรี เมื่อซื้อ S26', d2desc:'ซื้อ S26 ทุกรุ่นวันนี้ สำหรับ 20 คนแรกเท่านั้น', d2val:'ฟรี มูลค่า ฿9,900',
-    d3type:'แลกเปลี่ยน', d3name:'อัปเกรด S25', d3desc:'นำ S25 มาได้ทุกสภาพ ประเมินราคาทันทีที่เคาน์เตอร์', d3val:'สูงสุด ฿4,000',
-    d4type:'โบนัสแสตมป์', d4name:'แสตมป์จากพนักงาน', d4desc:'ขอพนักงานสาธิตฟีเจอร์ Galaxy AI สดๆ เพื่อรับแสตมป์โบนัส', d4stamp:'◈ +1 แสตมป์',
-    hrs:'ชม.', min:'นาที', sec:'วิ',
-    storeLabel:'สถานที่', storeTitle:'สาขานี้',
-    storeNameLabel:'Samsung Experience Store', storeName:'เซ็นทรัลเวิลด์ กรุงเทพฯ',
-    storeAddress:'ชั้น 4 โซน C · ราชประสงค์',
-    storeOpen:'เปิดอยู่',
-    infoFloor:'ชั้น', infoHours:'วันนี้', infoBusy:'ผู้คน', infoBusyVal:'คนเยอะ',
-    zonesLabel:'โซนสาธิตที่เปิดอยู่',
-    z1floor:'โซน A · หน้าร้าน', z1name:'Galaxy AI Lab', z1desc:'สาธิต S26 Ultra สดๆ กับพนักงาน',
-    z2floor:'โซน B · กลาง', z2name:'Wearables Wall', z2desc:'ลองใส่ Watch 7, Ring, Buds',
-    z3floor:'โซน C · ขวา', z3name:'หน้าจอ &amp; แท็บเล็ต', z3desc:'Tab S10+, Book5 Pro, DeX',
-    z4floor:'โซน D · ด้านหลัง', z4name:'เคาน์เตอร์รับเทิร์น', z4desc:'ประเมินราคาทันที · อัปเกรด S25',
-    staffPicksLabel:'สินค้าแนะนำจากพนักงาน',
-    hoursLabel:'เวลาทำการ',
-    dayWed:'พุธ', dayThu:'พฤหัส', dayFri:'ศุกร์', daySat:'เสาร์', daySun:'อาทิตย์',
-    footerNote:'โปรโมชั่นสำหรับในร้านเท่านั้น · สาขาแบงค็อก · มีนาคม 2026\nเงื่อนไขและข้อกำหนดมีผลบังคับใช้',
-    back:'กลับ', back2:'กลับ', viewDeals:'ดูโปรโมชั่น', viewDetails:'ดูรายละเอียด', scanMore:'สแกนเพิ่ม',
-    scanBack:'← กลับ', scanTitle:'สแกนสินค้า', searchLabel2:'ค้นหา',
-    allProducts:'สินค้าทั้งหมดในร้าน', searchPlaceholder:'ค้นหาสินค้า…',
-    ucPill:'ปลดล็อกรางวัลแล้ว', ucBtn:'รับรางวัล →',
-    doneLabel:'✓ สแกนแล้ว', srFound:'พบสินค้า',
-    srStampNew:'<strong>+1 แสตมป์</strong> — กด "ดูรายละเอียด" เพื่อรับ',
-    srStampDone:'สแกนแล้ว — นับแสตมป์เรียบร้อย',
-    stampEarned:(left) => left > 0 ? `<strong>ได้รับ +1 แสตมป์</strong> อีก ${left} แสตมป์เพื่อรับรางวัลครบ` : '<strong>ได้รับ +1 แสตมป์</strong> สะสมครบแล้ว!',
-    stampDone:'สแกนแล้ว — นับแสตมป์เรียบร้อย',
-    toastTitle:'ได้รับแสตมป์',
-  }
+  en: { nav1:'Experience', nav2:'Products', nav3:'Stamps', nav4:'Deals', heroH1:'Welcome to our store.', heroP:'Explore today\'s lineup, scan products, and earn stamps that unlock exclusive in-store rewards on top of existing deals.', heroCta1:'Explore Products', heroCta2:'My Stamps', prodLabel:"Today's Floor", scanCtaTitle:'Scan a Product or QR Code', scanCtaSub:'Point your camera at any product to earn a stamp', stampLabel:'Stamp Card', stampTitle:'Demo Stamps', stampSub:'Explore products to earn stamps.', stampOf:'/8', dealsLabel:'Promotions', dealsTitle:'Floor Deals', dealsSub:'Exclusive in-store offers.', back:'Back', viewDeals:'View Deals', viewDetails:'View Details', scanMore:'Scan More', scanTitle:'Scan Product', allProducts:'All Products on Floor', searchPlaceholder:'Search products…' },
+  th: { nav1:'ประสบการณ์', nav2:'สินค้า', nav3:'แสตมป์', nav4:'ดีล', heroH1:'ยินดีต้อนรับสู่ร้านค้าของเรา', heroP:'สำรวจสินค้าวันนี้ สแกน QR รับแสตมป์', heroCta1:'สำรวจสินค้า', heroCta2:'แสตมป์ของฉัน', prodLabel:'สินค้าวันนี้', scanCtaTitle:'สแกน QR สินค้า', scanCtaSub:'ชี้กล้องที่ป้าย QR เพื่อรับแสตมป์ทันที', stampLabel:'บัตรแสตมป์', stampTitle:'แสตมป์สาธิต', stampSub:'สำรวจสินค้าเพื่อสะสมแสตมป์', stampOf:'/8', dealsLabel:'โปรโมชั่น', dealsTitle:'ดีลในร้าน', dealsSub:'โปรเฉพาะในร้าน', back:'กลับ', viewDeals:'ดูโปรโมชั่น', viewDetails:'ดูรายละเอียด', scanMore:'สแกนเพิ่ม', scanTitle:'สแกนสินค้า', allProducts:'สินค้าทั้งหมดในร้าน', searchPlaceholder:'ค้นหาสินค้า…' }
 };
 
 function t() { return T[lang]; }
 function prods() { return lang === 'th' ? P_TH : P; }
 
-function setLang(l) {
-  lang = l;
-  document.getElementById('lEN').classList.toggle('on', l==='en');
-  document.getElementById('lTH').classList.toggle('on', l==='th');
-  document.body.classList.toggle('lang-th', l==='th');
-  const tl = t();
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const k = el.getAttribute('data-i18n');
-    if (tl[k] !== undefined) el.innerHTML = tl[k];
-  });
-  renderProdRows();
-  renderSearchList(document.getElementById('searchInp').value || '');
-  document.getElementById('searchInp').placeholder = tl.searchPlaceholder;
-  document.querySelector('.search-section-lbl').textContent = tl.allProducts;
-  document.getElementById('smSearch').innerHTML = `<span data-i18n="searchLabel2">${tl.searchLabel2}</span>`;
-  document.getElementById('scanStatusTxt').textContent = tl.scanHint || 'Point at product QR code';
-}
-
-function renderProdRows() {
-  prods().forEach((p,i) => {
-    const catEl = document.querySelector(`[data-pid-cat="${i}"]`);
-    const nameEl = document.querySelector(`[data-pid-name="${i}"]`);
-    if (catEl) catEl.textContent = p.cat;
-    if (nameEl) nameEl.textContent = p.name;
-  });
-}
-
-function renderStamps() {
-  const d = document.getElementById('dots');
-  d.innerHTML = '';
-  for (let i=0;i<8;i++) {
-    const on = i < stamps;
-    const el = document.createElement('div');
-    el.className = 'dot' + (on ? ' on' : '');
-    el.textContent = on ? '✓' : i+1;
-    d.appendChild(el);
-  }
-  document.getElementById('bigStamp').textContent = stamps;
-  document.getElementById('hStamp').textContent = stamps;
-  document.getElementById('progFill').style.width = (stamps/8*100)+'%';
-}
-
-function checkMilestones(prev, next) {
-  MILESTONES.forEach(m => {
-    if (prev < m && next >= m) {
-      const rc = document.getElementById(`rc-${m}`);
-      if (rc && !rc.querySelector('.rcard-tag')) {
-        rc.classList.add('on');
-        const tag = document.createElement('div');
-        tag.className = 'rcard-tag'; tag.textContent = lang==='th'?'ปลดล็อก':'Unlocked';
-        rc.appendChild(tag);
-      }
-      const rw = lang==='th' ? REWARDS_TH[m] : REWARDS[m];
-      setTimeout(() => showUnlock(rw), 600);
-    }
-  });
-}
-
-function addStamp() {
-  if (stamps < 8) { const p=stamps; stamps++; renderStamps(); checkMilestones(p,stamps); }
-}
-
-let journeyIdx = null;
-let journeyStage = 1;
-let featuresViewed = new Set();
-const FEAT_REQUIRED = 1;
-const DAILY_CODE = 'BUDS';
-
-const PRODUCT_DEALS = {
-  1: [
-    { icon:'🔥', name:'Free Buds 4 Pro with S26 Ultra', desc:'Buy any S26 Ultra today and get Buds4 Pro at no extra cost. First 20 customers only.' },
-    { icon:'📦', name:'Galaxy Ecosystem Bundle', desc:'S26 Ultra + Buds4 Pro + Watch 7 at ฿59,900. Exclusive in-store price — not available online.' },
-    { icon:'🛡️', name:'Samsung Care+ for Buds', desc:'1 year of accidental damage protection. Add it at checkout today for ฿590.' },
-  ]
-};
-let dealsViewed = new Set();
-let autoToggleTimer = null;
-
-function openDetail(idx) {
-  detailIdx = idx;
-  journeyIdx = idx;
-
-  const alreadyDone = scanned.has(idx);
-  journeyStage = alreadyDone ? 'earned' : 1;
-  featuresViewed = new Set();
-  dealsViewed = new Set();
-
-  const p = prods()[idx];
-  const tl = t();
-
-  document.getElementById('dIcon').textContent = p.icon;
-  document.getElementById('dCat').textContent = p.cat.toUpperCase();
-  document.getElementById('dName').textContent = p.name;
-  document.getElementById('detailTitle').textContent = p.name;
-  document.getElementById('dDesc').textContent = p.desc;
-  document.getElementById('dSpecs').innerHTML = p.specs.map(s=>`
-    <div class="spec-cell"><div class="spec-k">${s.k}</div><div class="spec-v">${s.v}</div></div>`).join('');
-
-  const expEl = document.getElementById('dExp');
-  if (idx === 1) {
-    expEl.style.display = 'block';
-    expEl.innerHTML = buildBudsWidget();
-    initBudsWidget();
-  } else {
-    expEl.style.display = 'none';
-  }
-
-  featuresViewed = new Set();
-  dealsViewed = new Set();
-  const btn = document.getElementById('toStage2Btn');
-  if (btn) { btn.setAttribute('disabled','true'); btn.style.opacity='0.3'; btn.style.cursor='not-allowed'; btn.classList.remove('btn-pulse'); }
-  updateFeatProgress();
-
-  if (alreadyDone) {
-    showStage('earned');
-    updateJourneyBar('earned');
-    document.getElementById('seH').textContent = 'Already stamped.';
-    document.getElementById('seSub').textContent = `You've already completed the full experience for ${p.name}.`;
-    document.getElementById('seStampLabel').textContent = `${stamps} stamp${stamps!==1?'s':''} collected`;
-  } else {
-    showStage(1);
-    updateJourneyBar(1);
-  }
-
-  document.getElementById('detailScreen').classList.add('open');
-  document.getElementById('detailBody').scrollTop = 0;
-}
-
-function closeDetail() { document.getElementById('detailScreen').classList.remove('open'); }
-
-const origSelectVFeature = typeof selectVFeature !== 'undefined' ? selectVFeature : null;
-
-function updateFeatProgress() {
-  const total = BUDS_FEATURES.length;
-  const viewed = featuresViewed.size;
-  const pct = Math.min(100, (viewed / total) * 100);
-
-  const fpBar = document.getElementById('fpBar');
-  const fpHint = document.getElementById('fpHint');
-  const btn = document.getElementById('toStage2Btn');
-  if (!fpBar || !btn) return;
-
-  fpBar.style.width = pct + '%';
-
-  if (viewed > 0) {
-    const remaining = total - viewed;
-    fpHint.textContent = remaining > 0 ? `${remaining} more feature${remaining !== 1 ? 's' : ''} to explore — or continue when ready.` : "You've seen everything.";
-    btn.removeAttribute('disabled');
-    btn.style.opacity = '1';
-    btn.style.cursor = 'pointer';
-    if (!btn.classList.contains('btn-pulse')) {
-      btn.classList.add('btn-pulse');
-      setTimeout(() => btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 150);
-    }
-  } else {
-    fpHint.textContent = 'Tap a feature above to start exploring.';
-    btn.setAttribute('disabled', 'true');
-    btn.style.opacity = '0.3';
-    btn.style.cursor = 'not-allowed';
-    btn.classList.remove('btn-pulse');
-  }
-}
-
-function goToStage(n) {
-  journeyStage = n;
-  clearTimeout(autoToggleTimer);
-  if (n === 2) {
-    const p = prods()[journeyIdx];
-    document.getElementById('confirmIcon').textContent = p.icon;
-    document.getElementById('confirmH').textContent = `You've explored ${p.name}`;
-    const features = Array.from(featuresViewed).map(i => BUDS_FEATURES[i]?.name).filter(Boolean);
-    document.getElementById('confirmFeatures').innerHTML = features.map(f => `<div class="cf-item"><div class="cf-check">✓</div>${f}</div>`).join('');
-  }
-  if (n === 3) {
-    const deals = PRODUCT_DEALS[journeyIdx] || [];
-    document.getElementById('dealsStageList').innerHTML = deals.map((d,i) => `
-      <div class="deal-row" id="dr-${i}" onclick="viewDeal(${i})">
-        <div class="dr-icon">${d.icon}</div>
-        <div class="dr-body"><div class="dr-name">${d.name}</div><div class="dr-desc">${d.desc}</div></div>
-        <div class="dr-check" id="drc-${i}">✓</div>
-      </div>`).join('');
-    checkDealsProgress();
-  }
-  if (n === 4) {
-    document.getElementById('codeInput').value = '';
-    document.getElementById('codeError').textContent = '';
-    document.getElementById('codeInput').className = 'code-input';
-  }
-  showStage(n);
-  updateJourneyBar(n);
-  document.getElementById('detailBody').scrollTop = 0;
-}
-
-function showStage(n) {
-  ['stage1','stage2','stage3','stage4','stageEarned'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.classList.remove('on');
-  });
-  const target = n === 'earned' ? 'stageEarned' : `stage${n}`;
-  const el = document.getElementById(target);
-  if (el) el.classList.add('on');
-}
-
-function updateJourneyBar(stage) {
-  const steps = [0,1,2,3];
-  const stageNum = stage === 'earned' ? 5 : stage;
-  steps.forEach(i => {
-    const el = document.getElementById(`js${i}`);
-    if (!el) return;
-    const circle = el.querySelector('.jstep-circle');
-    el.classList.remove('active','done');
-    if (i + 1 < stageNum) { el.classList.add('done'); circle.textContent = '✓'; }
-    else if (i + 1 === stageNum) { el.classList.add('active'); circle.textContent = i + 1; }
-    else { circle.textContent = i + 1; }
-  });
-}
-
-function viewDeal(i) {
-  dealsViewed.add(i);
-  document.getElementById(`dr-${i}`)?.classList.add('viewed');
-  checkDealsProgress();
-}
-
-function checkDealsProgress() {
-  const total = (PRODUCT_DEALS[journeyIdx] || []).length;
-  const btn = document.getElementById('toStage4Btn');
-  if (!btn) return;
-  if (dealsViewed.size >= total) btn.classList.add('ready');
-}
-
-function onCodeInput(el) {
-  el.value = el.value.toUpperCase().replace(/[^A-Z0-9]/g,'');
-  document.getElementById('codeError').textContent = '';
-  el.classList.remove('error');
-  if (el.value.length === 4) submitCode();
-}
-
-function submitCode() {
-  const val = document.getElementById('codeInput').value.trim().toUpperCase();
-  const inp = document.getElementById('codeInput');
-  const err = document.getElementById('codeError');
-  if (val === DAILY_CODE) {
-    inp.classList.add('success');
-    err.textContent = '';
-    setTimeout(() => earnStamp(), 600);
-  } else {
-    inp.classList.add('error');
-    err.textContent = 'Incorrect code. Ask any floor staff member.';
-    inp.value = '';
-    setTimeout(() => inp.classList.remove('error'), 800);
-  }
-}
-
-function earnStamp() {
-  const idx = journeyIdx;
-  if (!scanned.has(idx)) { scanned.add(idx); markDone(idx); addStamp(); }
-  const p = prods()[idx];
-  const left = 8 - stamps;
-  document.getElementById('seH').textContent = 'Stamp earned.';
-  document.getElementById('seSub').textContent = `You explored ${p.name}, checked the deals, and confirmed with a staff member.`;
-  document.getElementById('seStampLabel').textContent = left > 0 ? `${stamps} stamp${stamps!==1?'s':''} collected · ${left} to go` : 'All 8 stamps collected!';
-  showStage('earned');
-  updateJourneyBar('earned');
-  document.getElementById('detailBody').scrollTop = 0;
-  showToast(t().toastTitle, `${stamps} / 8`);
-}
-
-function markDone(idx) {
-  const row = document.getElementById(`pr-${idx}`);
-  if (!row) return;
-  row.classList.add('done');
-}
-
-function openScanner() {
-  document.getElementById('scanScreen').classList.add('open');
-  if (scanMode==='cam') startAutoScan();
-  renderSearchList('');
-}
-function closeScanner() {
-  document.getElementById('scanScreen').classList.remove('open');
-  closeScanResult(); clearTimeout(autoT);
-}
-function swMode(m) {
-  scanMode = m; clearTimeout(autoT); closeScanResult();
-  document.getElementById('smQR').classList.toggle('on', m==='cam');
-  document.getElementById('smSearch').classList.toggle('on', m==='search');
-  const cv = document.getElementById('camView');
-  const sp = document.getElementById('searchPanel');
-  cv.style.display = m==='cam' ? 'flex' : 'none';
-  sp.style.display = m==='search' ? 'flex' : 'none';
-  if (m==='cam') startAutoScan();
-  else document.getElementById('searchInp').focus();
-}
-function startAutoScan() {
-  document.getElementById('scanStatusTxt').textContent = t().scanCtaTitle||'Point at product QR code';
-  document.getElementById('mockQR').classList.remove('vis');
-  autoT = setTimeout(()=>{ simulateScan(autoN % prods().length); autoN++; }, 2200);
-}
-function simulateScan(idx) {
-  scanIdx = idx;
-  document.getElementById('mockQR').classList.add('vis');
-  document.getElementById('scanStatusTxt').textContent = '✓ QR detected';
-  setTimeout(()=>showScanResult(idx), 350);
-}
-function showScanResult(idx) {
-  const p = prods()[idx]; const tl = t();
-  document.getElementById('srIco').textContent = p.icon;
-  document.getElementById('srCat').textContent = tl.srFound;
-  document.getElementById('srName').textContent = p.name;
-  document.getElementById('srPrice').textContent = p.price;
-  const note = document.getElementById('srStampNote');
-  const ntxt = document.getElementById('srStampTxt');
-  note.className = scanned.has(idx) ? 'sr-stamp-note done' : 'sr-stamp-note';
-  ntxt.innerHTML = scanned.has(idx) ? tl.srStampDone : tl.srStampNew;
-  document.querySelectorAll('.sr-row .btn-ink').forEach(b=>b.textContent=tl.viewDetails);
-  document.querySelectorAll('.sr-row .btn-out').forEach(b=>b.textContent=tl.scanMore);
-  document.getElementById('scanResult').classList.add('open');
-}
-function closeScanResult() {
-  document.getElementById('scanResult').classList.remove('open');
-  document.getElementById('mockQR').classList.remove('vis');
-  if (scanMode==='cam') setTimeout(startAutoScan, 700);
-}
-function openFromScan() {
-  if (scanIdx===null) return;
-  closeScanner(); setTimeout(()=>openDetail(scanIdx), 300);
-}
-
-function renderSearchList(q) {
-  const c = document.getElementById('sList'); const tl = t(); const ps = prods();
-  c.innerHTML = ps.map((p,i) => {
-    if (q && !p.name.toLowerCase().includes(q.toLowerCase()) && !p.cat.toLowerCase().includes(q.toLowerCase())) return '';
-    const done = scanned.has(i);
-    return `<div class="s-item ${done?'done':''}" onclick="selectSearch(${i})">
-      <div class="s-item-ico">${p.icon}</div>
-      <div class="s-item-info"><div class="s-item-name">${p.name}</div><div class="s-item-cat">${p.cat}</div></div>
-      <div class="s-item-right">${done ? tl.doneLabel : p.price}</div>
-    </div>`;
-  }).join('');
-}
-function filterSearch(v) { renderSearchList(v); }
-function selectSearch(idx) { closeScanner(); setTimeout(()=>openDetail(idx), 300); }
-
-let tT;
-function showToast(title, sub) {
-  clearTimeout(tT);
-  document.getElementById('tTitle').textContent = title;
-  document.getElementById('tSub').textContent = sub;
-  const el = document.getElementById('toast');
-  el.classList.add('show');
-  tT = setTimeout(()=>el.classList.remove('show'), 2800);
-}
-
-function showUnlock(rw) {
-  document.getElementById('ucIco').textContent = rw.ico;
-  document.getElementById('ucH').textContent = rw.h;
-  document.getElementById('ucP').textContent = rw.p;
-  document.getElementById('ucPill').textContent = t().ucPill;
-  document.getElementById('ucBtn').textContent = t().ucBtn;
-  document.getElementById('unlockModal').classList.add('show');
-}
-function closeUnlock() { document.getElementById('unlockModal').classList.remove('show'); }
-
-function scrollTo(id) { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }); }
-
-const page = document.getElementById('page');
-const sections = ['heroSec','storeSec','prodSec','stampSec','dealsSec'];
-page.addEventListener('scroll', () => {
-  const st = page.scrollTop;
-  let active = 0;
-  sections.forEach((id,i) => {
-    const el = document.getElementById(id);
-    if (el && el.offsetTop - 100 <= st) active = i;
-  });
-  document.querySelectorAll('.anav-link').forEach((el,i) => el.classList.toggle('active', i===active));
-});
-
-const BUDS_FEATURES = [
-  { id: 'anc', cat: 'Noise Control', name: 'Active Noise Cancellation', tagline: 'Hear the difference between the world with and without Buds4 Pro.', with: { label: 'With Galaxy Buds4 Pro', sublabel: 'ANC on', video: null, insight: '<strong>Adaptive ANC 2.0 reads the noise in real time</strong> and generates an opposing sound wave — cancelling background noise before it reaches you. The commute disappears. Your music doesn\'t.', }, without: { label: 'Without Galaxy Buds4 Pro', sublabel: 'No ANC', video: null, insight: 'Every sound in the environment competes for your attention — engine hum, conversations, air conditioning. <strong>This is the baseline most people accept.</strong>', } },
-  { id: 'sound', cat: 'Hi-Fi Sound', name: '360 Audio', tagline: 'Flat stereo vs. sound that exists in the space around you.', with: { label: 'With Galaxy Buds4 Pro', sublabel: '360 Audio on', video: null, insight: '<strong>360 Audio places each instrument in its own position in space</strong> — front, back, sides, above. Move your head and the soundstage stays fixed, like you\'re inside the recording.', }, without: { label: 'Without Galaxy Buds4 Pro', sublabel: 'Standard stereo', video: null, insight: 'Standard stereo is a flat left-right channel. The guitar is "left." The drums are "right." <strong>Everything exists on the same plane</strong> with no depth or space.', } },
-  { id: 'hifi', cat: 'Hi-Fi Sound', name: 'Ultra High Quality Audio', tagline: '24-bit/96kHz — hearing the track exactly as it was recorded.', with: { label: 'With Galaxy Buds4 Pro', sublabel: '24-bit / 96kHz UHQ', video: null, insight: 'The Super Wide Woofer increases speaker area by ~20% vs. the previous generation. <strong>The result is deeper bass, cleaner highs, and full lossless playback</strong> — no compression, no detail lost.', }, without: { label: 'Without Galaxy Buds4 Pro', sublabel: 'Standard audio', video: null, insight: 'Compressed audio removes frequencies the algorithm decides you won\'t notice. <strong>Over time, you notice.</strong> The bass feels thin. High notes lose their edge.', } },
-  { id: 'fit', cat: 'Design', name: 'Comfort Fit', tagline: 'Engineered from 100 million ear shapes to stay in — all day.', with: { label: 'With Galaxy Buds4 Pro', sublabel: 'Canal-fit design', video: null, insight: '<strong>10,000+ simulations and data from hundreds of millions of ears</strong> produced this fit. It seals passively — which also means better ANC performance and more bass even before the EQ kicks in.', }, without: { label: 'Generic earbuds', sublabel: 'One-size fit', video: null, insight: 'A poor seal means ANC can\'t work properly and bass bleeds out. <strong>Most fit issues aren\'t about the ear — they\'re about the earbud.</strong>', } },
-];
-
-let vActiveFeature = 0;
-let vActiveMode = 'with';
-
-function buildBudsWidget() {
-  return `<div class="vdemo-wrap"><div class="vdemo-features" id="vFeatRow">${BUDS_FEATURES.map((f,i) => `<button class="vfeat-chip ${i===0?'on':''}" onclick="selectVFeature(${i})">${f.name}</button>`).join('')}</div><div class="vplayer-card" id="vPlayerCard"></div></div>`;
-}
-
-function initBudsWidget() {
-  vActiveFeature = 0; vActiveMode = 'with';
-  renderVPlayer();
-}
-
-function selectVFeature(idx) {
-  vActiveFeature = idx; vActiveMode = 'with';
-  document.querySelectorAll('.vfeat-chip').forEach((c,i) => c.classList.toggle('on', i===idx));
-  renderVPlayer();
-  featuresViewed.add(idx);
-  const btn = document.getElementById('toStage2Btn');
-  if (btn) { btn.removeAttribute('disabled'); btn.style.opacity = '1'; btn.style.cursor = 'pointer'; btn.classList.add('btn-pulse'); }
-  const fpBar = document.getElementById('fpBar');
-  if (fpBar) fpBar.style.width = Math.min(100, (featuresViewed.size / BUDS_FEATURES.length) * 100) + '%';
-  const fpHint = document.getElementById('fpHint');
-  if (fpHint) {
-    const remaining = BUDS_FEATURES.length - featuresViewed.size;
-    fpHint.textContent = remaining > 0 ? `${remaining} more feature${remaining !== 1 ? 's' : ''} to explore — or continue when ready.` : "You've seen everything.";
-  }
-  clearTimeout(autoToggleTimer);
-  autoToggleTimer = setTimeout(() => { if (vActiveFeature === idx) switchVMode('without'); }, 3000);
-}
-
-function switchVMode(mode) {
-  vActiveMode = mode;
-  renderVPlayer(true);
-}
-
-function renderVPlayer(modeOnly = false) {
-  const f = BUDS_FEATURES[vActiveFeature]; const m = f[vActiveMode];
-  const card = document.getElementById('vPlayerCard');
-  if (!card) return;
-  if (!modeOnly) {
-    card.innerHTML = `<div class="vplayer-header"><div class="vplayer-cat">${f.cat}</div><div class="vplayer-name">${f.name}</div><div class="vplayer-tagline">${f.tagline}</div></div><div class="vplayer-viewport" id="vViewport">${buildViewport(f, vActiveMode)}</div><div class="vplayer-toggle"><button class="vtoggle-btn ${vActiveMode==='with'?'active':''}" onclick="switchVMode('with')"><span class="vtoggle-label">With Galaxy Buds4 Pro</span><span class="vtoggle-sublabel">${f.with.sublabel}</span></button><button class="vtoggle-btn ${vActiveMode==='without'?'active':''}" onclick="switchVMode('without')"><span class="vtoggle-label">Without</span><span class="vtoggle-sublabel">${f.without.sublabel}</span></button></div><div class="vplayer-insight" id="vInsight">${m.insight}</div>`;
-  } else {
-    const vp = document.getElementById('vViewport');
-    if (vp) vp.innerHTML = buildViewport(f, vActiveMode);
-    document.querySelectorAll('.vtoggle-btn').forEach((b,i) => { b.classList.toggle('active', (i===0 && vActiveMode==='with') || (i===1 && vActiveMode==='without')); });
-    const ins = document.getElementById('vInsight');
-    if (ins) { ins.style.opacity='0'; setTimeout(()=>{ ins.innerHTML=m.insight; ins.style.opacity='1'; }, 180); }
-  }
-}
-
-function buildViewport(f, mode) {
-  const m = f[mode]; const isWithBuds = mode === 'with';
-  const bars = Array.from({length: 28}, (_,i) => {
-    const min = isWithBuds ? 6 + Math.random()*8 : 2 + Math.random()*3;
-    const max = isWithBuds ? 28 + Math.random()*28 : 4 + Math.random()*6;
-    const dur = (0.4 + Math.random()*0.7).toFixed(2);
-    const delay = (i * 0.035).toFixed(2);
-    const opacity = isWithBuds ? (0.5 + Math.random()*0.5).toFixed(2) : (0.2 + Math.random()*0.2).toFixed(2);
-    return `<div class="vwave-bar" style="--min:${min}px;--max:${max}px;--dur:${dur}s;--delay:${delay}s;--op:${opacity};"></div>`;
-  }).join('');
-  if (m.video) {
-    return `<video class="vplayer-video" id="vVideo" src="${m.video}" playsinline preload="metadata" oncanplay="this.classList.add('loaded')" onplay="document.getElementById('vPlayBtn').classList.add('playing')"></video><div class="vplayer-mode-label ${isWithBuds?'with-buds':'without-buds'}">${m.label}</div><button class="vplayer-play-btn" id="vPlayBtn" onclick="toggleVPlay()"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></button>`;
-  } else {
-    return `<div class="vplayer-placeholder"><div class="vwave" id="vwave-${mode}">${bars}</div><div class="vph-label" style="margin-top:14px;">${f.name}</div><div style="font-size:9px;color:rgba(255,255,255,0.2);letter-spacing:1.5px;margin-top:6px;text-transform:uppercase;">${isWithBuds ? 'With Galaxy Buds4 Pro' : 'Without'}</div></div><div class="vplayer-mode-label ${isWithBuds?'with-buds':'without-buds'}">${m.label}</div><button class="vplayer-play-btn" id="vPlayBtn" onclick="toggleVPlay()" style="opacity:0.25;pointer-events:none;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></button>`;
-  }
-}
-
-function toggleVPlay() {
-  const video = document.getElementById('vVideo');
-  if (!video) return;
-  video.paused ? video.play() : video.pause();
-}
-
-function startTimer() {
-  let total = 3*3600;
-  setInterval(()=>{
-    if(total<=0)return; total--;
-    const h=Math.floor(total/3600),m=Math.floor((total%3600)/60),s=total%60;
-    document.getElementById('ch').textContent=String(h).padStart(2,'0');
-    document.getElementById('cm').textContent=String(m).padStart(2,'0');
-    document.getElementById('cs').textContent=String(s).padStart(2,'0');
-  },1000);
-}
-
-function tick() {
-  const n=new Date();
-  document.getElementById('sTime').textContent=`${String(n.getHours()).padStart(2,'0')}:${String(n.getMinutes()).padStart(2,'0')}`;
-}
-tick(); setInterval(tick,15000);
-
-// ── NEW: TOUR & OPTIONS LOGIC ──
-function toggleCollectOptions(show) {
-  document.getElementById('collectOptionsModal').classList.toggle('open', show);
-}
-
+// ── INIT & TOUR ──
 window.addEventListener('DOMContentLoaded', () => {
-  const welcomeSeen = localStorage.getItem('hasSeenWelcome_v2');
-  const tourSeen = localStorage.getItem('hasSeenTour_v2');
+  renderStamps();
+  const welcomeSeen = localStorage.getItem('hasSeenWelcome_v4');
+  const tourSeen = localStorage.getItem('hasSeenTour_v4');
 
   if (!welcomeSeen) {
     document.getElementById('welcome-screen').style.display = 'flex';
@@ -1282,7 +577,7 @@ function closeWelcomeAndStartTour() {
   ws.style.opacity = '0';
   setTimeout(() => {
     ws.style.display = 'none';
-    localStorage.setItem('hasSeenWelcome_v2', 'true');
+    localStorage.setItem('hasSeenWelcome_v4', 'true');
     startTour();
   }, 300);
 }
@@ -1295,7 +590,7 @@ function startTour() {
   if(!target) return;
 
   page.scrollTop = 0;
-  page.classList.add('no-scroll'); // Disable scrolling during tour
+  page.classList.add('no-scroll'); 
   overlay.style.display = 'block';
   target.classList.add('highlight-target');
 
@@ -1308,20 +603,11 @@ function startTour() {
     </p>
     <button class="btn-tour-close" onclick="acceptTour(event)">Got it!</button>
   `;
-
   target.appendChild(callout);
 }
 
-function dismissTour(e) {
-  if(e) e.stopPropagation();
-  closeTourUI();
-}
-
-function acceptTour(e) {
-  if(e) e.stopPropagation();
-  closeTourUI();
-  openScanner(); // Automatically transition to scanner
-}
+function dismissTour(e) { if(e) e.stopPropagation(); closeTourUI(); }
+function acceptTour(e) { if(e) e.stopPropagation(); closeTourUI(); openScanner(); }
 
 function closeTourUI() {
   const page = document.getElementById('page');
@@ -1334,16 +620,327 @@ function closeTourUI() {
   if(target) target.classList.remove('highlight-target');
   if(callout) callout.remove();
 
-  localStorage.setItem('hasSeenTour_v2', 'true');
+  localStorage.setItem('hasSeenTour_v4', 'true');
 }
 
-// ── BOOT ──
-renderProdRows();
-renderStamps();
-startTimer();
-renderSearchList('');
-document.getElementById('camView').style.display='flex';
-document.getElementById('searchPanel').style.display='none';
+// ── LOGIC ──
+function setLang(l) {
+  lang = l;
+  document.getElementById('lEN').classList.toggle('on', l==='en');
+  document.getElementById('lTH').classList.toggle('on', l==='th');
+  const tl = t();
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.getAttribute('data-i18n');
+    if (tl[k] !== undefined) el.innerHTML = tl[k];
+  });
+  prods().forEach((p,i) => {
+    const catEl = document.querySelector(`[data-pid-cat="${i}"]`);
+    const nameEl = document.querySelector(`[data-pid-name="${i}"]`);
+    if (catEl) catEl.textContent = p.cat;
+    if (nameEl) nameEl.textContent = p.name;
+  });
+}
+
+function renderStamps() {
+  const d = document.getElementById('dots'); d.innerHTML = '';
+  for (let i=0;i<8;i++) {
+    const el = document.createElement('div');
+    el.className = 'dot' + (i < stamps ? ' on' : '');
+    el.textContent = i < stamps ? '✓' : i+1;
+    d.appendChild(el);
+  }
+  document.getElementById('bigStamp').textContent = stamps;
+  document.getElementById('hStamp').textContent = stamps;
+  document.getElementById('progFill').style.width = (stamps/8*100)+'%';
+}
+function toggleCollectOptions(show) { document.getElementById('collectOptionsModal').classList.toggle('open', show); }
+function scrollTo(id) { document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }); }
+
+// ── 4-STAGE JOURNEY ──
+function openDetail(idx) {
+  journeyIdx = idx;
+  dealsViewed = new Set();
+  const alreadyDone = scanned.has(idx);
+  const p = prods()[idx];
+  
+  if (idx === 1) { 
+    // Galaxy Buds 4 Pro Special Layout
+    document.getElementById('standardHero').style.display = 'none';
+    document.getElementById('standardBtnWrap').style.display = 'none';
+    document.getElementById('dExp').style.display = 'block';
+    document.getElementById('dExp').innerHTML = buildSliderWidget();
+    initSlider();
+  } else {
+    // Basic Layout for others
+    document.getElementById('standardHero').style.display = 'block';
+    document.getElementById('standardBtnWrap').style.display = 'block';
+    document.getElementById('dExp').style.display = 'none';
+    document.getElementById('dIcon').textContent = p.icon;
+    document.getElementById('dCat').textContent = p.cat.toUpperCase();
+    document.getElementById('dName').textContent = p.name;
+    document.getElementById('dDesc').textContent = p.desc;
+    document.getElementById('dSpecs').innerHTML = p.specs.map(s=>`<div class="spec-cell"><div class="spec-k">${s.k}</div><div class="spec-v">${s.v}</div></div>`).join('');
+    
+    document.getElementById('toStage2Btn').style.opacity = '1';
+    document.getElementById('toStage2Btn').removeAttribute('disabled');
+  }
+
+  showStage(alreadyDone ? 'earned' : 1);
+  updateJourneyBar(alreadyDone ? 4 : 1);
+  document.getElementById('detailScreen').classList.add('open');
+  document.getElementById('detailBody').scrollTop = 0;
+}
+
+function closeDetail() { document.getElementById('detailScreen').classList.remove('open'); }
+
+function goToStage(n) {
+  if (n === 2) {
+    const p = prods()[journeyIdx];
+    document.getElementById('confirmIcon').textContent = p.icon;
+    document.getElementById('confirmH').textContent = `You've explored ${p.name}`;
+    
+    // Dynamic confirmation list
+    let featuresHtml = '';
+    if (journeyIdx === 1) {
+        const features = Array.from(featuresViewed).map(i => SLIDER_DATA[i]?.title).filter(Boolean);
+        if (features.length === 0) features.push("Audio & Design"); 
+        featuresHtml = features.map(f => `<div class="cf-item"><div class="cf-check">✓</div>${f}</div>`).join('');
+    } else {
+        featuresHtml = `<div class="cf-item"><div class="cf-check">✓</div>Product Overview</div><div class="cf-item"><div class="cf-check">✓</div>Technical Specifications</div>`;
+    }
+    document.getElementById('confirmFeatures').innerHTML = featuresHtml;
+  }
+
+  if (n === 3) {
+    const deals = PRODUCT_DEALS[journeyIdx] || [{ icon:'🎁', name:'Storewide Offer', desc:'Stackable with all ongoing promotions.' }];
+    document.getElementById('dealsStageList').innerHTML = deals.map((d,i) => `
+      <div class="deal-row" id="dr-${i}" onclick="viewDeal(${i})">
+        <div class="dr-icon">${d.icon}</div>
+        <div class="dr-body"><div class="dr-name">${d.name}</div><div class="dr-desc">${d.desc}</div></div>
+        <div class="dr-check" id="drc-${i}">✓</div>
+      </div>`).join('');
+    checkDealsProgress();
+  }
+
+  showStage(n);
+  updateJourneyBar(n);
+  document.getElementById('detailBody').scrollTop = 0;
+}
+
+function showStage(n) {
+  ['stage1','stage2','stage3','stage4','stageEarned'].forEach(id => document.getElementById(id).classList.remove('on'));
+  const target = n === 'earned' ? 'stageEarned' : `stage${n}`;
+  document.getElementById(target).classList.add('on');
+}
+
+function updateJourneyBar(n) {
+  [0,1,2,3].forEach(i => {
+    const el = document.getElementById(`js${i}`);
+    el.classList.remove('active','done');
+    const circle = el.querySelector('.jstep-circle');
+    if (i + 1 < n) { el.classList.add('done'); circle.textContent = '✓'; }
+    else if (i + 1 === n) { el.classList.add('active'); circle.textContent = i + 1; }
+    else { circle.textContent = i + 1; }
+  });
+}
+
+function viewDeal(i) {
+  dealsViewed.add(i);
+  document.getElementById(`dr-${i}`)?.classList.add('viewed');
+  checkDealsProgress();
+}
+
+function checkDealsProgress() {
+  const total = (PRODUCT_DEALS[journeyIdx] || []).length || 1;
+  const btn = document.getElementById('toStage4Btn');
+  if (dealsViewed.size >= total) btn.classList.add('ready');
+}
+
+function onCodeInput(el) {
+  el.value = el.value.toUpperCase().replace(/[^A-Z0-9]/g,'');
+  document.getElementById('codeError').textContent = '';
+  el.classList.remove('error');
+  if (el.value.length === 4) submitCode();
+}
+
+function submitCode() {
+  const val = document.getElementById('codeInput').value.toUpperCase();
+  if (val === 'BUDS') {
+    document.getElementById('codeInput').classList.add('success');
+    setTimeout(() => {
+        scanned.add(journeyIdx);
+        if(stamps < 8) { stamps++; renderStamps(); }
+        const row = document.getElementById(`pr-${journeyIdx}`);
+        if (row) {
+            row.classList.add('done');
+            const right = row.querySelector('.prod-right');
+            const existing = right.querySelector('.badge');
+            if (existing) existing.remove();
+            const b = document.createElement('span');
+            b.className = 'badge badge-blue'; b.textContent = lang==='th'?'✓ เสร็จ':'✓ Done';
+            right.insertBefore(b, right.firstChild);
+        }
+        goToStage('earned');
+    }, 600);
+  } else {
+    document.getElementById('codeInput').classList.add('error');
+    document.getElementById('codeError').textContent = "Incorrect code. Ask staff for 'BUDS'";
+  }
+}
+
+// ── SCANNER ──
+function openScanner() { document.getElementById('scanScreen').classList.add('open'); }
+function closeScanner() { document.getElementById('scanScreen').classList.remove('open'); }
+function simulateScan(idx) { closeScanner(); setTimeout(()=>openDetail(idx), 400); }
+
+
+// ── 🌟 NEW SLIDER WIDGET LOGIC 🌟 ──
+
+const SLIDER_DATA = [
+  {
+    tab: "1 Sound quality", cat: "ADAPTIVE ANC 2.0", title: "360 Audio",
+    desc: "The world gets loud. Buds 4 Pro gets quieter. Adaptive ANC 2.0 reads your environment in real time and cancels before it reaches you.",
+    img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    tab: "2 Noise control", cat: "ADAPTIVE ANC 2.0", title: "Adaptive Active Noise Control",
+    desc: "Whether you're on a train or an open office, hear only what you want.",
+    img: "https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    tab: "3 Design", cat: "DESIGN", title: "Seamless Fit",
+    desc: "Engineered to stay in all day without fatigue. Full metal body.",
+    img: "https://images.unsplash.com/photo-1606220588913-b3aea8f5d70b?auto=format&fit=crop&w=600&q=80"
+  }
+];
+
+let tzActive = 0;
+let tzMode = 'without'; // 'without' or 'with'
+let tzInteracted = false;
+let featuresViewed = new Set();
+
+function buildSliderWidget() {
+  return `
+  <div class="tz-wrap">
+    
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:20px;">
+      <div>
+        <div class="tz-header">IN-STORE DEMO</div>
+        <div class="tz-title">Galaxy Buds 4 Pro</div>
+        <div style="font-size:12px; color:var(--ink-3);">Engineered to change<br>how you hear the world.</div>
+      </div>
+      <button class="btn-save-trigger" onclick="openSpecModal()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Save
+      </button>
+    </div>
+
+    <div class="tz-header" style="color:var(--ink-4);">INTERACTIVE DEMO - TRY ZONE</div>
+    <div class="tz-title" style="font-size:18px;">Try it yourself. Hear the difference</div>
+    <div class="tz-sub">Explore features to earn your stamp.</div>
+
+    <div class="tz-tabs" id="tzTabs">
+      ${SLIDER_DATA.map((s, i) => `<div class="tz-tab ${i===0?'active':''}" onclick="setTzSlide(${i})">${s.tab}</div>`).join('')}
+    </div>
+
+    <div class="tz-card">
+      <div class="tz-img-wrap">
+        <img src="${SLIDER_DATA[0].img}" class="tz-img" id="tzImg" onload="this.classList.add('loaded')">
+      </div>
+      <div class="tz-content">
+        <div class="tz-cat" id="tzCat">${SLIDER_DATA[0].cat}</div>
+        <div class="tz-feat" id="tzFeat">${SLIDER_DATA[0].title}</div>
+        <div class="tz-desc" id="tzDesc">${SLIDER_DATA[0].desc}</div>
+        
+        <div class="tz-toggle">
+          <button class="tz-tgl-btn active" id="tgl-without" onclick="setTzMode('without')">Without</button>
+          <button class="tz-tgl-btn" id="tgl-with" onclick="setTzMode('with')">With</button>
+        </div>
+
+        <div class="tz-player">
+          <button class="tz-play"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><polygon points="5,3 19,12 5,21"/></svg></button>
+          <div class="tz-track"><div class="tz-prog" id="tzProg"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tz-nav">
+      <button class="tz-arrow" onclick="setTzSlide(tzActive - 1)">←</button>
+      <button class="tz-next" id="tzNextBtn" onclick="goToStage(2)">Next</button>
+      <button class="tz-arrow" onclick="setTzSlide(tzActive + 1)">→</button>
+    </div>
+  </div>`;
+}
+
+function initSlider() {
+  tzActive = 0;
+  tzMode = 'without';
+  tzInteracted = false;
+  featuresViewed = new Set();
+  updateSliderUI();
+}
+
+function setTzSlide(idx) {
+  if(idx < 0 || idx >= SLIDER_DATA.length) return;
+  tzActive = idx;
+  tzMode = 'without';
+  updateSliderUI();
+}
+
+function setTzMode(mode) {
+  tzMode = mode;
+  tzInteracted = true; 
+  featuresViewed.add(tzActive); // Add to confirm screen list
+  updateSliderUI();
+}
+
+function updateSliderUI() {
+  const data = SLIDER_DATA[tzActive];
+  
+  document.querySelectorAll('.tz-tab').forEach((t, i) => t.classList.toggle('active', i === tzActive));
+  document.getElementById('tzCat').textContent = data.cat;
+  document.getElementById('tzFeat').textContent = data.title;
+  document.getElementById('tzDesc').textContent = data.desc;
+  
+  const imgEl = document.getElementById('tzImg');
+  imgEl.classList.remove('loaded');
+  imgEl.style.filter = tzMode === 'without' ? 'grayscale(80%) blur(2px)' : 'none';
+  setTimeout(()=>imgEl.classList.add('loaded'), 50);
+
+  document.getElementById('tgl-without').classList.toggle('active', tzMode === 'without');
+  document.getElementById('tgl-with').classList.toggle('active', tzMode === 'with');
+
+  const nextBtn = document.getElementById('tzNextBtn');
+  if(tzInteracted) {
+    nextBtn.classList.add('ready');
+    nextBtn.removeAttribute('disabled');
+  } else {
+    nextBtn.classList.remove('ready');
+    nextBtn.setAttribute('disabled', 'true');
+  }
+}
+
+// ── SAVE SPEC MODAL ──
+function openSpecModal() {
+  document.getElementById('specModal').classList.add('open');
+  const btn = document.getElementById('btnDoSave');
+  btn.textContent = 'Save spec sheet';
+  btn.classList.remove('saved');
+}
+
+function closeSpecModal() {
+  document.getElementById('specModal').classList.remove('open');
+}
+
+function doSaveSpecs() {
+  const btn = document.getElementById('btnDoSave');
+  btn.textContent = 'Saving...';
+  setTimeout(() => {
+    btn.classList.add('saved');
+    btn.innerHTML = '✓ Saved!';
+    setTimeout(closeSpecModal, 1000);
+  }, 1500);
+}
 </script>
 </body>
 </html>
